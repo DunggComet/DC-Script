@@ -53,7 +53,7 @@ end
 
 -- Feature handlers
 function DragonCityHack1()
-  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Arena').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Arena').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
@@ -69,27 +69,27 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Quest').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Quest').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack4()
-  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Recall').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Recall').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack5()
-  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Rescue').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Rescue').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack6()
-  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Train%20Skill').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Train%20Skill').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack7()
-  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Event%20Battle%20Skip').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Event%20Battle%20Skip').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
