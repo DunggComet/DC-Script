@@ -1,4 +1,5 @@
--- 🌀 Scrambled Dragon City Mod Menu Script
+-- Dragon City Mod Menu Script
+-- Made by Dungg
 gg.setVisible(false)
 
 -- Update Checker
@@ -12,7 +13,7 @@ if not fl then
   os.remove(opth)
   local nF = io.open(pth, "w")
   if nF then
-    nF:write("Dat Dang Van V1.8.0")
+    nF:write("Dungg V1.8.0")
     nF:close()
     gg.alert("Update successful!")
   else
@@ -34,12 +35,9 @@ function Main()
     '🏟Recall Dragon🏟',
     '⚔Rescue⚔',
     '🕹Test/Train Skill Mod🕹',
-    '📍Decoration📍',
-    '🔵Expand🔵',
     '🔵Event Battle Speed🔵',
-    'ℹHelpℹ',
     '🔵Exit🔵'
-  }, nil, 'Dragon City Tools\ncoded by Thiện Uzumaki Clan & Dat Dang Van')
+  }, nil, 'Dragon City Tools\ncoded by Dungg DC')
 
   if opt == 1 then DragonCityHack1()
   elseif opt == 2 then DragonCityHack2()
@@ -49,16 +47,13 @@ function Main()
   elseif opt == 6 then DragonCityHack6()
   elseif opt == 7 then DragonCityHack7()
   elseif opt == 8 then DragonCityHack8()
-  elseif opt == 9 then DragonCityHack9()
-  elseif opt == 10 then DragonCityHack10()
-  elseif opt == 11 then DragonCityHack11()
   elseif opt == nil then NoSelect()
   end
 end
 
 -- Feature handlers
 function DragonCityHack1()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Arena').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Arena').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
@@ -74,52 +69,37 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Quest').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Quest').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack4()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Recall').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Recall').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack5()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Rescue').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Rescue').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack6()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/TrainSkill').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Train%20Skill').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack7()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/decoration_menu').content
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/Folder/Event%20Battle%20Skip').content
   if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
 end
 
 function DragonCityHack8()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Expand').content
-  if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
-end
-
-function DragonCityHack9()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/EventBattle').content
-  if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
-end
-
-function DragonCityHack10()
-  local L = gg.makeRequest('https://dragoncitytips.com/scripts/Help').content
-  if not L then gg.alert('SERVER: Allow Internet Connection...') else pcall(load(L)) end
-end
-
-function DragonCityHack11()
   os.exit()
 end
 
 function NoSelect()
   gg.sleep(100)
-  gg.toast('coded by Thiện Uzumaki Clan & Dat Dang Van')
+  gg.toast('coded by Dungg DC')
 end
 
 -- Loop main
