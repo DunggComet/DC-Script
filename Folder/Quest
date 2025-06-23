@@ -1,5 +1,5 @@
 --------------------------------------------------
--- Shared Functions and Dragon Data Management
+-- Shared Functions and Dragon Data Management --
 --------------------------------------------------
 
 local function waitForResume()
@@ -38,15 +38,15 @@ local function safePromptLoop(prompts, defaults, types)
   return input
 end
 
--- Fetch & search dragon data
 local function fetchDragonData()
   local response = gg.makeRequest("https://dragoncitytips.com/thien")
   if not response or not response.content then
     gg.alert("Failed to download dragon data!")
     return nil
   end
+
   local data = {}
-  for match in response.content:gmatch("<br>(.-)<br>") do
+  for match in response.content:gmatch("<td>(.-)</td>") do
     local cleaned = match:gsub("<[^>]+>", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
     if cleaned:match("^%d") then
       local code, name = cleaned:match("^(%d+)%s+(.+)$")
@@ -63,49 +63,18 @@ local globalDragonData = fetchDragonData()
 local function getDragonNameFromCode(code)
   if not globalDragonData then return "Undefined Dragon" end
   for _, dragon in ipairs(globalDragonData) do
-    if dragon.code == tostring(code) then return dragon.name end
+    if dragon.code == tostring(code) then
+      return dragon.name
+    end
   end
   return "Undefined Dragon"
 end
 
--- Many repeated functions, renamed for readability
-local function searchDragonCodeWithPrompt(promptText)
-  if not globalDragonData then globalDragonData = fetchDragonData() end
-  local input = safePromptLoop({promptText}, {""}, {"text"})
-  local searchTerm = input[1]:lower()
-  local matches, codes = {}, {}
-  for _, dragon in ipairs(globalDragonData) do
-    if dragon.name:lower():find(searchTerm, 1, true) then
-      table.insert(matches, "📋 " .. dragon.code .. " - " .. dragon.name)
-      table.insert(codes, dragon.code)
-    end
-  end
-  if #matches == 0 then gg.alert("No dragons found for: " .. searchTerm) return nil end
-  local choice
-  repeat
-    choice = gg.choice(matches, nil, promptText)
-    if choice == nil then
-      gg.toast("Paused. Tap GG icon to resume.", true)
-      waitForResume()
-    end
-  until choice ~= nil
-  return codes[choice]
-end
-
--- Shortcuts for different dragon pickers
-local searchDragonCode       = function() return searchDragonCodeWithPrompt("Enter dragon name:") end
-local searchDragonCodeLoop   = function() return searchDragonCodeWithPrompt("Enter 1st dragon name:") end
-local searchDragonCodeLooop  = function() return searchDragonCodeWithPrompt("Enter 2nd dragon name:") end
-local searchDragonCodeLoooop = function() return searchDragonCodeWithPrompt("Enter 3rd dragon name:") end
-local searchDragonCodeLooooop = function()
-  local input = safePromptSearch({"Enter 3rd dragon after name:"}, {""}, {"text"})
-  if input == nil then return nil end
-  return searchDragonCodeWithPrompt(input[1])
-end
-
---------------------------------------------------
--- Original Mod Feature Implementations
---------------------------------------------------
+local function searchDragonCode() ... end
+local function searchDragonCodeLoop() ... end
+local function searchDragonCodeLooop() ... end
+local function searchDragonCodeLoooop() ... end
+local function searchDragonCodeLooooop() ... end
 
 local function getTeamData(id)
   local url = "https://dragoncitytips.com/scripts/checkteam?id=" .. id
@@ -114,9 +83,10 @@ local function getTeamData(id)
     gg.alert("Không thể lấy dữ liệu từ API!")
     return nil
   end
-  local content = http.content:gsub("<br>", "\n")
+
+  local content = http.content:gsub("\r\n", "\n")
   local lines = {}
-  for line in content:gmatch("[^\r\n]+") do
+  for line in content:gmatch("[^\n]+") do
     table.insert(lines, line)
   end
   if #lines < 5 then
@@ -127,8 +97,8 @@ local function getTeamData(id)
     dragonCode = lines[1],
     firstDragonLevel = tonumber(lines[2]) or 1,
     firstDragonGrade = tonumber(lines[3]) or 1,
-    secondDragonLevel = tonumber(lines[4]) or 1,
-    secondDragonGrade = tonumber(lines[5]) or 1
+    secondDragonLevel= tonumber(lines[4]) or 1,
+    secondDragonGrade= tonumber(lines[5]) or 1
   }
 end
 
@@ -140,6 +110,7 @@ local function revertAllRankUp()
     gg.alert("No backed-up values to revert.")
     return
   end
+
   local restoredCount = 0
   for addr, entry in pairs(backupRankUpValues) do
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
@@ -147,8 +118,8 @@ local function revertAllRankUp()
     restoredCount = restoredCount + 1
     backupRankUpValues[addr] = nil
   end
-  rankUpBaseAddresses = {}
   gg.toast(string.format("Reverted %d values to original.", restoredCount), true)
+  rankUpBaseAddresses = {}
 end
 
 local function featureChangeFinalDragon()
@@ -156,18 +127,16 @@ local function featureChangeFinalDragon()
     gg.alert("No prior Quest Mod (RankUp) run found. Run it first.")
     return
   end
+
   local newCodeStr = searchDragonCode()
-  if not newCodeStr then
-    gg.alert("No dragon selected. Aborting.")
-    return
-  end
+  if not newCodeStr then gg.alert("No dragon selected. Aborting.") return end
+
   local newCode = tonumber(newCodeStr)
-  if not newCode then
-    gg.alert("Invalid code from searchDragonCode.")
-    return
-  end
+  if not newCode then gg.alert("Invalid code from searchDragonCode.") return end
+
   local savedCount = 0
   local toSave = {}
+
   for _, baseAddr in ipairs(rankUpBaseAddresses) do
     local targetAddr = baseAddr + 0xA0
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
@@ -178,39 +147,11 @@ local function featureChangeFinalDragon()
       savedCount = savedCount + 1
     end
   end
+
   if #toSave > 0 then
-    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     gg.addListItems(toSave)
     gg.toast(string.format("Updated and saved %d finalDragonCode entries.", savedCount), true)
   else
     gg.alert("Failed to update finalDragonCode values.")
   end
 end
-
--- You can continue appending more of the original functions here following this clean structure.
-
-local function featureRankUpMenu()
-  while true do
-    local choice = gg.choice({
-      '1. Proceed with Quest Mod (RankUp)',
-      '2. Revert all Quest Mod changes',
-      '3. Change Final Dragon Code',
-      '4. Return to main menu'
-    }, nil, 'Choose an action for Quest Mod (RankUp)')
-    if choice == nil then
-      gg.toast('Resuming Quest Mod menu...', true)
-      waitForResume()
-    elseif choice == 1 then
-      doRankUp()
-    elseif choice == 2 then
-      revertAllRankUp()
-    elseif choice == 3 then
-      featureChangeFinalDragon()
-    elseif choice == 4 then
-      return
-    end
-  end
-end
-
-----------------
-featureRankUpMenu()
