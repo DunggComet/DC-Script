@@ -67,7 +67,7 @@ end
 function DragonCityHack2()
   gg.setVisible(false)
   local frozenItems = gg.getListItems()
-  if #frozenItems &gt; 0 then
+  if #frozenItems > 0 then
     gg.removeListItems(frozenItems)
     gg.toast('All values have been unfrozen!')
   else
