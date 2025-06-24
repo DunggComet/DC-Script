@@ -19,7 +19,7 @@ else
     
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Dungg V1.8.0")
+        newFile:write("Dat Dang Van V1.8.0")
         newFile:close()
         gg.alert("Update successful!")
     else
@@ -38,11 +38,11 @@ menu = gg.choice({
 '🏟Quest Mod🏟',
 '🏟Recall Dragon🏟',
 '⚔Rescue⚔',
-'Test/Train Skill Mod',
-'Decoration',
-'Expand',
-'🏃‍♂️Event Battle Speed🏃‍♂️',
-'Help',
+'🕹Test/Train Skill Mod🕹',
+'📍Decoration📍',
+'🔵Expand🔵',
+'🔵Event Battle Speed🔵',
+'ℹHelpℹ',
 '🔵Exit🔵'
 },nil, 'Dragon City Tools\ncoded by Dungg')
 if menu == 1 then DragonCityHack1() end
@@ -129,7 +129,7 @@ end
 
 function NoSelect()
 gg.sleep(100)
-gg.toast('script made by Dungg')
+gg.toast('coded by Dungg')
 end
 
 -------------------------------------------------------------------------
