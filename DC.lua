@@ -38,10 +38,13 @@ menu = gg.choice({
 '🏟Quest Mod🏟',
 '🏟Recall Dragon🏟',
 '⚔Rescue⚔',
-'🕹Test/Train Skill Mod🕹',
+'Test/Train Skill Mod',
+'Decoration',
+'Expand',
 '🏃‍♂️Event Battle Speed🏃‍♂️',
-'Exit'
-},nil, 'Dragon City Tools\nScript made by Dungg')
+'Help',
+'🔵Exit🔵'
+},nil, 'Dragon City Tools\ncoded by Dungg')
 if menu == 1 then DragonCityHack1() end
 if menu == 2 then DragonCityHack2() end
 if menu == 3 then DragonCityHack3() end
@@ -50,10 +53,13 @@ if menu == 5 then DragonCityHack5() end
 if menu == 6 then DragonCityHack6() end
 if menu == 7 then DragonCityHack7() end
 if menu == 8 then DragonCityHack8() end
+if menu == 9 then DragonCityHack9() end
+if menu == 10 then DragonCityHack10() end
+if menu == 11 then DragonCityHack11() end
 if menu ==nil then NoSelect() end
 end
 function DragonCityHack1()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Arena').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Arena',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
@@ -70,42 +76,60 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Quest').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Quest',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack4()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Recall').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Recall',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack5()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Rescue').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Rescue',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack6()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Train%20Skill').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Train%20Skill',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack7()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Event%20Battle%20Skip').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Decoration',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack8()
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Expand',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
+end
+
+function DragonCityHack9()
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Folder/Event%20Battle%20Skip',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
+end
+
+function DragonCityHack10()
+L = gg.makeRequest('https://dragoncitytips.com/scripts/Help',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
+end
+
+function DragonCityHack11()
 os.exit()
 end
 
 function NoSelect()
 gg.sleep(100)
-gg.toast('Script made by Dungg')
+gg.toast('script made by Dungg')
 end
 
 -------------------------------------------------------------------------
