@@ -1,3 +1,4 @@
+
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 function inputs()
@@ -8,7 +9,7 @@ local data = loadfile(configFile)
 if data ~= nil then
 data = data()
 end
-input = gg.prompt({'Dragons Make','Dragons Make','Level','Level: [1;100]','●Close●'},data,{'checkbox','number','checkbox','number','checkbox','checkbox'})
+input = gg.prompt({'⬇️Dragons Make⬇️','Dragons Make','⬇️Level⬇️','🔵Level🔵: [1;100]','●Close●'},data,{'checkbox','number','checkbox','number','checkbox','checkbox'})
 if input ==nil then
 else
 gg.saveVariable(input, configFile)
@@ -29,7 +30,7 @@ gg.editAll(input[4], gg.TYPE_DWORD)
 gg.clearResults()
 end
 if input[5] then
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua').content
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua',nil,'https://dragoncitytips.com/scripts').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
   end
