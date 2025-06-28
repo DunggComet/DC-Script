@@ -1,3 +1,4 @@
+
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 function inputs()
@@ -14,17 +15,17 @@ else
 
 gg.saveVariable(input, configFile)
 if input[1] then
-L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/move_free.php',nil,'https://dragoncitytips.com/scripts').content
+L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/move_free.php').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 if input[2] then
-L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/buldings.php',nil,'https://dragoncitytips.com/scripts').content
+L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/buldings.php').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 if input[3] then
-L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/habitat.php',nil,'https://dragoncitytips.com/scripts').content
+L = gg.makeRequest('https://dragoncitytips.com/scripts/Decoration/habitat.php').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
@@ -43,7 +44,7 @@ gg.setVisible(false)
 gg.clearResults()
 end
 if input[6] then
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua',nil,'https://dragoncitytips.com/scripts').content
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
