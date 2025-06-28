@@ -77,7 +77,7 @@ function getTeamData(id)
         table.insert(lines, line)
     end
 
-    if #lines &lt; 5 then
+    if #lines < 5 then
         return nil
     end
 
@@ -138,7 +138,7 @@ local valuesToFreeze = {}
     table.insert(valuesToFreeze, {address = v.address + 0xE4, flags = gg.TYPE_DWORD, value = 0, freeze = true})
   end
 
-if #valuesToFreeze &gt; 0 then
+if #valuesToFreeze > 0 then
     gg.addListItems(valuesToFreeze)
     gg.toast(string.format('Saved %d values to freeze list!', #valuesToFreeze), true)
 else
