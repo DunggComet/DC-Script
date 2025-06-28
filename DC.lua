@@ -8,7 +8,7 @@ local file = io.open(path, "r")
 if file then
     file:close()
 else
-    gg.alert("A new update V1.8.0 is available! Please update now!\nNew: 🔵Expand🔵\nCách sử dụng: bật chức năng 🔵Expand all Unlocked🔵 sau đó vào Ancient Portal rồi về để hiệu lực\nRemoved 📙Goals📙 🔵Server Hack🔵", "Update Now")
+    gg.alert("A new update V1.8.0 is available! Please update now!\nNew: ðŸ”µExpandðŸ”µ\nCÃ¡ch sá»­ dá»¥ng: báº­t chá»©c nÄƒng ðŸ”µExpand all UnlockedðŸ”µ sau Ä‘Ã³ vÃ o Ancient Portal rá»“i vá» Ä‘á»ƒ hiá»‡u lá»±c\nRemoved ðŸ“™GoalsðŸ“™ ðŸ”µServer HackðŸ”µ", "Update Now")
     
     gg.toast("Updating...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -33,17 +33,17 @@ gg.setVisible(false)
 local MD5 = gg.makeRequest('').content
 function Main()
 menu = gg.choice({
-'⚔Battle Arena Mod⚔',
-'🏟Unmod Battle Arena🏟',
-'🏟Quest Mod🏟',
-'🏟Recall Dragon🏟',
-'⚔Rescue⚔',
-'🕹Test/Train Skill Mod🕹',
-'📍Decoration📍',
-'🔵Expand🔵',
-'🔵Event Battle Speed🔵',
-'ℹHelpℹ',
-'🔵Exit🔵'
+'âš”Battle Arena Modâš”',
+'ðŸŸUnmod Battle ArenaðŸŸ',
+'ðŸŸQuest ModðŸŸ',
+'ðŸŸRecall DragonðŸŸ',
+'âš”Rescueâš”',
+'ðŸ•¹Test/Train Skill ModðŸ•¹',
+'ðŸ“DecorationðŸ“',
+'ðŸ”µExpandðŸ”µ',
+'ðŸ”µEvent Battle SpeedðŸ”µ',
+'â„¹Helpâ„¹',
+'ðŸ”µExitðŸ”µ'
 },nil, 'Dragon City Tools\ncoded by Dungg')
 if menu == 1 then DragonCityHack1() end
 if menu == 2 then DragonCityHack2() end
@@ -59,14 +59,9 @@ if menu == 11 then DragonCityHack11() end
 if menu ==nil then NoSelect() end
 end
 function DragonCityHack1()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Arena.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Arena.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack2()
@@ -81,91 +76,51 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Quest.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Quest.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack4()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Recall.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Recall.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack5()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Rescue.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Rescue.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack6()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/TrainSkill.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/TrainSkill.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack7()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Decoration.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Decoration.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack8()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Expand.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Expand.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack9()
-local L = gg.makeRequest('https://dunggkr.github.io/DC-Script/EventBattleSkip.txt').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/EventBattleSkip.txt',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack10()
-local L = gg.makeRequest('https://dragoncitytips.com/scripts/Help').content
-
-if not L or L == '' then
-  gg.alert('SERVER: Allow Internet Connection...')
-else
-  local f = load(L)
-  if f then pcall(f)
-  else gg.alert('SERVER: Invalid script content') end
+L = gg.makeRequest('https://dragoncitytips.com/scripts/Help',nil,'').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack11()
