@@ -1,3 +1,4 @@
+
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 function inputs()
@@ -9,16 +10,16 @@ if data ~= nil then
   data = data()
 end
   input = gg.prompt({
-    '5min to 0s Speed',
-    '15min to 0s Speed',
-    '30min to 0s Speed',
-    '1h to 0s Speed',
-    '1h 20min to 0s Speed',
-    '3h to 0s Speed',
-    '6h 40min to 0s Speed',
-    '8h to 0s Speed',
-    'Anti Reload',
-    'Return to Main Menu'
+    '🏃‍5min to 0s Speed',
+    '🏃‍15min to 0s Speed',
+    '🏃‍30min to 0s Speed',
+    '🏃‍1h to 0s Speed',
+    '🏃‍1h 20min to 0s Speed',
+    '🏃‍3h to 0s Speed',
+    '🏃‍6h 40min to 0s Speed',
+    '🏃‍8h to 0s Speed',
+    '●Anti Reload●',
+    '●Return to Main Menu●'
   }, data, {'checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox'})
   if input == nil then
   else
@@ -227,7 +228,7 @@ end
 	  gg.sleep(20000)
     end
     if input[10] then
-		L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua').content
+		L = gg.makeRequest('https://dragoncitytips.com/scripts/dcpre',nil,'https://dragoncitytips.com/scripts').content
 		if not L then gg.alert('SERVER: Allow Internet Connection...') else
 		pcall(load(L)) end
     end
