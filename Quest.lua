@@ -48,8 +48,8 @@ local function fetchDragonData()
     return nil
   end
   local data = {}
-  for match in response.content:gmatch("<div class="dragon%-item">(.-)</div>") do
-    local cleaned = match:gsub("&lt;[^&gt;]+&gt;", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
+  for match in response.content:gmatch("<div class='dragon%-item'>(.-)</div>") do
+    local cleaned = match:gsub("<[^>]+>", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
     if cleaned:match("^%d") then
       local code, name = cleaned:match("^(%d+)%s+(.+)$")
       if code and name then
@@ -57,7 +57,7 @@ local function fetchDragonData()
       end
     end
   end
-  return #data &gt; 0 and data or nil
+  return #data > 0 and data or nil
 end
 
 local globalDragonData = fetchDragonData()
@@ -269,7 +269,7 @@ local function getTeamData(id)
     table.insert(lines, line)
   end
 
-  if #lines &lt; 5 then
+  if #lines < 5 then
     gg.alert("Dữ liệu không hợp lệ!")
     return nil
   end
@@ -310,7 +310,7 @@ local function revertAllRankUp()
   rankUpBaseAddresses = {}
 end
 
--- New: Change Final Dragon Code                &lt;---- Moved above featureRankUpMenu
+-- New: Change Final Dragon Code                <---- Moved above featureRankUpMenu
 local function featureChangeFinalDragon()
   -- 1) Ensure doRankUp has run
   if #rankUpBaseAddresses == 0 then
@@ -350,7 +350,7 @@ local function featureChangeFinalDragon()
     end
   end
 
-  if #toSave &gt; 0 then
+  if #toSave > 0 then
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     gg.addListItems(toSave)
     gg.toast(string.format("Updated and saved %d finalDragonCode entries.", savedCount), true)
@@ -397,7 +397,7 @@ local function doRankUp()
     return
   end
 
-  ---- Phase 1: Search &amp; Collect Modifications ----
+  ---- Phase 1: Search & Collect Modifications ----
   gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
   gg.searchNumber(
     selectedCode .. ";" ..
@@ -434,12 +434,12 @@ local function doRankUp()
     return
   end
 
-  -- Determine if any offset+4 &gt; 0
+  -- Determine if any offset+4 > 0
   local hasPositiveValue = false
   for _, v in ipairs(gat) do
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     local offsetValue1 = gg.getValues({{address = v.address + 0x4, flags = gg.TYPE_DWORD}})
-    if offsetValue1 and offsetValue1[1] and offsetValue1[1].value &gt; 0 then
+    if offsetValue1 and offsetValue1[1] and offsetValue1[1].value > 0 then
       hasPositiveValue = true
       break
     end
@@ -473,7 +473,7 @@ local function doRankUp()
         {0xB0, 5},   {0xB8, 500}
       }
 
-    elseif off1 &gt; 0 and off2 ~= IDRong[1] then
+    elseif off1 > 0 and off2 ~= IDRong[1] then
       offsetsToBackup = {0x0, 0x4, 0x10, 0x50, 0x54, 0x60, 0xA0, 0xA4, 0xB0, 0xB8}
       writeInstructions = {
         {0x0,  1011}, {0x4, 1},   {0x10, 0},
@@ -482,7 +482,7 @@ local function doRankUp()
         {0xB0, 5},   {0xB8, 500}
       }
 
-    elseif off1 &gt; 0 and off2 == IDRong[1] then
+    elseif off1 > 0 and off2 == IDRong[1] then
       offsetsToBackup = {0x0, 0x8, 0x10, 0x50, 0x58, 0x60, 0xA0, 0xA8, 0xB0, 0xB8}
       writeInstructions = {
         {0x0,  1011}, {0x8, 1},   {0x10, 0},
@@ -543,7 +543,7 @@ local function doRankUp()
   end
   gg.toast(string.format("Backed up %d original values.", backupCount), true)
 
-  ---- Phase 2: Apply writes &amp; save new values (no freeze) ----
+  ---- Phase 2: Apply writes & save new values (no freeze) ----
   local savedCount = 0
   for _, mod in ipairs(modifications) do
     local baseAddr = mod.baseAddr
@@ -570,7 +570,7 @@ local function doRankUp()
       end
     end
 
-    if #valuesToSave &gt; 0 then
+    if #valuesToSave > 0 then
       gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
       gg.addListItems(valuesToSave)
     end
