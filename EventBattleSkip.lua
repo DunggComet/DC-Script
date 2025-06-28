@@ -9,16 +9,16 @@ if data ~= nil then
   data = data()
 end
   input = gg.prompt({
-    '🏃&zwj;5min to 0s Speed',
-    '🏃&zwj;15min to 0s Speed',
-    '🏃&zwj;30min to 0s Speed',
-    '🏃&zwj;1h to 0s Speed',
-    '🏃&zwj;1h 20min to 0s Speed',
-    '🏃&zwj;3h to 0s Speed',
-    '🏃&zwj;6h 40min to 0s Speed',
-    '🏃&zwj;8h to 0s Speed',
-    '●Anti Reload●',
-    '●Return to Main Menu●'
+    '5min to 0s Speed',
+    '15min to 0s Speed',
+    '30min to 0s Speed',
+    '1h to 0s Speed',
+    '1h 20min to 0s Speed',
+    '3h to 0s Speed',
+    '6h 40min to 0s Speed',
+    '8h to 0s Speed',
+    'Anti Reload',
+    'Return to Main Menu'
   }, data, {'checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox'})
   if input == nil then
   else
