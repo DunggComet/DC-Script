@@ -30,7 +30,7 @@ gg.editAll(input[4], gg.TYPE_DWORD)
 gg.clearResults()
 end
 if input[5] then
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua',nil,'https://dragoncitytips.com/scripts').content
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
   end
