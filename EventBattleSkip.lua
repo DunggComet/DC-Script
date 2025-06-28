@@ -228,7 +228,7 @@ end
 	  gg.sleep(20000)
     end
     if input[10] then
-		L = gg.makeRequest('https://dragoncitytips.com/scripts/dcpre',nil,'https://dragoncitytips.com/scripts').content
+		L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua',nil,'https://dragoncitytips.com/scripts').content
 		if not L then gg.alert('SERVER: Allow Internet Connection...') else
 		pcall(load(L)) end
     end
