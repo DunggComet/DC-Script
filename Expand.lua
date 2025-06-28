@@ -1,3 +1,4 @@
+
 -------------------------------------------------------------------------
 
 -------------------------------------------------------------------------
@@ -35,7 +36,7 @@ gg.editAll('0', gg.TYPE_BYTE)
 gg.clearResults()
 end
 if input[3] then
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua',nil,'').content
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
