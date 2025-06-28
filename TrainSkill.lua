@@ -2,7 +2,7 @@
 -- This file contains only the Test/Skill Mod features and its minimal dependencies.
 
 --------------------------------------------------
--- Shared Helper Functions &amp; Dragon Data Management
+-- Shared Helper Functions & Dragon Data Management
 --------------------------------------------------
 local function waitForResume()
   gg.toast("Script paused. Click GG icon to resume", true)
@@ -54,8 +54,8 @@ local function fetchDragonData()
     return nil
   end
   local data = {}
-  for match in response.content:gmatch("<div class="dragon%-item">(.-)</div>") do
-    local cleaned = match:gsub("&lt;[^&gt;]+&gt;", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
+  for match in response.content:gmatch("<div class='dragon%-item'>(.-)</div>") do
+    local cleaned = match:gsub("<[^>]+>", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
     if cleaned:match("^%d") then
       local code, name = cleaned:match("^(%d+)%s+(.+)$")
       if code and name then
@@ -63,7 +63,7 @@ local function fetchDragonData()
       end
     end
   end
-  return #data &gt; 0 and data or nil
+  return #data > 0 and data or nil
 end
 
 local globalDragonData = fetchDragonData()
@@ -147,7 +147,7 @@ local function searchDragonCodeLoop()
 end
 
 --------------------------------------------------
--- Test/Skill Mod Functions &amp; Variables
+-- Test/Skill Mod Functions & Variables
 --------------------------------------------------
 local copiedAllValues = {}  
 local copiedValues = {}
@@ -188,20 +188,20 @@ local function processMemorySearchTest(selectedCode)
       table.insert(validResultsTest, v)
     end
   end
-  if #validResultsTest &gt; 0 then
+  if #validResultsTest > 0 then
     baseAddress = validResultsTest[1].address
     if #validResultsTest == 1 then
       local single = validResultsTest[1]
       single.name = single.value .. " - " .. getDragonNameFromCode(single.value)
       gg.addListItems(validResultsTest)
-    elseif #validResultsTest &gt; 1 and #validResultsTest &lt; 109 then
+    elseif #validResultsTest > 1 and #validResultsTest < 109 then
       for i, v in ipairs(validResultsTest) do
         v.value = 1038 + i
         v.name = v.value .. " - " .. getDragonNameFromCode(v.value)
       end
       gg.setValues(validResultsTest)
       gg.addListItems(validResultsTest)
-    elseif #validResultsTest &gt; 108 then
+    elseif #validResultsTest > 108 then
       for _, v in ipairs(validResultsTest) do
         v.value = 1011
         v.name = v.value .. " - " .. getDragonNameFromCode(v.value)
@@ -229,7 +229,7 @@ local function copyOffsetTest()
       waitForResume()
     end
   until srcChoice ~= nil
-  if srcChoice &gt; 8 then return end
+  if srcChoice > 8 then return end
   local srcOffset = ({0x20, 0x24, 0x28, 0x2C, 0x30, 0x34, 0x38, 0x3C})[srcChoice]
   copiedValues = {}
   for _, result in ipairs(validResultsTest) do
@@ -293,7 +293,7 @@ local function pasteSingleOffsetTest()
       waitForResume()
     end
   until choice ~= nil
-  if choice &gt; 8 then return end
+  if choice > 8 then return end
   local targetOffset = ({0x20, 0x24, 0x28, 0x2C, 0x30, 0x34, 0x38, 0x3C})[choice]
   for _, result in ipairs(validResultsTest) do
     local addr = result.address + targetOffset
@@ -448,7 +448,7 @@ local function pickTestSkillResult()
         table.insert(toRemove, item)
       end
     end
-    if #toRemove &gt; 0 then
+    if #toRemove > 0 then
       gg.removeListItems(toRemove)
     end
   end
@@ -488,7 +488,7 @@ local function testSkill()
         table.insert(toRemove, item)
       end
     end
-    if #toRemove &gt; 0 then
+    if #toRemove > 0 then
       gg.removeListItems(toRemove)
     end
   end
