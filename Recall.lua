@@ -1,4 +1,4 @@
--- Combined Dragon City Ultimate Mod with Test Skill Integration &amp; Revert Paste Feature
+-- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 gg.clearResults()
 
@@ -52,8 +52,8 @@ local function fetchDragonData()
     return nil
   end
   local data = {}
-  for match in response.content:gmatch("<div class="dragon%-item">(.-)</div>") do
-    local cleaned = match:gsub("&lt;[^&gt;]+&gt;", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
+  for match in response.content:gmatch("<div class='dragon%-item'>(.-)</div>") do
+    local cleaned = match:gsub("<[^>]+>", ""):gsub("-", ""):gsub("^%s+", ""):gsub("%s+$", "")
     if cleaned:match("^%d") then
       local code, name = cleaned:match("^(%d+)%s+(.+)$")
       if code and name then
@@ -61,7 +61,7 @@ local function fetchDragonData()
       end
     end
   end
-  return #data &gt; 0 and data or nil
+  return #data > 0 and data or nil
 end
 
 local globalDragonData = fetchDragonData()
@@ -133,7 +133,7 @@ end
     end
   end
 
-  if #validResultsLocal &gt; 0 then
+  if #validResultsLocal > 0 then
     gg.editAll("1011", gg.TYPE_DWORD)
     gg.toast("Recall modified "..#validResultsLocal.." values", true)
   else
