@@ -43,7 +43,7 @@ gg.setVisible(false)
 gg.clearResults()
 end
 if input[6] then
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/refs/heads/main/DC.lua',nil,'https://dragoncitytips.com/scripts').content
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/DC.lua',nil,'https://dragoncitytips.com/scripts').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
