@@ -118,7 +118,7 @@ pcall(load(L)) end
 end
 
 function DragonCityHack10()
-L = gg.makeRequest('https://dragoncitytips.com/scripts/Help',nil,'').content
+L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Help.lua',nil,'').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
