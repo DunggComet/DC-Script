@@ -99,18 +99,6 @@ if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
-function DragonCityHack7()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Decoration.lua').content
-if not L then gg.alert('SERVER: Allow Internet Connection...') else
-pcall(load(L)) end
-end
-
-function DragonCityHack8()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Expand.lua').content
-if not L then gg.alert('SERVER: Allow Internet Connection...') else
-pcall(load(L)) end
-end
-
 function DragonCityHack9()
 L = gg.makeRequest('https://dunggkr.github.io/DC-Script/EventBattleSkip.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
