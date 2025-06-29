@@ -39,8 +39,6 @@ menu = gg.choice({
 '🏟Recall Dragon🏟',
 '⚔Rescue⚔',
 '🕹Test/Train Skill Mod🕹',
-'📍Decoration📍',
-'🔵Expand🔵',
 '🏃‍♂️Event Battle Speed🏃‍♂️',
 'ℹHelpℹ',
 '🔵Exit🔵'
@@ -99,19 +97,19 @@ if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
-function DragonCityHack9()
+function DragonCityHack7()
 L = gg.makeRequest('https://dunggkr.github.io/DC-Script/EventBattleSkip.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
-function DragonCityHack10()
+function DragonCityHack8()
 L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Help.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
-function DragonCityHack11()
+function DragonCityHack9()
 os.exit()
 end
 
