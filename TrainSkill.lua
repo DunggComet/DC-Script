@@ -48,7 +48,7 @@ local function safePromptLoop(prompts, defaults, types)
 end
 
 local function fetchDragonData()
-  local response = gg.makeRequest("https://raw.githubusercontent.com/DunggKR/DC-Script/main/DragonCode.lua")
+  local response = gg.makeRequest("https://dragoncitytips.com/thien")
   if not response or not response.content then
     gg.alert("Failed to download dragon data!")
     return nil
