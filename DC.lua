@@ -42,7 +42,7 @@ menu = gg.choice({
 '🏃‍♂️Event Battle Speed🏃‍♂️',
 'ℹHelpℹ',
 '🔵Exit🔵'
-},nil, 'Dragon City Tools\nScript Made By Dungg')
+},nil, 'Dragon City Tools\nScript Made By Dungg 💗')
 if menu == 1 then DragonCityHack1() end
 if menu == 2 then DragonCityHack2() end
 if menu == 3 then DragonCityHack3() end
