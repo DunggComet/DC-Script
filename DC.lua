@@ -8,7 +8,7 @@ local file = io.open(path, "r")
 if file then
     file:close()
 else
-    gg.alert("A new update V1.8.0 is available! Please update now!\nNew: ðŸ”µExpandðŸ”µ\nCÃ¡ch sá»­ dá»¥ng: báº­t chá»©c nÄƒng ðŸ”µExpand all UnlockedðŸ”µ sau Ä‘Ã³ vÃ o Ancient Portal rá»“i vá» Ä‘á»ƒ hiá»‡u lá»±c\nRemoved ðŸ“™GoalsðŸ“™ ðŸ”µServer HackðŸ”µ", "Update Now")
+    gg.alert("A new update V1.8.0 is available! Please update now!\n Update for more feature!", "Update Now")
     
     gg.toast("Updating...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -57,7 +57,7 @@ if menu == 11 then DragonCityHack11() end
 if menu ==nil then NoSelect() end
 end
 function DragonCityHack1()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Arena.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Arena.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
@@ -74,37 +74,37 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Quest.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Quest.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack4()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Recall.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Recall.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack5()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Rescue.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Rescue.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack6()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/TrainSkill.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/TrainSkill.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack7()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/EventBattleSkip.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/EventBattleSkip.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack8()
-L = gg.makeRequest('https://dunggkr.github.io/DC-Script/Help.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Help.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
@@ -115,7 +115,7 @@ end
 
 function NoSelect()
 gg.sleep(100)
-gg.toast('Script Made By Dungg')
+gg.toast('Script Made By Dungg 💫💗')
 end
 
 -------------------------------------------------------------------------
