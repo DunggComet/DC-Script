@@ -57,7 +57,7 @@ if menu == 11 then DragonCityHack11() end
 if menu ==nil then NoSelect() end
 end
 function DragonCityHack1()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Arena.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Arena.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
@@ -74,37 +74,37 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Quest.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Quest.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack4()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Recall.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Recall.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack5()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Rescue.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Rescue.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack6()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/TrainSkill.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/TrainSkill.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack7()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/EventBattleSkip.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/EventBattleSkip.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
 
 function DragonCityHack8()
-L = gg.makeRequest('https://raw.githubusercontent.com/DunggKR/DC-Script/main/Help.lua').content
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Help.lua').content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
 end
