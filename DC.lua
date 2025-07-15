@@ -33,15 +33,15 @@ gg.setVisible(false)
 local MD5 = gg.makeRequest('').content
 function Main()
 menu = gg.choice({
-'⚔Battle Arena Mod⚔',
-'🏟Unmod Battle Arena🏟',
-'🏟Quest Mod🏟',
-'🏟Recall Dragon🏟',
-'⚔Rescue⚔',
-'🕹Test/Train Skill Mod🕹',
-'🏃‍♂️Event Battle Speed🏃‍♂️',
-'ℹHelpℹ',
-'🔵Exit🔵'
+'⚔️ Battle Arena Mod',
+'🔓 Unfreeze Value',
+'🗡️ Quest Mod ( Rankup )',
+'🐲 Recall Dragon',
+'🔑 Dragon Rescue Mod',
+'➡️ Test/Train Skill Mod',
+'🏁 Event Battle Speed',
+'📞 Help ❓',
+'❌ Exit Script'
 },nil, 'Dragon City Tools\nScript Made By Dungg 💗')
 if menu == 1 then DragonCityHack1() end
 if menu == 2 then DragonCityHack2() end
