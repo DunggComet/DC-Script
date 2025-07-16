@@ -1,4 +1,3 @@
-gg.setVisible(false)
 -- 🛡️ Passwords with expiry datetime (per user)
 local Passwords = {
   khoa = {
@@ -46,11 +45,11 @@ if remaining <= 0 then
   os.exit()
 end
 
--- Breakdown into D:H:M:S
+-- 🔢 Clean breakdown into D:H:M:S (no decimals)
 local days = math.floor(remaining / 86400)
 local hours = math.floor((remaining % 86400) / 3600)
 local mins = math.floor((remaining % 3600) / 60)
-local secs = remaining % 60
+local secs = math.floor(remaining % 60)
 
 -- ✅ Show message and countdown
 gg.alert(entry.message ..
