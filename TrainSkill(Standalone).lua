@@ -1,6 +1,7 @@
 -- TestSkillMod.lua
 -- This file contains only the Test/Skill Mod features and its minimal dependencies.
 
+gg.setVisible(false)
 --------------------------------------------------
 -- Shared Helper Functions & Dragon Data Management
 --------------------------------------------------
