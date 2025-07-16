@@ -9,7 +9,7 @@ local data = loadfile(configFile)
 if data ~= nil then
 data = data()
 end
-input = gg.prompt({'⬇️Dragons Make⬇️','Dragons Make','⬇️Level⬇️','🔵Level🔵: [1;100]','●Close●'},data,{'checkbox','number','checkbox','number','checkbox','checkbox'})
+input = gg.prompt({'⬇️Change Dragon⬇️','Change Dragon:','⬇️Level⬇️','Level: [1;100]','●Close●'},data,{'checkbox','number','checkbox','number','checkbox','checkbox'})
 if input ==nil then
 else
 gg.saveVariable(input, configFile)
