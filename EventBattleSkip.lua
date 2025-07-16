@@ -46,7 +46,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[2] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -70,7 +70,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[3] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -94,7 +94,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[4] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -118,7 +118,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[5] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -142,7 +142,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[6] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -166,7 +166,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[7] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -190,7 +190,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[8] then
       gg.setRanges(gg.REGION_CODE_APP)
@@ -214,7 +214,7 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-	  gg.sleep(20000)
+      gg.setVisible(true)
     end
     if input[9] then
       gg.setRanges(gg.REGION_CODE_APP)
