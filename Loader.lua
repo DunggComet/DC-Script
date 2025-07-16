@@ -41,15 +41,15 @@ local remaining = expiryTime - currentTime
 if remaining <= 0 then
   gg.alert("❌ Script expired on " ..
     string.format("%02d/%02d/%04d %02d:%02d:%02d", exp.day, exp.month, exp.year, exp.hour, exp.min, exp.sec) ..
-    "\n🕒 Current time: " .. os.date("%d/%m/%Y %H:%M:%S"))
+    "\n🕒 Device time: " .. os.date("%d/%m/%Y %H:%M:%S"))
   os.exit()
 end
 
--- 🔢 Clean breakdown into D:H:M:S (no decimals)
-local days = math.floor(remaining / 86400)
-local hours = math.floor((remaining % 86400) / 3600)
-local mins = math.floor((remaining % 3600) / 60)
-local secs = math.floor(remaining % 60)
+-- 🔢 Breakdown into D:H:M:S (force integer strings, no .0)
+local days = tostring(math.floor(remaining / 86400))
+local hours = tostring(math.floor((remaining % 86400) / 3600))
+local mins = tostring(math.floor((remaining % 3600) / 60))
+local secs = tostring(math.floor(remaining % 60))
 
 -- ✅ Show message and countdown
 gg.alert(entry.message ..
