@@ -3,7 +3,7 @@ local Passwords = {
   khoa = {
     message = "✅ Hé lô, test script vui vẻ nhé anh zai",
     url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua",
-    expiry = { year = 2025, month = 8, day = 1, hour = 0, min = 0, sec = 0 }
+    expiry = { year = 2025, month = 7, day = 1, hour = 0, min = 0, sec = 0 }
   },
   NIKA = {
     message = "✅ Hello NIKA!",
