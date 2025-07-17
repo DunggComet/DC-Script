@@ -1,10 +1,5 @@
-[
-  {
-    "device_id": "ABCD1234DEVICEIDEXAMPLE",
-    "key": "KEY-FOR-ABCD1234"
-  },
-  {
-    "device_id": "XYZ7890ID",
-    "key": "SOMEOTHERKEY"
-  }
-]
+{
+  "abc123": "XDeviceID01",
+  "mykey99": "Samsung123Xy",
+  "cooldragon": "emulator420"
+}
