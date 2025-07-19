@@ -42,7 +42,7 @@ menu = gg.choice({
 '🏁 Event Battle Speed',
 '📞 Help ❓',
 '❌ Exit Script'
-},nil, 'Dragon City Tools\nOriginal and Inspired by Thiện Uzumaki Clan\nRescripted by Dungg 💫💗')
+},nil, 'Dragon City Tools\nOriginal and Inspired by Thiện Uzumaki Clan\nRescripted by Comet 💫💗\nFanmade Script')
 if menu == 1 then DragonCityHack1() end
 if menu == 2 then DragonCityHack2() end
 if menu == 3 then DragonCityHack3() end
@@ -115,7 +115,7 @@ end
 
 function NoSelect()
 gg.sleep(100)
-gg.toast('Script Made By Dungg 💫💗')
+gg.toast('Script Made By Comet 💫💗')
 end
 
 -------------------------------------------------------------------------
