@@ -18,8 +18,8 @@ end
     '🏃‍3h to 0s Speed',
     '🏃‍6h 40min to 0s Speed',
     '🏃‍8h to 0s Speed',
-    '●Anti Reload●',
-    '●Return to Main Menu●'
+    '🚫 Anti Reload',
+    '⬅️ Return to Main Menu'
   }, data, {'checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox','checkbox'})
   if input == nil then
   else
@@ -246,6 +246,7 @@ end
       gg.setVisible(true)
     end
     if input[10] then
+      gg.toast("Returning To Main Menu...")
 		L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
 		if not L then gg.alert('SERVER: Allow Internet Connection...') else
 		pcall(load(L)) end
