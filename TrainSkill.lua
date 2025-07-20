@@ -15,7 +15,7 @@ end
 local function safePromptSearch(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   while not input do
-    gg.toast("Script paused. Click GG icon to resume.", true)
+    gg.toast("Script paused. Tap GG icon to resume.", true)
     waitForResume()
     -- Wait until GG is not visible anymore before re-prompting.
     while gg.isVisible() do
@@ -48,7 +48,7 @@ local function safePromptLoop(prompts, defaults, types)
 end
 
 local function fetchDragonData()
-  local response = gg.makeRequest("https://dragoncitytips.com/thien")
+  local response = gg.makeRequest("https://dunggcomet.github.io/DC-Script/Website/Dragon.html")
   if not response or not response.content then
     gg.alert("Failed to download dragon data!")
     return nil
@@ -218,14 +218,14 @@ local function copyOffsetTest()
   local srcChoice = nil
   repeat
     srcChoice = gg.choice({
-      'From 1st skill/attack (base)', 'From 2nd skill/attack (base)',
-      'From 3rd skill/attack (base)', 'From 4th skill/attack (base)',
-      'From 1st skill/attack (training center)', 'From 2nd skill/attack (training center)',
-      'From 3rd skill/attack (training center)', 'From 4th skill/attack (training center)',
+      'From 1st skill/attack (Base)', 'From 2nd skill/attack (Base)',
+      'From 3rd skill/attack (Base)', 'From 4th skill/attack (Base)',
+      'From 1st skill/attack (Training center)', 'From 2nd skill/attack (Training center)',
+      'From 3rd skill/attack (Training center)', 'From 4th skill/attack (Training center)',
       'Return'
     }, nil, "Copy 1 Source Skill/Attack from ALL Results")
     if srcChoice == nil then
-      gg.toast("Paused. Click GG icon to resume.", true)
+      gg.toast("Paused. Tap GG icon to resume.", true)
       waitForResume()
     end
   until srcChoice ~= nil
@@ -282,14 +282,14 @@ local function pasteSingleOffsetTest()
   local choice = nil
   repeat
     choice = gg.choice({
-      'To 1st skill/attack (base)', 'To 2nd skill/attack (base)', 
-      'To 3rd skill/attack (base)', 'To 4th skill/attack (base)',
-      'To 1st skill/attack (training center)', 'To 2nd skill/attack (training center)',
-      'To 3rd skill/attack (training center)', 'To 4th skill/attack (training center)',
+      'To 1st skill/attack (Base)', 'To 2nd skill/attack (Base)', 
+      'To 3rd skill/attack (Base)', 'To 4th skill/attack (Base)',
+      'To 1st skill/attack (Training center)', 'To 2nd skill/attack (Training center)',
+      'To 3rd skill/attack (Training center)', 'To 4th skill/attack (Training center)',
       'Return'
     }, nil, "Select Target Spot In Training Center for ALL Results")
     if choice == nil then
-      gg.toast("Paused. Click GG icon to resume.", true)
+      gg.toast("Paused. Tap GG icon to resume.", true)
       waitForResume()
     end
   until choice ~= nil
@@ -347,16 +347,16 @@ local function testSkillMenu()
   while true do
     local menuItems = {
       "🔄 Change Dragon Code",
-      "📥 Copy one skill/attack",
-	  "📥 Copy all skills/attacks",
-	  "📤 Paste to All attacks (Mod) (one by four)",
-      "📤 Paste to All attacks (Mod) (four by four)",
-      "🎯 Paste to Single attack (Train)",
-      "🛑 Revert Pasted Values",   -- New option for reverting pasted changes
-      "🆕 New Search",
-      "⏮ Revert to Original dragon",
-	  "⏭ Revert to Changed dragon",
-      "🚪 Exit Test Skill"
+      "📋 Copy one skill/attack",
+	  "📚 Copy all skills/attacks",
+	  "🎨 Apply to All attacks (Mod: One by Four)",
+      "🌐 Apply to All attacks (Mod: Four by Four)",
+      "🎯 Apply to Single Attack (Train Skill)",
+      "🔄 Revert Pasted Values",   -- New option for reverting pasted changes
+      "🔍 New Search",
+      "⏮ Restore Original Dragon",
+	  "⏭ Restore Modified Dragon",
+      "👋 Exit Test Skill"
     }
     local choice = safeChoiceSearch(menuItems, nil,
       string.format("Base: 0x%X | Current: %s", baseAddress, getDragonNameFromCode(originalCodeTest))
