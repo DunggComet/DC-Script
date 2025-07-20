@@ -33,14 +33,14 @@ gg.setVisible(false)
 local MD5 = gg.makeRequest('').content
 function Main()
 menu = gg.choice({
-'⚔️ Battle Arena Mod',
-'🔓 Unfreeze Value',
-'🗡️ Quest Mod ( Rankup )',
+'⚔️ Battle Arena Feature',
+'🔓 Unlock Frozen Values',
+'🗡️ Quest Feature ( Rankup )',
 '🐲 Recall Dragon',
-'🔑 Dragon Rescue Mod',
-'➡️ Test/Train Skill Mod',
-'🏁 Event Battle Speed',
-'📞 Help ❓',
+'🔑 Dragon Rescue Feature',
+'➡️ Testing & Training Dragon/Skill',
+'🏁 Accelerated Event Battles',
+'💬 Join Our Discord Community',
 '❌ Exit Script'
 },nil, 'Dragon City Tools\nOriginal and Inspired by Thiện Uzumaki Clan\nRescripted by Comet 💫💗\nFanmade Script')
 if menu == 1 then DragonCityHack1() end
