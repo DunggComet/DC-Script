@@ -2,13 +2,13 @@
 gg.alert("Starting...")
 
 -- Set your Discord username here:
-local discordUsername = "dunggkr"
+local discord = "https://discord.gg/e7UwExHAKS"
 
 -- Copy to clipboard
-gg.copyText(discordUsername)
+gg.copyText(discord)
 
 -- Alert copied
-gg.alert("Copied Discord's username for help!")
+gg.alert("Copied Discord Server Link")
 
 -- Final message
-gg.alert("Message Dunggkr ( Comet ) in discord to get help with the script.")
+gg.alert("Join the server to get help with the script.")
