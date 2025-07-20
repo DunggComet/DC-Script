@@ -6,7 +6,7 @@ gg.clearResults()
 -- Shared Functions and Dragon Data Management
 --------------------------------------------------
 local function waitForResume()
-  gg.toast("Script paused. Click GG icon to resume", true)
+  gg.toast("Script paused. Tap GG icon to resume", true)
   while not gg.isVisible() do
     gg.sleep(100)
   end
@@ -17,7 +17,7 @@ end
 local function safePromptSearch(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   if input == nil then
-    gg.toast("Returning to main menu...", true)
+    gg.toast("Navigating back to main menu...", true)
     waitForResume()
     return nil
   end
@@ -27,7 +27,7 @@ end
 local function safeChoiceSearch(items, default, title)
   local choice = gg.choice(items, default, title)
   if choice == nil then
-    gg.toast("Returning to main menu...", true)
+    gg.toast("Navigating back to main menu...", true)
     waitForResume()
     return nil
   end
@@ -38,7 +38,7 @@ end
 local function safePromptLoop(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   while input == nil do
-    gg.toast("Script paused. Click GG icon to resume", true)
+    gg.toast("Script paused. Tap GG icon to resume", true)
     waitForResume()
     input = gg.prompt(prompts, defaults, types)
   end
@@ -46,7 +46,7 @@ local function safePromptLoop(prompts, defaults, types)
 end
 
 local function fetchDragonData()
-  local response = gg.makeRequest("https://dragoncitytips.com/thien")
+  local response = gg.makeRequest("https://dunggcomet.github.io/DC-Script/Website/Dragon.html")
   if not response or not response.content then
     gg.alert("Failed to download dragon data!")
     return nil
@@ -97,7 +97,7 @@ local function searchDragonCode()
   end
   
   if #matches == 0 then
-    gg.alert("No dragons found for: " .. searchTerm)
+    gg.alert("No dragons matched your search: " .. searchTerm)
     return nil
   end
   
