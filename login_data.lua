@@ -1,0 +1,17 @@
+-- 🧾 Return login table
+return function()
+  return {
+    khoa = {
+      expiry = "01082025",
+      message = "✅ Tắt script đi!!! \nChơi công bằng mới vuii ( xạo đó ).",
+      expired_message = "❌ Hết hạn rồi cha ơi, làm ơn gia hạn bằng cách cho orb để tiếp tục sài script :>.",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+    },
+    NIKA = {
+      expiry = "20072025",
+      message = "✅ Hello NIKA!",
+      expired_message = "❌ Xin lỗi NIKA, script của bạn đã hết hạn rồi!",
+      url = "https://raw.githubusercontent.com/DunggKR/DC-Script/main/nika.lua"
+    }
+  }
+end
