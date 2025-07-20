@@ -91,7 +91,7 @@ while true do
   gg.alert(entry.message ..
     "\n📅 Expires on: " .. formattedExpiry ..
     string.format("\n⏰ Time left: %d days, %d hours, %d minutes, %d seconds", days, hours, mins, secs) ..
-    "\n🕒 Device time: " .. os.date("%d/%m/%Y %H:%M:%S")
+    "\n🕒 Current time: " .. os.date("%d/%m/%Y %H:%M:%S")
   )
 
   -- 🔔 Toast countdown before script request
