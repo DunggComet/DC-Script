@@ -8,7 +8,7 @@ local discord = "https://discord.gg/e7UwExHAKS"
 gg.copyText(discord)
 
 -- Alert copied
-gg.alert("Copied Discord Server Link")
+gg.alert("Copied Discord Server Link!")
 
 -- Final message
-gg.alert("Join the server to get help with the script.")
+gg.alert("Join the server to get help with the script.\nOr to chat with others")
