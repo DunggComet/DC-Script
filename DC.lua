@@ -42,7 +42,7 @@ menu = gg.choice({
 '🏁 Accelerated Event Battles',
 '💬 Join Our Discord Community',
 '❌ Exit Script'
-},nil, 'Dragon City Tools\nOriginal and Inspired by Thiện Uzumaki Clan\nRescripted by Comet 💫💗\nFanmade Script')
+},nil, 'Dragon City Tools\nScript Made By Comet 💫💗')
 if menu == 1 then DragonCityHack1() end
 if menu == 2 then DragonCityHack2() end
 if menu == 3 then DragonCityHack3() end
