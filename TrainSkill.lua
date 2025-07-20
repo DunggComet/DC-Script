@@ -409,9 +409,11 @@ local function testSkillMenu()
 		 gg.alert("No changed code to revert to!")
 	 end
 	elseif choice == 11 then
-      gg.clearResults()
-      gg.toast("Exiting Test Skill Mod.")
-      return false
+          local url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+          local _ = gg.makeRequest(url)  -- Silently ping the URL (no alerts or toasts)
+          gg.clearResults()
+          gg.toast("Exiting Test Skill Mod.")
+          return false
     end
   end
 end
