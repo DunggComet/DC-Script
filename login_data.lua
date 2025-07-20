@@ -12,6 +12,12 @@ return function()
       message = "✅ Hello NIKA!",
       expired_message = "❌ Xin lỗi NIKA, script của bạn đã hết hạn rồi!",
       url = "https://raw.githubusercontent.com/DunggKR/DC-Script/main/nika.lua"
+    },
+    dungg = {
+      expiry = "31122099",
+      message = "✅ Chào Chủ Nhân!\nMong dùng tốt ạ!",
+      expired_message = "❌ wtf? hết hạn được luôn à?",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
   }
 end
