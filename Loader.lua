@@ -35,9 +35,33 @@ elseif type(login) ~= "table" then
   return
 end
 
--- 🔐 Password prompt loop
+-- 🔐 Password prompt loop with menu
 while true do
   gg.setVisible(true)
+  local menu = gg.choice({"▶️ Start Script", "💬 Join Our Discord Community", "✖️ Exit Script"}, nil, "Select an option:")
+  if not menu then
+    gg.setVisible(false)
+    goto continue
+  end
+
+  -- Handle "Exit Script" option
+  if menu == 3 then
+    gg.setVisible(false)
+    gg.clearResults()
+    os.exit()
+  end
+
+  -- Handle "Join Our Discord Community" option
+  if menu == 2 then
+    local discordLink = "https://discord.gg/e7UwExHAKS"
+    gg.copyText(discordLink)
+    gg.alert("📋 Discord link copied to clipboard: " .. discordLink)
+    gg.toast("📋 Copied Discord link: " .. discordLink)
+    gg.setVisible(false)
+    goto continue
+  end
+
+  -- Handle "Start Script" option
   local input = gg.prompt({"Enter Password:"}, nil, {"text"})
   if not input or input[1] == nil or input[1] == "" then
     gg.setVisible(false)
@@ -47,7 +71,8 @@ while true do
 
   local entry = login[key]
   if not entry or type(entry) ~= "table" then
-    gg.alert("⚠ Invalid Password")
+    gg.alert("⚠️ Invalid Password")
+    gg.alert("📣 Join our Discord server to get script's subscription!")
     gg.setVisible(false)
     goto continue
   end
@@ -74,8 +99,8 @@ while true do
 
   local currentTime = os.time()
   if currentTime > expiryTime then
-    local message = entry.expired_message or "❌ Password expired"
-    gg.alert(message .. "\n📅 Expired on: " .. formattedExpiry)
+    local message = "❌ Password Expired, Please Join Our Discord Server to Add Subscription."
+    gg.alert(message .. "\n📅 Password Expired on: " .. formattedExpiry)
     gg.setVisible(false)
     goto continue
   end
