@@ -8,7 +8,7 @@ local file = io.open(path, "r")
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.1) is available! Please install it now!\n✨ What's New: Enhanced User Interface", "Install Update")
+    gg.alert("🚀 A new update (Version 1.1) is available! Please install it now!\n✨ What's New:\n- Enhanced User Interface\n- New Feature:\n+Discord Server Link", "Install Update")
 
 gg.toast("Installing update...")
 gg.searchNumber(":updateversion", gg.TYPE_AUTO)
