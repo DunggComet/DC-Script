@@ -1,4 +1,4 @@
-
+gg.alert("⚠️Change your speed to x2 first!⚠️\nOtherwise your game will get reload when use Accelerated Event Battles!")
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 function inputs()
@@ -9,7 +9,6 @@ local data = loadfile(configFile)
 if data ~= nil then
   data = data()
 end
-gg.alert("⚠️Change your speed to x2 first!⚠️\nOtherwise your game will get reload when use Accelerated Event Battles!")
   input = gg.prompt({
     '🏃‍5min to 0s Speed',
     '🏃‍15min to 0s Speed',
