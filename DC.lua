@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration &amp; Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.0.0.txt"
-local oldPath = "/storage/emulated/0/Download/1.0.txt"
+local path = "/storage/emulated/0/Download/1.1.txt"
+local oldPath = "/storage/emulated/0/Download/1.0.0.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("A new update V1.0.0 is available! Please update now!\n Update for more feature!", "Update Now")
+    gg.alert("😲 A new update V1.1 is available! Please update now!\n 🎉New Update: Revamped UI", "Update Now")
     
     gg.toast("Updating...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ else
     
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Dungg V1.0.0")
+        newFile:write("Dungg V1.1")
         newFile:close()
         gg.alert("Update successful!")
     else
