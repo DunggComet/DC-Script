@@ -1,6 +1,3 @@
--- Game Guardian Script: Discord Community Copier 🎉
-gg.alert("Initializing... 🚀")
-
 -- Set your Discord invite link here:
 local discord = "https://discord.gg/e7UwExHAKS"
 
