@@ -8,23 +8,23 @@ local file = io.open(path, "r")
 if file then
     file:close()
 else
-    gg.alert("😲 A new update V1.1 is available! Please update now!\n 🎉New Update: Revamped UI", "Update Now")
-    
-    gg.toast("Updating...")
-    gg.searchNumber(":updateversion", gg.TYPE_AUTO)
-    gg.sleep(2000)
-    
-    -- Delete old version file
-    os.remove(oldPath)
-    
-    local newFile = io.open(path, "w")
-    if newFile then
-        newFile:write("Dungg V1.1")
-        newFile:close()
-        gg.alert("Update successful!")
-    else
-        gg.alert("Error during update!")
-    end
+    gg.alert("🚀 A new update (Version 1.1) is available! Please install it now!\n✨ What's New: Enhanced User Interface", "Install Update")
+
+gg.toast("Installing update...")
+gg.searchNumber(":updateversion", gg.TYPE_AUTO)
+gg.sleep(2000)
+
+-- Remove old version file
+os.remove(oldPath)
+
+local newFile = io.open(path, "w")
+if newFile then
+    newFile:write("Dungg Version 1.1")
+    newFile:close()
+    gg.alert("Update installed successfully!")
+else
+    gg.alert("An error occurred during the update process.")
+end
 end
 
 gg.clearResults()
