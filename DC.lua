@@ -19,7 +19,7 @@ else
     
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Dungg V1.8.0")
+        newFile:write("Dungg V1.0.0")
         newFile:close()
         gg.alert("Update successful!")
     else
