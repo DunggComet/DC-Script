@@ -1,4 +1,3 @@
-gg.alert("⚠️Change your speed to x2 first!⚠️\nOtherwise your game will get reload when use Accelerated Event Battles!")
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 function inputs()
