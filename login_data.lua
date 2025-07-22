@@ -10,7 +10,7 @@ return function()
     NIKA = {
       expiry = "20072025",
       message = "✅ Hello NIKA!",
-      expired_message = "❌ Xin lỗi NIKA, script của bạn đã hết hạn rồi!",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
     dungg = {
