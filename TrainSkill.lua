@@ -1,5 +1,6 @@
 -- TestSkillMod.lua
 -- This file contains only the Test/Skill Mod features and its minimal dependencies.
+gg.setVisible(false)
 
 --------------------------------------------------
 -- Shared Helper Functions & Dragon Data Management
@@ -344,19 +345,21 @@ local function revertPastedValuesTest()
 end
 
 local function testSkillMenu()
+  local configFile = gg.EXT_CACHE_DIR .. '/' .. gg.getFile():match('[^/]+$') .. 'trainskill.txt'
   while true do
     local menuItems = {
       "🔄 Change Dragon Code",
       "📋 Copy one skill/attack",
-	  "📚 Copy all skills/attacks",
-	  "🎨 Apply to All attacks (Mod: One by Four)",
+      "📚 Copy all skills/attacks",
+      "🎨 Apply to All attacks (Mod: One by Four)",
       "🌐 Apply to All attacks (Mod: Four by Four)",
       "🎯 Apply to Single Attack (Train Skill)",
-      "🔄 Revert Pasted Values",   -- New option for reverting pasted changes
-      "🔍 New Search",
+      "🔄 Revert Pasted Values",
+      "💾 Save Current State",
       "⏮ Restore Original Dragon",
-	  "⏭ Restore Modified Dragon",
-      "👋 Exit Test Skill"
+      "⏭ Restore Modified Dragon",
+      "👋 Exit Test Skill",
+      "❌ Exit Script"
     }
     local choice = safeChoiceSearch(menuItems, nil,
       string.format("Base: 0x%X | Current: %s", baseAddress, getDragonNameFromCode(originalCodeTest))
@@ -364,7 +367,7 @@ local function testSkillMenu()
     if choice == 1 then
       local newCode = searchDragonCode()
       if newCode then
-	  changedCodeTest = newCode
+        changedCodeTest = newCode
         for _, v in ipairs(validResultsTest) do
           v.value = tonumber(newCode)
           v.name = newCode.." - "..getDragonNameFromCode(newCode)
@@ -376,18 +379,27 @@ local function testSkillMenu()
     elseif choice == 2 then
       copyOffsetTest()
     elseif choice == 3 then
-	  copyAllOffsetTest()
-	elseif choice == 4 then
+      copyAllOffsetTest()
+    elseif choice == 4 then
       pasteOffsetTest()
-	elseif choice == 5 then
-	  pasteAllOffsetTest()
+    elseif choice == 5 then
+      pasteAllOffsetTest()
     elseif choice == 6 then
       pasteSingleOffsetTest()
     elseif choice == 7 then
       revertPastedValuesTest()
     elseif choice == 8 then
-      gg.clearResults()
-      return true  -- New search: return to re-run test skill search
+      local input = {
+        validResultsTest = validResultsTest,
+        originalCodeTest = originalCodeTest,
+        changedCodeTest = changedCodeTest,
+        baseAddress = baseAddress,
+        copiedValues = copiedValues,
+        copiedAllValues = copiedAllValues,
+        backupPastedValuesTest = backupPastedValuesTest
+      }
+      gg.saveVariable(input, configFile)
+      gg.toast("Current state saved to config file")
     elseif choice == 9 then
       for _, v in ipairs(validResultsTest) do
         v.value = tonumber(originalCodeTest)
@@ -396,24 +408,29 @@ local function testSkillMenu()
       gg.setValues(validResultsTest)
       gg.addListItems(validResultsTest)
       gg.toast("Reverted to original dragon")
-	elseif choice == 10 then
-	 if changedCodeTest then
-		 for _, v in ipairs(validResultsTest) do
-		 v.value = tonumber(changedCodeTest)
-		 v.name  = changedCodeTest.." - "..getDragonNameFromCode(changedCodeTest)
-		 end
-		 gg.setValues(validResultsTest)
-		 gg.addListItems(validResultsTest)
-		 gg.toast("Reverted to changed dragon")
-	 else
-		 gg.alert("No changed code to revert to!")
-	 end
-	elseif choice == 11 then
-          local url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
-          local _ = gg.makeRequest(url)  -- Silently ping the URL (no alerts or toasts)
-          gg.clearResults()
-          gg.toast("Exiting Test Skill Mod.")
-          return false
+    elseif choice == 10 then
+      if changedCodeTest then
+        for _, v in ipairs(validResultsTest) do
+          v.value = tonumber(changedCodeTest)
+          v.name = changedCodeTest.." - "..getDragonNameFromCode(changedCodeTest)
+        end
+        gg.setValues(validResultsTest)
+        gg.addListItems(validResultsTest)
+        gg.alert("Reverted to changed dragon")
+      else
+        gg.alert("No changed code to revert to!")
+      end
+    elseif choice == 11 then
+      gg.clearResults()
+      gg.toast("Exiting Test Skill Mod.")
+      L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
+      if not L then gg.alert('SERVER: Allow Internet Connection...') else
+        pcall(load(L))
+      end
+      return false
+    elseif choice == 12 then
+      gg.clearResults()
+      os.exit()
     end
   end
 end
@@ -498,7 +515,86 @@ local function testSkill()
   gg.toast("Returning to main menu...", true)
   gg.sleep(1500)
 end
+
 --------------------------------------------------
--- Run the Test Skill Mod
+-- Run the Test Skill Mod with Start Menu
 --------------------------------------------------
-testSkill()
+local configFile = gg.EXT_CACHE_DIR .. '/' .. gg.getFile():match('[^/]+$') .. 'trainskill.txt'
+local choice = safeChoiceSearch({"🔍 New Search", "📂 Continue", "❌ Return To Main Menu"}, nil, "Select an option to begin")
+if choice == nil then
+  -- Save current state to config file
+  local input = {
+    validResultsTest = validResultsTest,
+    originalCodeTest = originalCodeTest,
+    changedCodeTest = changedCodeTest,
+    baseAddress = baseAddress,
+    copiedValues = copiedValues,
+    copiedAllValues = copiedAllValues,
+    backupPastedValuesTest = backupPastedValuesTest
+  }
+  gg.saveVariable(input, configFile)
+  gg.toast("State saved to config file")
+  waitForResume()
+elseif choice == 1 then
+  -- Start New: Clear all variables and start fresh
+  validResultsTest = {}
+  originalCodeTest = nil
+  changedCodeTest = nil
+  baseAddress = nil
+  copiedValues = {}
+  copiedAllValues = {}
+  backupPastedValuesTest = {}
+  gg.clearResults()
+  gg.toast("Started new session")
+  testSkill()
+elseif choice == 2 then
+  -- Continue: Load from config file and resume at testSkillMenu
+  local data = loadfile(configFile)
+  if data then
+    data = data()
+    validResultsTest = data.validResultsTest or {}
+    originalCodeTest = data.originalCodeTest
+    changedCodeTest = data.changedCodeTest
+    baseAddress = data.baseAddress
+    copiedValues = data.copiedValues or {}
+    copiedAllValues = data.copiedAllValues or {}
+    backupPastedValuesTest = data.backupPastedValuesTest or {}
+    gg.addListItems(validResultsTest)
+    gg.toast("Loaded state from config file")
+    gg.alert("⚠️ Only Use In Current Game Session!\nOtherwise, Game may crash and won't work!")
+    if #validResultsTest > 0 then
+      testSkillMenu() -- Resume directly at testSkillMenu
+    else
+      gg.alert("Loaded state is invalid or empty! Starting new session.")
+      validResultsTest = {}
+      originalCodeTest = nil
+      changedCodeTest = nil
+      baseAddress = nil
+      copiedValues = {}
+      copiedAllValues = {}
+      backupPastedValuesTest = {}
+      gg.clearResults()
+      testSkill()
+    end
+  else
+    gg.alert("No saved state found! Starting new session.")
+    validResultsTest = {}
+    originalCodeTest = nil
+    changedCodeTest = nil
+    baseAddress = nil
+    copiedValues = {}
+    copiedAllValues = {}
+    backupPastedValuesTest = {}
+    gg.clearResults()
+    testSkill()
+  end
+elseif choice == 3 then
+  gg.clearResults()
+  gg.toast("Returning to main menu...")
+  local L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
+  if not L then
+    gg.alert('SERVER: Allow Internet Connection...')
+  else
+    pcall(load(L))
+  end
+end
