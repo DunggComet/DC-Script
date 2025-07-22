@@ -19,9 +19,9 @@ return function()
       expired_message = "❌ wtf? hết hạn được luôn à?",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
-    7423918501264738291 = {
+    7423918501 = {
       expiry = "24072025",
-      message = "✅ Chào anh đạt=))))\n🔑 Key: 7423918501264738291",
+      message = "✅ Chào anh đạt=))))\n🔑 Key: 7423918501",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
   }
