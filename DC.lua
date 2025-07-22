@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration &amp; Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.0.txt"
-local oldPath = "/storage/emulated/0/Download/1.0.0.txt"
+local path = "/storage/emulated/0/Download/1.1.txt"
+local oldPath = "/storage/emulated/0/Download/1.0.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.0) is available! Please install it now!\n✨ What's New:\n- Enhanced User Interface\n- New Feature:\n+Discord Server Link", "Install Update")
+    gg.alert("🚀 A new update (Version 1.1) is available! Please install it now!\n✨ What's New:\n- Enhanced User Interface\n- New Feature:\n+ Added New Feature For Train Skill", "Update")
 
 gg.toast("Installing update...")
 gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ os.remove(oldPath)
 
 local newFile = io.open(path, "w")
 if newFile then
-    newFile:write("Dungg Version 1.0")
+    newFile:write("Version 1.1")
     newFile:close()
     gg.alert("Update installed successfully!")
 else
@@ -39,7 +39,7 @@ menu = gg.choice({
 '🗡️ Quest Feature ( Rankup )',
 '🐲 Recall Dragon',
 '🔑 Dragon Rescue Feature',
-'➡️ Testing & Training Dragon/Skill',
+'➡️ Test & Train Dragon/Skill Feature',
 '🏁 Accelerated Event Battles',
 '💬 Join Our Discord Community',
 '❌ Exit Script'
