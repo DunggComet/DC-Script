@@ -18,6 +18,12 @@ return function()
       message = "✅ Chào Chủ Nhân!\nMong dùng tốt ạ!",
       expired_message = "❌ wtf? hết hạn được luôn à?",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+    },
+    12345 = {
+      expiry = "24072025",
+      message = "✅ Chào!\n🔑 Key: 12345",
+      expired_message = "❌ wtf? hết hạn được luôn à?",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
   }
 end
