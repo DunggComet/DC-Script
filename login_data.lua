@@ -7,19 +7,22 @@ return function()
       expired_message = "❌ Hết hạn rồi cha ơi, làm ơn gia hạn bằng cách cho orb để tiếp tục sài script :>.",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
+    
     NIKA = {
       expiry = "20072025",
       message = "✅ Hello NIKA!",
       expired_message = "❌ Xin lỗi NIKA, script của bạn đã hết hạn rồi!",
       url = "https://raw.githubusercontent.com/DunggKR/DC-Script/main/nika.lua"
     },
+    
     dungg = {
       expiry = "31122099",
       message = "✅ Chào Chủ Nhân!\nMong dùng tốt ạ!",
       expired_message = "❌ wtf? hết hạn được luôn à?",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
-    12345 = {
+    
+    [12345] = {
       expiry = "24072025",
       message = "✅ Chào!\n🔑 Key: 12345",
       expired_message = "❌ wtf? hết hạn được luôn à?",
