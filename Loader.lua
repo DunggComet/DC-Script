@@ -99,11 +99,11 @@ while true do
 
   local currentTime = os.time()
   if currentTime > expiryTime then
-    local message = "❌ Password Expired, Please Join Our Discord Server to Add Subscription."
-    gg.alert(message .. "\n📅 Password Expired on: " .. formattedExpiry)
+    local message = entry.expired_message or "❌ Password Expired, Please Join Our Discord Server to Add Subscription."
+    gg.alert(message .. "\n📅 Expired on: " .. formattedExpiry)
     gg.setVisible(false)
     goto continue
-  end
+ end
 
   -- 🕒 Countdown (no .0)
   local remaining = expiryTime - currentTime
