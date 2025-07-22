@@ -22,9 +22,9 @@ return function()
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
-    ["12345"] = {
+    ["7423918501264738291"] = {
       expiry = "24072025",
-      message = "✅ Chào!\n🔑 Key: 12345",
+      message = "✅ Chào!\n🔑 Key: 7423918501264738291",
       expired_message = "❌ wtf? hết hạn được luôn à?",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
