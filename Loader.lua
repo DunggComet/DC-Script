@@ -99,7 +99,7 @@ while true do
 
   local currentTime = os.time()
   if currentTime > expiryTime then
-    local message = entry.expired_message or "❌ Password Expired, Please Join Our Discord Server to Add Subscription."
+    local message = entry.expired_message or "❌ Password Expired!\n☄️Contact the Owner to Add Subscription."
     gg.alert(message .. "\n📅 Expired on: " .. formattedExpiry)
     gg.setVisible(false)
     goto continue
@@ -113,7 +113,7 @@ while true do
   local secs = math.floor(remaining % 60)
 
   -- ✅ Show alert
-  gg.alert(entry.message ..
+  gg.alert("✅ Success!\n🔑 Key: " .. key ..
     "\n📅 Expires on: " .. formattedExpiry ..
     string.format("\n⏰ Time left: %d days, %d hours, %d minutes, %d seconds", days, hours, mins, secs) ..
     "\n🕒 Current time: " .. os.date("%d/%m/%Y %H:%M:%S")
