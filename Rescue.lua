@@ -1,18 +1,17 @@
+gg.setVisible(false)
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
-  gg.setVisible(true)
+function inputs()
   local menu = gg.choice(
-    {"🐉 Change Dragon to Terra", "📊 Change Level to 1", "✖️ Close"},
+    {"🐉 Change All Dragons to Terra", "📊 Change Level to 1", "✖️ Close Rescue Script"},
     nil,
-    "Select an option:"
+    "Rescue Script Made By Comet 💫💗"
   )
 
   if menu == nil then
     gg.setVisible(false)
     return
   end
-
-  gg.saveVariable({[1]=menu==1, [2]=menu==2, [3]=menu==3}, configFile)
 
   if menu == 1 then
     gg.searchNumber('1000~3300;-1;1~100::17', gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
