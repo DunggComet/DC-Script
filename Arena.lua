@@ -1,149 +1,118 @@
 gg.setVisible(false)
-gg.clearResults()
-local SAVE_FILE = gg.EXT_STORAGE .. "/saved_id.txt"
--- Function to read saved ID from file
-function readSavedID()
-    local f = io.open(SAVE_FILE, "r")
-    if not f then return nil end
-    local line = f:read("*l"); f:close()
-    return tonumber(line)
+fin_busc=1
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
+gg.refineNumber("9288798", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+while(true) do 
+if gg.isVisible(true) then 
+menuk = 1
+menuk2 = 2  
+gg.setVisible(false) 
+end 
+START = 1 
+function START() 
+menu = gg.choice({
+    '🏆 Set Victories',
+    '🥀 Set Defeats',
+    '🔓 Unfreeze Values',
+    '❌ Exit Script'
+}, nil, '🌟 Arena Feature by Comet💫💗')
+if menu == 1 then lvl=1 idt=1011 find_ones() end
+if menu == 2 then lvl=999 idt=3011 find_ones() end
+if menu == 3 then 
+    gg.setVisible(false)
+    local frozenItems = gg.getListItems()
+    if #frozenItems > 0 then
+        gg.removeListItems(frozenItems)
+        gg.toast('✅ All values unfrozen successfully!', true)
+    else
+        gg.toast('ℹ️ No frozen values found!', true)
+    end
 end
-
-
--- Function to save ID to file
-local function saveID(id)
-    local f = io.open(SAVE_FILE, "w")
-    if f then f:write(tostring(id)):close() end
-end
-
--- Function to request user ID
-function requestUserID()
-    while true do
-        local input = gg.prompt(
-            {"Enter User ID:", "Exit program if cancel?"},
-            {nil, false}, -- Default values (ID = nil, checkbox = false)
-            {"number", "checkbox"} -- Input types
-        )
-
-        if input then
-            if input[1] then
-                saveID(input[1]) -- Save ID
-                return input[1] -- Return valid ID
-            end
+if menu == 4 then 
+    local request = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua')
+    if request.content then
+        gg.toast('✅ Successfully fetched content!', true)
+        local success, result = pcall(load(request.content))
+        if success then
+            gg.toast('🎉 Script loaded successfully!', true)
         else
-            -- Nếu người dùng đóng bảng mà không nhập, ẩn GG và đợi mở lại
-        
-            while not gg.isVisible() do
-                gg.sleep(100) -- Wait for user to reopen GG
-            end
-            -- Khi GG được mở lại, hiển thị bảng nhập tiếp tục
+            gg.alert('⚠️ Error loading script: ' .. tostring(result))
+        end
+    else
+        gg.alert('⚠️ Failed to fetch content from URL!')
+    end
+    gg.clearResults()
+    os.exit()
+end
+if menu == nil then noselect() end 
+menuk =-1
+end
+
+function find_ones()
+    if fin_busc==0 then menuk =-1 change_yisus()
+    else
+        local input1 = gg.prompt({
+            "🔎 Dragon 1 Level",
+            "🔎 Dragon 2 Level",
+            "🌟 Dragon 1 Stars",
+            "🌟 Dragon 2 Stars"
+        }, {nil, nil, nil, nil}, {'number', 'number', 'number', 'number'})
+        if input1==nil then menuk =-1 START()
+        elseif input1~=nil then
+            gg.clearResults()
+            gg.searchNumber("1000~5600;"..input1[1]..";"..input1[3]..";1000~5600;"..input1[2]..";"..input1[4].."::133", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+            gg.refineNumber("1000~5600;"..input1[1]..";"..input1[3]..";1000~5600;"..input1[2].."::101", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+            gg.refineNumber("1000~5600;"..input1[1]..";"..input1[3]..";1000~5600::97", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+            gg.refineNumber("1000~5600;"..input1[1]..";"..input1[3].."::37", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+            gg.refineNumber("1000~5600;"..input1[1].."::5", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+            point=gg.getResults(10)
+            gg.addListItems(point)
+            gg.clearResults()
+            fin_busc=0
+            change_yisus()
         end
     end
 end
 
-
-
-
--- Check for existing ID
-local userID = readSavedID()
-
-if not userID then
-    userID = requestUserID()
-else
-    local choice = gg.choice({
-        "Use registered ID",
-        "Enter a new ID"
-    }, nil, "Select an option:")
-
-    if choice == 2 then
-        userID = requestUserID()
-    end
-end
-
--- Function to fetch team data
-function getTeamData(id)
-    local url = "https://dragoncitytips.com/scripts/checkteam?id=" .. id
-    local http = gg.makeRequest(url)
-    if not http or not http.content then
-        gg.alert("Failed to retrieve data from API.")
-        return nil
-    end
-
-    -- Fix "<br>" being inserted
-    local content = http.content:gsub("<br>", "\n")
-
-    local lines = {}
-    for line in content:gmatch("[^\r\n]+") do
-        table.insert(lines, line)
-    end
-
-    if #lines < 5 then
-        return nil
-    end
-
-    return {
-        dragonCode = lines[1],
-        firstDragonLevel = tonumber(lines[2]) or 1,
-        firstDragonGrade = tonumber(lines[3]) or 1,
-        secondDragonLevel = tonumber(lines[4]) or 1,
-        secondDragonGrade = tonumber(lines[5]) or 1
-    }
-end
-
--- Luôn request API với ID được chọn
-local teamData = getTeamData(userID)
-if not teamData then return end
-
-local selectedCode = teamData.dragonCode
-local datos = {teamData.firstDragonLevel, teamData.firstDragonGrade}
-local data = {teamData.secondDragonLevel, teamData.secondDragonGrade}
-
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
-gg.searchNumber(selectedCode .. ";" .. datos[1] .. ";" .. datos[2] .. ";" .. data[1] .. ";" .. data[2] .. "::500", gg.TYPE_DWORD)
-gg.refineNumber(selectedCode .. ";" .. datos[1] .. ";" .. datos[2] .. ";" .. data[1] .. "::250", gg.TYPE_DWORD)
-gg.refineNumber(selectedCode .. ";" .. datos[1] .. ";" .. datos[2] .. "::125", gg.TYPE_DWORD)
-gg.refineNumber(selectedCode .. ";" .. datos[1] .. "::60", gg.TYPE_DWORD)
-gg.refineNumber(selectedCode, gg.TYPE_DWORD)
-
-local t = gg.getResults(100)
+function change_yisus()
 local valuesToFreeze = {}
-
-
-  for i, v in ipairs(t) do
-    gg.setValues({
-      {address = v.address + 0x0, flags = gg.TYPE_DWORD, value = 1011},
-      {address = v.address + 0x4, flags = gg.TYPE_DWORD, value = 1},
-	  {address = v.address + 0x8, flags = gg.TYPE_DWORD, value = 0},
-      {address = v.address + 0x24, flags = gg.TYPE_DWORD, value = 0},
-      {address = v.address + 0x60, flags = gg.TYPE_DWORD, value = 1011},
-      {address = v.address + 0x64, flags = gg.TYPE_DWORD, value = 1},
-	  {address = v.address + 0x68, flags = gg.TYPE_DWORD, value = 0},
-      {address = v.address + 0x84, flags = gg.TYPE_DWORD, value = 0},
-      {address = v.address + 0xC0, flags = gg.TYPE_DWORD, value = 1011},
-      {address = v.address + 0xC4, flags = gg.TYPE_DWORD, value = 1},
-	  {address = v.address + 0xC8, flags = gg.TYPE_DWORD, value = 0},
-      {address = v.address + 0xE4, flags = gg.TYPE_DWORD, value = 0}
-    })
-    table.insert(valuesToFreeze, {address = v.address + 0x0, flags = gg.TYPE_DWORD, value = 1011, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0x4, flags = gg.TYPE_DWORD, value = 1, freeze = true})
-	table.insert(valuesToFreeze, {address = v.address + 0x8, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0x24, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0x60, flags = gg.TYPE_DWORD, value = 1011, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0x64, flags = gg.TYPE_DWORD, value = 1, freeze = true})
-	table.insert(valuesToFreeze, {address = v.address + 0x68, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0x84, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0xC0, flags = gg.TYPE_DWORD, value = 1011, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0xC4, flags = gg.TYPE_DWORD, value = 1, freeze = true})
-	table.insert(valuesToFreeze, {address = v.address + 0xC8, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-    table.insert(valuesToFreeze, {address = v.address + 0xE4, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-  end
+gg.setValues({
+    {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011},
+    {address=point[1].address+0x4, flags=gg.TYPE_DWORD, value=1},
+    {address=point[1].address+0x60, flags=gg.TYPE_DWORD, value=1011},
+    {address=point[1].address+0x64, flags=gg.TYPE_DWORD, value=1},
+    {address=point[1].address+0xC0, flags=gg.TYPE_DWORD, value=idt},
+    {address=point[1].address+0xC4, flags=gg.TYPE_DWORD, value=lvl}
+})
+table.insert(valuesToFreeze, {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0x4, flags=gg.TYPE_DWORD, value=1, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0x60, flags=gg.TYPE_DWORD, value=1011, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0x64, flags=gg.TYPE_DWORD, value=1, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0xC0, flags=gg.TYPE_DWORD, value=idt, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0xC4, flags=gg.TYPE_DWORD, value=lvl, freeze=true})
 
 if #valuesToFreeze > 0 then
     gg.addListItems(valuesToFreeze)
-    gg.toast(string.format('Saved %d values to freeze list!', #valuesToFreeze), true)
+    gg.toast(string.format('✅ Saved %d values to freeze list!', #valuesToFreeze), true)
 else
-    gg.alert('No values found to freeze!')
+    gg.alert('⚠️ No values found to freeze!')
 end
 
-gg.toast('Battle Arena modification complete!', true)
+gg.toast('🎉 Battle Arena modification completed!', true)
 gg.sleep(1500)
+gg.toast('💖 Thanks for using my script!', true)
+end
+
+function noselect()     
+    gg.setVisible(false)
+end
+if menuk == 1 then START() end
+end
+
+-------------------------------------------------------------------------
+gg.setVisible(true)
+while true do
+if gg.isVisible() then
+gg.setVisible(false)
+Main() end end
+-------------------------------------------------------------------------
