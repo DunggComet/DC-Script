@@ -32,94 +32,92 @@ gg.setVisible(false)
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 local MD5 = gg.makeRequest('').content
-_G.returnToLoader = false -- Global variable to signal return to loader
-
 function Main()
-    if _G.returnToLoader then return end
-    menu = gg.choice({
-        '⚔️ Battle Arena Feature',
-        '🔓 Unlock Frozen Values',
-        '🗡️ Quest Feature ( Rankup )',
-        '🐲 Recall Dragon',
-        '🔑 Dragon Rescue Feature',
-        '➡️ Test & Train Dragon/Skill Feature',
-        '🏁 Accelerated Event Battles',
-        '💬 Join Our Discord Community',
-        '❌ Exit Script'
-    }, nil, '✨Dragon City Script Version 1.2\nScript Made By Comet 💫💗')
-    if menu == 1 then DragonCityHack1() end
-    if menu == 2 then DragonCityHack2() end
-    if menu == 3 then DragonCityHack3() end
-    if menu == 4 then DragonCityHack4() end
-    if menu == 5 then DragonCityHack5() end
-    if menu == 6 then DragonCityHack6() end
-    if menu == 7 then DragonCityHack7() end
-    if menu == 8 then DragonCityHack8() end
-    if menu == 9 then DragonCityHack9() end
-    if menu == nil then NoSelect() end
+menu = gg.choice({
+'⚔️ Battle Arena Feature',
+'🔓 Unlock Frozen Values',
+'🗡️ Quest Feature ( Rankup )',
+'🐲 Recall Dragon',
+'🔑 Dragon Rescue Feature',
+'➡️ Testing & Training Dragon/Skill',
+'🏁 Accelerated Event Battles',
+'💬 Join Our Discord Community',
+'❌ Exit Script'
+},nil, 'Dragon City Tools\nScript Made By Comet 💫💗')
+if menu == 1 then DragonCityHack1() end
+if menu == 2 then DragonCityHack2() end
+if menu == 3 then DragonCityHack3() end
+if menu == 4 then DragonCityHack4() end
+if menu == 5 then DragonCityHack5() end
+if menu == 6 then DragonCityHack6() end
+if menu == 7 then DragonCityHack7() end
+if menu == 8 then DragonCityHack8() end
+if menu == 9 then DragonCityHack9() end
+if menu == 10 then DragonCityHack10() end
+if menu == 11 then DragonCityHack11() end
+if menu ==nil then NoSelect() end
 end
-
 function DragonCityHack1()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Arena.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Arena.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack2()
-    gg.setVisible(false)
-    local frozenItems = gg.getListItems()
-    if #frozenItems > 0 then
-        gg.removeListItems(frozenItems)
-        gg.toast('All values have been unfrozen!')
-    else
-        gg.toast('No frozen values found!')
-    end
+  gg.setVisible(false)
+  local frozenItems = gg.getListItems()
+  if #frozenItems > 0 then
+    gg.removeListItems(frozenItems)
+    gg.toast('All values have been unfrozen!')
+  else
+    gg.toast('No frozen values found!')
+  end
 end
 
 function DragonCityHack3()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Quest.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Quest.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack4()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Recall.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Recall.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack5()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Rescue.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Rescue.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack6()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/TrainSkill.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/TrainSkill.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack7()
-    gg.alert("⚠️Change your speed to x2 first!⚠️\nOtherwise your game will get reload when use Accelerated Event Battles!")
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/EventBattleSkip.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/EventBattleSkip.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack8()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Help.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Help.lua').content
+if not L then gg.alert('SERVER: Allow Internet Connection...') else
+pcall(load(L)) end
 end
 
 function DragonCityHack9()
+gg.clearResults()
 os.exit()
 end
 
 function NoSelect()
-    gg.sleep(100)
-    gg.toast('Script Made By Comet 💫💗')
+gg.sleep(100)
+gg.toast('Script Made By Comet 💫💗')
 end
 
 -------------------------------------------------------------------------
