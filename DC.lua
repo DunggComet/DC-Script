@@ -114,9 +114,7 @@ function DragonCityHack8()
 end
 
 function DragonCityHack9()
-    _G.returnToLoader = true -- Signal to return to loader
-    gg.clearResults()
-    gg.setVisible(false)
+os.exit()
 end
 
 function NoSelect()
@@ -126,10 +124,8 @@ end
 
 -------------------------------------------------------------------------
 gg.setVisible(true)
-while not _G.returnToLoader do
-    if gg.isVisible() then
-        gg.setVisible(false)
-        Main()
-    end
-end
+while true do
+if gg.isVisible() then
+gg.setVisible(false)
+Main() end end
 -------------------------------------------------------------------------
