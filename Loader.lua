@@ -126,7 +126,5 @@ while true do
 L = gg.makeRequest(entry.url).content
 if not L then gg.alert('SERVER: Allow Internet Connection...') else
 pcall(load(L)) end
-end
-
-  ::continue::
+ end
 end
