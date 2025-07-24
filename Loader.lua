@@ -123,8 +123,27 @@ while true do
   gg.toast(string.format("⏳ Time left: %d days, %d hours, %d minutes, %d seconds", days, hours, mins, secs))
 
   -- 🚀 Load script
-L = gg.makeRequest(entry.url).content
-if not L then gg.alert('SERVER: Allow Internet Connection...') else
-pcall(load(L)) end
- end
+  local content = gg.makeRequest(entry.url).content
+  if content and content ~= '' then
+    local chunk, err = load(content)
+    if chunk then
+      local status, err = pcall(chunk)
+      if not status then
+        gg.alert("💥 Script execution failed: " .. (err or "Unknown error"))
+        gg.setVisible(false)
+        goto continue
+      end
+      break -- Exit loop on successful script execution
+    else
+      gg.alert("💥 SERVER: Invalid script content: " .. (err or "Unknown error"))
+      gg.setVisible(false)
+      goto continue
+    end
+  else
+    gg.alert("📡 SERVER: Allow Internet Connection...")
+    gg.setVisible(false)
+    goto continue
+  end
+
+  ::continue::
 end
