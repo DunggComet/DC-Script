@@ -35,6 +35,7 @@ local MD5 = gg.makeRequest('').content
 _G.returnToLoader = false -- Global variable to signal return to loader
 
 function Main()
+    if _G.returnToLoader then return end
     menu = gg.choice({
         '⚔️ Battle Arena Feature',
         '🔓 Unlock Frozen Values',
@@ -113,9 +114,9 @@ function DragonCityHack8()
 end
 
 function DragonCityHack9()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Loader.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
+    _G.returnToLoader = true -- Signal to return to loader
+    gg.clearResults()
+    gg.setVisible(false)
 end
 
 function NoSelect()
@@ -125,8 +126,10 @@ end
 
 -------------------------------------------------------------------------
 gg.setVisible(true)
-while true do
-if gg.isVisible() then
-gg.setVisible(false)
-Main() end end
+while not _G.returnToLoader do
+    if gg.isVisible() then
+        gg.setVisible(false)
+        Main()
+    end
+end
 -------------------------------------------------------------------------
