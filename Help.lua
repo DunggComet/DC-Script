@@ -5,7 +5,7 @@ local discord = "https://discord.gg/e7UwExHAKS"
 gg.copyText(discord)
 
 -- Notify user of successful copy 🎊
-gg.alert("Discord Server Link Copied to Clipboard!✨")
+gg.alert("Discord Server Link Copied to Clipboard!✨\n📋 https://discord.gg/e7UwExHAKS")
 
 -- Encourage joining the community 🌟
 gg.alert("Join our vibrant Discord community for script support and engaging chats with fellow users! 🌟💬")
