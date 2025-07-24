@@ -8,7 +8,7 @@ local file = io.open(path, "r")
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.2) is available! Please install it now!\n✨ What's New:\n- Updated Follwing Features:\n+ ⚔️ Arena Battle Feature\n+ 🗡️ Quest Feature\n+ 🐲 Rescue Feature\n+ ➡️ Test/Train Skill", "Update")
+    gg.alert("🚀 A new update (Version 1.2) is available! Please install it now!\n✨ What's New:\n- Updated Following Features:\n+ ⚔️ Arena Battle Feature\n+ 🗡️ Quest Feature\n+ 🐲 Rescue Feature\n+ ➡️ Test/Train Skill", "Update")
 
     gg.toast("Installing update...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -32,10 +32,10 @@ gg.setVisible(false)
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 local MD5 = gg.makeRequest('').content
-local isRunning = true -- Add a flag to control the loop
+_G.returnToLoader = false -- Global variable to signal return to loader
 
 function Main()
-    if not isRunning then return end
+    if _G.returnToLoader then return end
     menu = gg.choice({
         '⚔️ Battle Arena Feature',
         '🔓 Unlock Frozen Values',
@@ -114,10 +114,9 @@ function DragonCityHack8()
 end
 
 function DragonCityHack9()
-    isRunning = false -- Set flag to stop the loop
+    _G.returnToLoader = true -- Signal to return to loader
     gg.clearResults()
     gg.setVisible(false)
-    os.exit() -- This should now work after breaking the loop
 end
 
 function NoSelect()
@@ -127,7 +126,7 @@ end
 
 -------------------------------------------------------------------------
 gg.setVisible(true)
-while isRunning do
+while not _G.returnToLoader do
     if gg.isVisible() then
         gg.setVisible(false)
         Main()
