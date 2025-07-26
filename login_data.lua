@@ -16,8 +16,8 @@ return function()
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
-    ["7423918501264738291"] = {
-      expiry = "24072025",
+    dat = {
+      expiry = "01082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
