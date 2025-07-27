@@ -409,12 +409,9 @@ local function testSkillMenu()
         gg.alert("No changed code to revert to!")
       end
     elseif choice == 11 then
-      L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
-      if not L then
-        gg.alert('SERVER: Allow Internet Connection...')
-      else
-        pcall(load(L))
-      end
+      gg.clearResults()
+      gg.toast("Returning To Main Menu..")
+      return false
     end
   end
 end
