@@ -16,7 +16,7 @@ menu = gg.choice({
     '🔓 Unfreeze Values',
     '❌ Exit Script'
 }, nil, '🌟 Arena Feature by Comet💫💗')
-if menu == 1 then lvl=1 idt=1011 what=1 find_ones() end
+if menu == 1 then lvl=1 idt=1011 what=0 find_ones() end
 if menu == 2 then lvl=999 idt=3011 what=5 find_ones() end
 if menu == 3 then 
     gg.setVisible(false)
@@ -79,20 +79,20 @@ local valuesToFreeze = {}
 gg.setValues({
     {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011},
     {address=point[1].address+0x4, flags=gg.TYPE_DWORD, value=1},
-    {address=point[1].address+0x18, flags=gg.TYPE_DWORD, value=1},
+    {address=point[1].address+0x18, flags=gg.TYPE_DWORD, value=0},
     {address=point[1].address+0x44, flags=gg.TYPE_DWORD, value=1011},
     {address=point[1].address+0x48, flags=gg.TYPE_DWORD, value=1},
-    {address=point[1].address+0x5C, flags=gg.TYPE_DWORD, value=1},
+    {address=point[1].address+0x5C, flags=gg.TYPE_DWORD, value=0},
     {address=point[1].address+0x88, flags=gg.TYPE_DWORD, value=idt},
     {address=point[1].address+0x8C, flags=gg.TYPE_DWORD, value=lvl},
     {address=point[1].address+0xA0, flags=gg.TYPE_DWORD, value=what}
 })
 table.insert(valuesToFreeze, {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011, freeze=true})
 table.insert(valuesToFreeze, {address=point[1].address+0x4, flags=gg.TYPE_DWORD, value=1, freeze=true})
-table.insert(valuesToFreeze, {address=point[1].address+0x18, flags=gg.TYPE_DWORD, value=1, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0x18, flags=gg.TYPE_DWORD, value=0, freeze=true})
 table.insert(valuesToFreeze, {address=point[1].address+0x44, flags=gg.TYPE_DWORD, value=1011, freeze=true})
 table.insert(valuesToFreeze, {address=point[1].address+0x48, flags=gg.TYPE_DWORD, value=1, freeze=true})
-table.insert(valuesToFreeze, {address=point[1].address+0x5C, flags=gg.TYPE_DWORD, value=1, freeze=true})
+table.insert(valuesToFreeze, {address=point[1].address+0x5C, flags=gg.TYPE_DWORD, value=0, freeze=true})
 table.insert(valuesToFreeze, {address=point[1].address+0x88, flags=gg.TYPE_DWORD, value=idt, freeze=true})
 table.insert(valuesToFreeze, {address=point[1].address+0x8C, flags=gg.TYPE_DWORD, value=lvl, freeze=true})
 table.insert(valuesToFreeze, {address=point[1].address+0xA0, flags=gg.TYPE_DWORD, value=what, freeze=true})
