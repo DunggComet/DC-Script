@@ -245,7 +245,7 @@ end
       gg.setVisible(true)
     end
     if input[10] then
-		L = gg.makeRequest('raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua',nil,'github.com/DunggComet/DC-Script').content
+		L = gg.makeRequest('raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua',nil,'https://dunggcomet.github.io/DC-Script/').content
 		if not L then gg.alert('SERVER: Allow Internet Connection...') else
 		pcall(load(L)) end
     end
