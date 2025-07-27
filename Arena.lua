@@ -84,7 +84,7 @@ gg.setValues({
     {address=point[1].address+0x48, flags=gg.TYPE_DWORD, value=1},
     {address=point[1].address+0x5C, flags=gg.TYPE_DWORD, value=1},
     {address=point[1].address+0x88, flags=gg.TYPE_DWORD, value=idt},
-    {address=point[1].address+0x8C, flags=gg.TYPE_DWORD, value=lvl}
+    {address=point[1].address+0x8C, flags=gg.TYPE_DWORD, value=lvl},
     {address=point[1].address+0xA0, flags=gg.TYPE_DWORD, value=what}
 })
 table.insert(valuesToFreeze, {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011, freeze=true})
