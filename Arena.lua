@@ -1,4 +1,4 @@
-gg.setVisible(true)
+gg.setVisible(false)
 fin_busc=1
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
 gg.refineNumber("9288798", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
@@ -29,8 +29,21 @@ if menu == 3 then
     end
 end
 if menu == 4 then 
-    return
-  end
+    local request = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua')
+    if request.content then
+        gg.toast('✅ Successfully fetched content!', true)
+        local success, result = pcall(load(request.content))
+        if success then
+            gg.toast('🎉 Script loaded successfully!', true)
+        else
+            gg.alert('⚠️ Error loading script: ' .. tostring(result))
+        end
+    else
+        gg.alert('⚠️ Failed to fetch content from URL!')
+    end
+    gg.clearResults()
+    os.exit()
+end
 if menu == nil then noselect() end 
 menuk =-1
 end
