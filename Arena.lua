@@ -1,5 +1,6 @@
 gg.setVisible(true)
 fin_busc = 1
+exitScript = false -- Flag to control script exit
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
 gg.refineNumber("9288798", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
 while true do 
@@ -37,7 +38,8 @@ while true do
             end
         end
         if menu == 4 then 
-            os.exit() -- Terminate the script completely
+            exitScript = true -- Signal to exit the script
+            return -- Exit the START function
         end
         if menu == nil then 
             noselect() 
@@ -109,5 +111,8 @@ while true do
     end
     if menuk == 1 then 
         START() 
+    end
+    if exitScript then 
+        break -- Exit the main loop to return control to the calling script
     end
 end
