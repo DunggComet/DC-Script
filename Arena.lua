@@ -13,33 +13,19 @@ while true do
     function START() 
         menu = gg.choice({
             '🏆 Set Victories',
-            '🥀 Set Defeats',
-            '🔓 Unfreeze Values',
-            '❌ Exit Script'
+            '🥀 Set Defeats'
         }, nil, '🌟 Arena Feature by Comet💫💗')
         if menu == 1 then 
             lvl = 1 
             idt = 1011 
             find_ones() 
+            exitScript = true
         end
         if menu == 2 then 
             lvl = 999 
             idt = 3011 
             find_ones() 
-        end
-        if menu == 3 then 
-            gg.setVisible(false)
-            local frozenItems = gg.getListItems()
-            if #frozenItems > 0 then
-                gg.removeListItems(frozenItems)
-                gg.toast('✅ All values unfrozen successfully!', true)
-            else
-                gg.toast('ℹ️ No frozen values found!', true)
-            end
-        end
-        if menu == 4 then 
-            gg.clearResults()
-            os.exit()
+            exitScript = true
         end
         if menu == nil then 
             noselect() 
