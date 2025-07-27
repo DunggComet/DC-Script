@@ -38,8 +38,8 @@ while true do
             end
         end
         if menu == 4 then 
-            exitScript = true -- Signal to exit the script
-            return -- Exit the START function
+            gg.clearResults()
+            os.exit()
         end
         if menu == nil then 
             noselect() 
