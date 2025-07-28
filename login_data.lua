@@ -29,6 +29,11 @@ return function()
     ["3677669675036869128"] = { -- Yamuri
       expiry = "05082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+    },
+    
+    ["100000787762171"] = { -- Vxdus
+      expiry = "30072025",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
   }
 end
