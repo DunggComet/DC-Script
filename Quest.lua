@@ -292,7 +292,7 @@ local function featureChangeFinalDragon()
   local savedCount = 0
   local toSave = {}
   for _, baseAddr in ipairs(rankUpBaseAddresses) do
-    local targetAddr = baseAddr + 0xA0
+    local targetAddr = baseAddr + 0x78
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     gg.setValues({{address = targetAddr, flags = gg.TYPE_DWORD, value = newCode}})
 
