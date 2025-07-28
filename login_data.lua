@@ -24,6 +24,11 @@ return function()
     hamzah = {
       expiry = "01082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+    },
+    
+    ["3677669675036869128"] = {
+      expiry = "05082025",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
   }
 end
