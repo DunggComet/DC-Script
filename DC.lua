@@ -1,8 +1,8 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.2.txt"
-local oldPath = "/storage/emulated/0/Download/1.1.txt"
+local path = "/storage/emulated/0/Download/1.4.txt"
+local oldPath = "/storage/emulated/0/Download/1.2.txt"
 local file = io.open(path, "r")
 
 if file then
