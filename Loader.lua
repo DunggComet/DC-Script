@@ -72,7 +72,7 @@ while true do
   local entry = login[key]
   if not entry or type(entry) ~= "table" then
     gg.alert("⚠️ Invalid Password")
-    gg.alert("📣 Join our Discord server to get script's subscription!")
+    gg.alert("📣 Please Contact the Owner to Buy!")
     gg.setVisible(false)
     goto continue
   end
