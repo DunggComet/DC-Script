@@ -41,6 +41,7 @@ function Main()
         '🔑 Dragon Rescue Feature',
         '➡️ Test & Train Dragon/Skill Feature',
         '🏁 Accelerated Event Battles',
+        '🏔️ Move Habitat',
         '💬 Join Our Discord Community'
     }, nil, '✨Dragon City Script Version 1.4.1\n💫Script Made By Comet 💗\nDragon City (25.9.0)')
     if menu == 1 then DragonCityHack1() end
@@ -103,8 +104,14 @@ function DragonCityHack7()
         pcall(load(L)) end
 end
 
-function DragonCityHack8()
+function DragonCityHack9()
     L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Help.lua').content
+    if not L then gg.alert('SERVER: Allow Internet Connection...') else
+        pcall(load(L)) end
+end
+
+function DragonCityHack8()
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Habitat.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
