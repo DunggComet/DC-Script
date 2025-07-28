@@ -11,7 +11,7 @@ return function()
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
-    dungg = {
+    dungg = { -- Owner
       expiry = "31122099",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
@@ -21,12 +21,12 @@ return function()
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
-    hamzah = {
+    hamzah = { -- Hamzah
       expiry = "01082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
-    ["3677669675036869128"] = {
+    ["3677669675036869128"] = { -- Yamuri
       expiry = "05082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     }
