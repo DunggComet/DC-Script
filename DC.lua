@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.5.txt"
-local oldPath = "/storage/emulated/0/Download/1.4.1.txt"
+local path = "/storage/emulated/0/Download/1.6.txt"
+local oldPath = "/storage/emulated/0/Download/1.5.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.5) is available! Please install it now!\n✨ What's New:\n-New Feature: Move Habitat!\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
+    gg.alert("🚀 A new update (Version 1.6) is available! Please install it now!\n✨ What's New:\n-New Feature: Move Habitat!\n+ Added Separate Version for Arena and Quest!\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
 
     gg.toast("Installing update...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ else
 
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Version 1.5")
+        newFile:write("Version 1.6")
         newFile:close()
         gg.alert("Update installed successfully!")
     else
@@ -57,7 +57,7 @@ function Main()
 end
 
 function DragonCityHack1()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Arena.lua').content
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/ArenaChoose.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
@@ -74,7 +74,7 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Quest.lua').content
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/QuestChoose.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
