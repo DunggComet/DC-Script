@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.4.1.txt"
-local oldPath = "/storage/emulated/0/Download/1.4.txt"
+local path = "/storage/emulated/0/Download/1.5.txt"
+local oldPath = "/storage/emulated/0/Download/1.4.1.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.4.1) is available! Please install it now!\n✨ What's New:\n- Fixed Arena,Rescue and Quest Feature! ( 25.9.0 )\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
+    gg.alert("🚀 A new update (Version 1.5) is available! Please install it now!\n✨ What's New:\n-New Feature: Move Habitat!\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
 
     gg.toast("Installing update...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ else
 
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Version 1.4.1")
+        newFile:write("Version 1.5)
         newFile:close()
         gg.alert("Update installed successfully!")
     else
