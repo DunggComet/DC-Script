@@ -1,7 +1,7 @@
 function Main()
     menu = gg.choice({
-        '⚔️ Arena ( New )',
-        '⚔️ Arena ( Old )',
+        '⚔️ Arena ( v2 )',
+        '⚔️ Arena ( v1 )',
         '❌ Exit Arena'
     }, nil, '✨Arena Script Made By Comet 💗\nChoose Your Version:')
     if menu == 1 then ArenaNew() end
