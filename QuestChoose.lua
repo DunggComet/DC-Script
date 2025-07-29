@@ -1,7 +1,7 @@
 function Main()
     menu = gg.choice({
-        '🗡️ Quest ( New )',
-        '🗡️ Quest ( Old )',
+        '🗡️ Quest ( v2 )',
+        '🗡️ Quest ( v1 )',
         '❌ Exit Quest'
     }, nil, '✨Quest Script Made By Comet 💗\nChoose Your Version:')
     if menu == 1 then QuestNew() end
