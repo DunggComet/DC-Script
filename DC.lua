@@ -43,7 +43,7 @@ function Main()
         '🏁 Accelerated Event Battles',
         '🏔️ Move Habitat',
         '💬 Join Our Discord Community'
-    }, nil, '✨Dragon City Script Version 1.4.1\n💫Script Made By Comet 💗\nDragon City (25.9.0)')
+    }, nil, '✨Dragon City Script Version 1.6\n💫Script Made By Comet 💗\nDragon City ( 25.9.0 )')
     if menu == 1 then DragonCityHack1() end
     if menu == 2 then DragonCityHack2() end
     if menu == 3 then DragonCityHack3() end
