@@ -19,7 +19,7 @@ else
 
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Version 1.5)
+        newFile:write("Version 1.5")
         newFile:close()
         gg.alert("Update installed successfully!")
     else
