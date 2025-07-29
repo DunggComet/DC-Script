@@ -15,7 +15,7 @@ menu = gg.choice({
     '🥀 Set Defeats',
     '🔓 Unfreeze Values',
     '❌ Exit Script'
-}, nil, '🌟 Arena Feature by Comet💫💗')
+}, nil, '🌟 Arena v2 Feature by Comet💫💗')
 if menu == 1 then lvl=1 idt=1011 what=0 find_ones() end
 if menu == 2 then lvl=999 idt=3011 what=5 find_ones() end
 if menu == 3 then 
