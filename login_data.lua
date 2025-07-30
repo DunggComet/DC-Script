@@ -32,7 +32,7 @@ return function()
     },
     
     ["100000787762171"] = { -- Vxdus
-      expiry = "31072025",
+      expiry = "31082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
