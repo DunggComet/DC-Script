@@ -53,7 +53,7 @@ while true do
 
   -- Handle "Join Our Discord Community" option
   if menu == 2 then
-    local discordLink = "https://discord.gg/e7UwExHAKS"
+    local discordLink = "https://discord.gg/95EkzpEPma"
     gg.copyText(discordLink)
     gg.alert("📋 Discord link copied to clipboard: " .. discordLink)
     gg.toast("📋 Copied Discord link: " .. discordLink)
