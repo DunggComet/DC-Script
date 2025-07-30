@@ -218,8 +218,9 @@ end
 
 -- Return function to exit script
 function returnFunc()
-    gg.toast('❌ Script terminated by user! 👋')
-    os.exit()
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
+    if not L then gg.alert('SERVER: Allow Internet Connection...') else
+        pcall(load(L)) end
 end
 
 -- No selection function
