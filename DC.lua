@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.6.txt"
-local oldPath = "/storage/emulated/0/Download/1.5.txt"
+local path = "/storage/emulated/0/Download/1.8.txt"
+local oldPath = "/storage/emulated/0/Download/1.6.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.6) is available! Please install it now!\n✨ What's New:\n-New Feature: Move Habitat!\n+ Added Separate Version for Arena and Quest!\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
+    gg.alert("🚀 A new update (Version 1.8) is available! Please install it now!\n✨ What's New:\n-New Feature: Speedhack Feature!\nAdded option in Arena Feature!\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
 
     gg.toast("Installing update...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ else
 
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Version 1.6")
+        newFile:write("Version 1.8")
         newFile:close()
         gg.alert("Update installed successfully!")
     else
@@ -44,7 +44,7 @@ function Main()
         '🏔️ Move Habitat',
         '⚡ Speedhack Feature',
         '💬 Join Our Discord Community'
-    }, nil, '✨Dragon City Script Version 1.6\n💫Script Made By Comet 💗\nDragon City ( 25.9.0 )')
+    }, nil, '✨Dragon City Script Version 1.8\n💫Script Made By Comet 💗\nDragon City ( 25.9.0 )')
     if menu == 1 then DragonCityHack1() end
     if menu == 2 then DragonCityHack2() end
     if menu == 3 then DragonCityHack3() end
