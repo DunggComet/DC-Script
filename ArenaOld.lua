@@ -73,8 +73,8 @@ while(true) do
       '🔓 Unfreeze Values',
       '❌ Exit Script'
     }, nil, '🌟 Arena v1 Feature by Comet💫💗')
-    if menu == 1 then lvl=1 idt=1011 what=0 find_ones() end
-    if menu == 2 then lvl=999 idt=3011 what=5 find_ones() end
+    if menu == 1 then lvl=1 idt=1011 what=0 rank=0 find_ones() end
+    if menu == 2 then lvl=999 idt=3011 what=5 rank=500 find_ones() end
     if menu == 3 then 
       gg.setVisible(false)
       local frozenItems = gg.getListItems()
@@ -146,19 +146,31 @@ while(true) do
   function change_yisus()
     local valuesToFreeze = {}
     gg.setValues({
-      {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011},
-      {address=point[1].address+0x4, flags=gg.TYPE_DWORD, value=1},
-      {address=point[1].address+0x60, flags=gg.TYPE_DWORD, value=1011},
-      {address=point[1].address+0x64, flags=gg.TYPE_DWORD, value=1},
-      {address=point[1].address+0xC0, flags=gg.TYPE_DWORD, value=idt},
-      {address=point[1].address+0xC4, flags=gg.TYPE_DWORD, value=lvl}
+      {address = v.address + 0x0, flags = gg.TYPE_DWORD, value = 1011},
+      {address = v.address + 0x4, flags = gg.TYPE_DWORD, value = 1},
+	    {address = v.address + 0x8, flags = gg.TYPE_DWORD, value = 0},
+      {address = v.address + 0x24, flags = gg.TYPE_DWORD, value = 0},
+      {address = v.address + 0x60, flags = gg.TYPE_DWORD, value = 1011},
+      {address = v.address + 0x64, flags = gg.TYPE_DWORD, value = 1},
+	    {address = v.address + 0x68, flags = gg.TYPE_DWORD, value = 0},
+      {address = v.address + 0x84, flags = gg.TYPE_DWORD, value = 0},
+      {address = v.address + 0xC0, flags = gg.TYPE_DWORD, value = idt},
+      {address = v.address + 0xC4, flags = gg.TYPE_DWORD, value = lvl},
+	    {address = v.address + 0xC8, flags = gg.TYPE_DWORD, value = rank},
+      {address = v.address + 0xE4, flags = gg.TYPE_DWORD, value = what}
     })
-    table.insert(valuesToFreeze, {address=point[1].address+0, flags=gg.TYPE_DWORD, value=1011, freeze=true})
-    table.insert(valuesToFreeze, {address=point[1].address+0x4, flags=gg.TYPE_DWORD, value=1, freeze=true})
-    table.insert(valuesToFreeze, {address=point[1].address+0x60, flags=gg.TYPE_DWORD, value=1011, freeze=true})
-    table.insert(valuesToFreeze, {address=point[1].address+0x64, flags=gg.TYPE_DWORD, value=1, freeze=true})
-    table.insert(valuesToFreeze, {address=point[1].address+0xC0, flags=gg.TYPE_DWORD, value=idt, freeze=true})
-    table.insert(valuesToFreeze, {address=point[1].address+0xC4, flags=gg.TYPE_DWORD, value=lvl, freeze=true})
+    table.insert(valuesToFreeze, {address = v.address + 0x0, flags = gg.TYPE_DWORD, value = 1011, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0x4, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+	  table.insert(valuesToFreeze, {address = v.address + 0x8, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0x24, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0x60, flags = gg.TYPE_DWORD, value = 1011, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0x64, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+	  table.insert(valuesToFreeze, {address = v.address + 0x68, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0x84, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0xC0, flags = gg.TYPE_DWORD, value = idt, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0xC4, flags = gg.TYPE_DWORD, value = lvl, freeze = true})
+  	table.insert(valuesToFreeze, {address = v.address + 0xC8, flags = gg.TYPE_DWORD, value = rank, freeze = true})
+    table.insert(valuesToFreeze, {address = v.address + 0xE4, flags = gg.TYPE_DWORD, value = what, freeze = true})
 
     if #valuesToFreeze > 0 then
       gg.addListItems(valuesToFreeze)
