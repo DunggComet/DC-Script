@@ -22,7 +22,7 @@ return function()
     },
     
     hamzah = { -- Hamzah
-      expiry = "01082025",
+      expiry = "14082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
     
