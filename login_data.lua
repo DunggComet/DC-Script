@@ -45,5 +45,10 @@ return function()
       expiry = "25082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
     },
+
+    ["100000570093971"] = { -- Gwayne
+      expiry = "11082025",
+      url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+    },
   }
 end
