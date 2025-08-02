@@ -44,6 +44,6 @@ return function()
     ["3428492164128316221"] = { -- Marcos
       expiry = "25082025",
       url = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
-    }
+    },
   }
 end
