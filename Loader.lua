@@ -1,15 +1,16 @@
+-- Hide Game Guardian interface at the start and keep it hidden
+gg.setVisible(false)
+
 -- 🌐 Fetch login data remotely
 local data = gg.makeRequest("https://raw.githubusercontent.com/DunggComet/DC-Script/main/login_data.lua").content
 if not data or data == '' then
   gg.alert("📡 Cannot load login data. Check internet connection.")
-  gg.setVisible(false)
   return
 end
 
 local f, err = load(data)
 if not f then
   gg.alert("💥 Invalid login data format: " .. (err or "Unknown error"))
-  gg.setVisible(false)
   return
 end
 
@@ -17,7 +18,6 @@ end
 local status, login = pcall(f)
 if not status then
   gg.alert("💥 Failed to execute login data: " .. (login or "Unknown error"))
-  gg.setVisible(false)
   return
 end
 
@@ -26,54 +26,112 @@ if type(login) == "function" then
   status, login = pcall(login)
   if not status or type(login) ~= "table" then
     gg.alert("💥 Login data function did not return a valid table: " .. (login or "Unknown error"))
-    gg.setVisible(false)
     return
   end
 elseif type(login) ~= "table" then
   gg.alert("💥 Login data is not a valid table")
-  gg.setVisible(false)
   return
+end
+
+-- 🔍 ID Finder function
+local function findUserId()
+  gg.toast('Finding UserID...')
+  gg.setRanges(gg.REGION_C_ALLOC)
+  gg.searchNumber(':Comet', gg.TYPE_BYTE, false, gg.SIGN_EQUAL, 0, -1)
+  gg.clearResults()
+  gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
+  gg.searchNumber(':userId', gg.TYPE_BYTE, false, gg.SIGN_EQUAL, 0, -1)
+
+  local results = gg.getResults(500)
+  if #results == 0 then
+    gg.alert("No UserID Found!")
+    return nil
+  end
+
+  for i, v in ipairs(results) do
+    local foundText = ""
+    for j = 0, 99 do
+      local addr = v.address + j
+      local data = gg.getValues({{address = addr, flags = gg.TYPE_BYTE}})[1].value
+      if data < 0 or data > 255 or data == 0 then break end
+      foundText = foundText .. string.char(data)
+    end
+
+    local userId, sessionId = foundText:match("userId=(%d+).*sessionId=(%d+)")
+    if userId and sessionId then 
+      gg.alert("Information Found:\n\n🆔 UserID: " .. userId .. "\n🔑 SessionID: " .. sessionId)
+      gg.copyText(userId) -- Copy UserID to clipboard
+      gg.toast("📋 UserID copied to clipboard: " .. userId)
+      return userId
+    end
+  end
+
+  gg.alert("No UserID and SessionID Found!")
+  return nil
 end
 
 -- 🔐 Password prompt loop with menu
 while true do
-  gg.setVisible(true)
-  local menu = gg.choice({"▶️ Start Script", "💬 Join Our Discord Community", "✖️ Exit Script"}, nil, "Select an option:")
+  local menu = gg.choice({
+    "▶️ Start Script",
+    "🔍 Find UserID",
+    "💬 Join Our Discord Community",
+    "✖️ Exit Script"
+  }, nil, "Select an option:")
   if not menu then
-    gg.setVisible(false)
     goto continue
   end
 
   -- Handle "Exit Script" option
-  if menu == 3 then
-    gg.setVisible(false)
+  if menu == 4 then
     gg.clearResults()
     os.exit()
   end
 
   -- Handle "Join Our Discord Community" option
-  if menu == 2 then
+  if menu == 3 then
     local discordLink = "https://discord.gg/95EkzpEPma"
     gg.copyText(discordLink)
     gg.alert("📋 Discord link copied to clipboard: " .. discordLink)
     gg.toast("📋 Copied Discord link: " .. discordLink)
-    gg.setVisible(false)
+    goto continue
+  end
+
+  -- Handle "Find UserID" option
+  if menu == 2 then
+    findUserId()
     goto continue
   end
 
   -- Handle "Start Script" option
-  local input = gg.prompt({"Enter Password:"}, nil, {"text"})
-  if not input or input[1] == nil or input[1] == "" then
-    gg.setVisible(false)
+  local key
+  local passwordMenu = gg.choice({
+    "🔑 Manually Enter Password",
+    "🤖 Automatically Enter Password"
+  }, nil, "Select password entry method:")
+  if not passwordMenu then
     goto continue
   end
-  local key = input[1]
+
+  if passwordMenu == 1 then
+    -- Manual password entry
+    local input = gg.prompt({"Enter Password:"}, nil, {"text"})
+    if not input or input[1] == nil or input[1] == "" then
+      goto continue
+    end
+    key = input[1]
+  else
+    -- Automatic password entry (using ID Finder)
+    key = findUserId()
+    if not key then
+      goto continue
+    end
+  end
 
   local entry = login[key]
   if not entry or type(entry) ~= "table" then
     gg.alert("⚠️ Invalid Password")
     gg.alert("📣 Please Contact the Owner to Buy!")
-    gg.setVisible(false)
     goto continue
   end
 
@@ -93,17 +151,15 @@ while true do
   local expiryTime, formattedExpiry = parseDate(entry.expiry)
   if not expiryTime then
     gg.alert("💥 Invalid expiry date format")
-    gg.setVisible(false)
     goto continue
   end
 
   local currentTime = os.time()
   if currentTime > expiryTime then
-    local message = entry.expired_message or "❌ Password Expired!\n☄️Contact the Owner to Add Subscription."
+    local message = "❌ Password Expired!\n☄️Contact the Owner to Add Subscription."
     gg.alert(message .. "\n📅 Expired on: " .. formattedExpiry)
-    gg.setVisible(false)
     goto continue
- end
+  end
 
   -- 🕒 Countdown (no .0)
   local remaining = expiryTime - currentTime
@@ -122,26 +178,35 @@ while true do
   -- 🔔 Toast countdown before script request
   gg.toast(string.format("⏳ Time left: %d days, %d hours, %d minutes, %d seconds", days, hours, mins, secs))
 
-  -- 🚀 Load script
-  local content = gg.makeRequest(entry.url).content
+  -- 🚀 Load script based on version
+  local scriptUrl
+  if entry.version == "v1" then
+    scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua"
+  elseif entry.version == "v2" then
+    scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/blah_blah.lua"
+  elseif entry.version == "v3" then
+    scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/blah_blah.lua"
+  else
+    gg.alert("💥 Invalid version specified")
+    goto continue
+  end
+
+  local content = gg.makeRequest(scriptUrl).content
   if content and content ~= '' then
     local chunk, err = load(content)
     if chunk then
       local status, err = pcall(chunk)
       if not status then
         gg.alert("💥 Script execution failed: " .. (err or "Unknown error"))
-        gg.setVisible(false)
         goto continue
       end
       break -- Exit loop on successful script execution
     else
       gg.alert("💥 SERVER: Invalid script content: " .. (err or "Unknown error"))
-      gg.setVisible(false)
       goto continue
     end
   else
     gg.alert("📡 SERVER: Allow Internet Connection...")
-    gg.setVisible(false)
     goto continue
   end
 
