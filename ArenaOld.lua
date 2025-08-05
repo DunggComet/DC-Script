@@ -1,7 +1,30 @@
 gg.setVisible(true)
-fin_busc=1
+fin_busc = 1
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
 gg.refineNumber("9288798", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+
+-- Helper Function for Safe Prompt
+local function waitForResume()
+  gg.toast("Script paused. Click GG icon to resume", true)
+  while not gg.isVisible() do
+    gg.sleep(100)
+  end
+  gg.setVisible(false)
+end
+
+local function safePromptSearch(prompts, defaults, types)
+  local input = gg.prompt(prompts, defaults, types)
+  while not input do
+    gg.toast("Script paused. Tap GG icon to resume.", true)
+    waitForResume()
+    while gg.isVisible() do
+      gg.sleep(100)
+    end
+    gg.sleep(1000)
+    input = gg.prompt(prompts, defaults, types)
+  end
+  return input
+end
 
 -- Dragon Data Fetching and Search Functions
 local function fetchDragonData()
@@ -40,7 +63,7 @@ local function searchDragonCode()
     globalDragonData = fetchDragonData()
     if not globalDragonData then return nil end
   end
-  local input = gg.prompt({"🐉 Enter 1st Dragon name:"}, {""}, {"text"})
+  local input = safePromptSearch({"🐉 Enter 1st Dragon name:"}, {""}, {"text"})
   if input == nil then return nil end
   local searchTerm = input[1]:lower()
   local matches, codes = {}, {}
@@ -59,7 +82,7 @@ local function searchDragonCode()
   return codes[choice]
 end
 
-while(true) do 
+while true do 
   if gg.isVisible(true) then 
     menuk = 1
     menuk2 = 2  
@@ -102,24 +125,24 @@ while(true) do
       os.exit()
     end
     if menu == nil then noselect() end 
-    menuk =-1
+    menuk = -1
   end
 
   function find_ones()
-    if fin_busc==0 then 
-      menuk =-1 
+    if fin_busc == 0 then 
+      menuk = -1 
       change_yisus()
     else
       local dragonCode = searchDragonCode()
       if dragonCode == nil then 
-        menuk =-1 
+        menuk = -1 
         START()
       else
         local input1 = gg.prompt({
-          "🔎 Dragon 1 Level",
-          "🔎 Dragon 2 Level",
-          "🌟 Dragon 1 Stars",
-          "🌟 Dragon 2 Stars"
+          "🔎 1st Dragon Level",
+          "🔎 2nd Dragon Level",
+          "🌟 1st Dragon Stars",
+          "🌟 2nd Dragon Stars"
         }, {nil, nil, nil, nil}, {'number', 'number', 'number', 'number'})
         if input1 == nil or not input1[1] or not input1[2] or not input1[3] or not input1[4] then 
           gg.alert('⚠️ Invalid input provided!')
