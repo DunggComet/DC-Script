@@ -35,6 +35,7 @@
   <div class="clock-container">
     <div id="clock">Loading...</div>
     <div id="timestamp">Unix Timestamp: <span id="unixTimestamp">0</span></div>
+    <div id="plainTimestamp" style="display:none;"></div> <!-- Hidden div for plain timestamp -->
   </div>
 
   <script>
@@ -58,8 +59,9 @@
 
       document.getElementById('clock').textContent = fullTime;
       document.getElementById('unixTimestamp').textContent = unixTimestamp;
+      document.getElementById('plainTimestamp').textContent = unixTimestamp; // Plain timestamp for easy parsing
 
-      // Make timestamp available globally for Game Guardian compatibility
+      // Make timestamp available globally
       window.currentUnixTimestamp = unixTimestamp;
     }
 
