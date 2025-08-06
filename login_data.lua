@@ -52,7 +52,7 @@ return function()
     },
 
     TanNguyen = { -- Tấn Nguyễn
-      expiry = "11082025",
+      expiry = "21082025",
       version = "v1"
     },
   }
