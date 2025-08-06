@@ -50,5 +50,10 @@ return function()
       expiry = "11082025",
       version = "v1"
     },
+
+    TanNguyen = { -- Tấn Nguyễn
+      expiry = "11082025",
+      version = "v1"
+    },
   }
 end
