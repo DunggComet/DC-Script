@@ -1,250 +1,266 @@
--- Main menu function
-function input()
-    local menu = gg.choice({'🚀 Start Speedhack', '🔄 Revert Speedhack', '❌ Return'}, nil, '🎮 Select an option:')
-    if menu == nil then
-        gg.toast("⏸️ Script paused! Tap GG icon to continue! 🌟", true)
-        while not gg.isVisible() do
-            gg.sleep(100)
-        end
+-- Global variables
+local speed_addresses = {}
+local speed_edits = {}
+local speed_backup = {}
+local status_speed = false
+local original_value = nil
+
+-- Speed hack function
+function ch1()
+    local initOptions = {
+        "🚀 Activate Speedhack",
+        "🔄 Revert Speedhack",
+        "⬅️ Return"
+    }
+    
+    local initChoice = gg.choice(initOptions, nil, "⏩ Speedhack Status: " .. (status_speed and "Active 🟢" or "Inactive 🔴"))
+
+    if initChoice == nil then
+        gg.sleep(100)
         gg.setVisible(false)
-        input() -- Resume at input function
-        return
-    end
-    if menu == 1 then
-        start()
-    elseif menu == 2 then
-        revertSpeedhack()
-    elseif menu == 3 then
-        returnFunc()
-    end
-end
-
--- Start speedhack function
-function start()
-    -- Get current speed
-    local validSpeeds = {1, 2, 3, 4, 10}
-    local currentSpeed = getCurrentSpeed(validSpeeds)
-    if currentSpeed == nil then return end -- Exit if user keeps cancelling
-
-    -- Store original speed for reference
-    originalSpeed = currentSpeed
-
-    -- Search for the current speed
-    gg.setRanges(gg.REGION_C_ALLOC)
-    gg.searchNumber(tostring(currentSpeed), gg.TYPE_FLOAT)
-    
-    -- Get new speed
-    local newSpeed = getNewSpeed(validSpeeds, currentSpeed)
-    if newSpeed == nil then
-        gg.clearResults()
-        return -- Exit if user keeps cancelling
-    end
-
-    -- Store new speed for revert
-    newSpeedGlobal = newSpeed
-
-    -- Refine search
-    gg.refineNumber(tostring(newSpeed), gg.TYPE_FLOAT)
-    
-    -- Check results
-    local results = gg.getResultsCount()
-    if results == 0 then
-        gg.alert('❗ No results found! Try again. 🔍')
-        gg.clearResults()
-        start()
-        return
-    elseif results > 1 then
-        gg.alert('❗ Multiple results found! Please refine your search. 🔎')
-        gg.clearResults()
-        start()
         return
     end
 
-    -- Get final desired speed
-    local finalSpeed = getFinalSpeed()
-    if finalSpeed == nil then
-        gg.clearResults()
-        return -- Exit if user keeps cancelling
-    end
-
-    -- Edit and freeze value
-    local results = gg.getResults(1)
-    gg.editAll(tostring(finalSpeed), gg.TYPE_FLOAT)
-    gg.addListItems({{address = results[1].address, value = finalSpeed, flags = gg.TYPE_FLOAT, freeze = true, name = "Speed"}})
-    gg.alert('✅ Speed changed to ' .. finalSpeed .. ' and frozen! 🚀')
-    gg.clearResults()
-    
-    -- Return to main menu
-    input()
-end
-
--- Function to get current speed with pause and resume
-function getCurrentSpeed(validSpeeds)
-    while true do
-        local currentSpeed = gg.prompt(
-            {'🚴 Enter your current speed (1, 2, 3, 4, or 10)'},
-            {[1] = '1'},
-            {[1] = 'number'}
-        )
-        
-        -- Check if user cancelled prompt
-        if currentSpeed == nil then
-            gg.toast("⏸️ Script paused! Tap GG icon to continue! 🌟", true)
-            while not gg.isVisible() do
-                gg.sleep(100)
-            end
-            gg.setVisible(false)
-            -- Resume at this prompt
+    if initChoice == 3 then
+        L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
+        if not L then 
+            gg.alert('🌐 Server: Please enable internet connection...')
         else
-            currentSpeed = tonumber(currentSpeed[1])
-            local isValid = false
-            for _, v in ipairs(validSpeeds) do
-                if currentSpeed == v then
-                    isValid = true
-                    break
-                end
-            end
-            if isValid then
-                return currentSpeed
-            else
-                gg.alert('❗ Invalid speed! Please enter 1, 2, 3, 4, or 10 🚫')
-                -- Resume at this prompt
-            end
+            pcall(load(L))
         end
+        return
     end
-end
 
--- Function to get new speed with pause and resume
-function getNewSpeed(validSpeeds, currentSpeed)
-    local newSpeedOptions = {}
-    for _, v in ipairs(validSpeeds) do
-        if v ~= currentSpeed then
-            table.insert(newSpeedOptions, v)
-        end
-    end
-    
-    while true do
-        local newSpeed = gg.prompt(
-            {'🏎️ Enter new speed (' .. table.concat(newSpeedOptions, ', ') .. ')'},
-            {[1] = newSpeedOptions[1]},
-            {[1] = 'number'}
-        )
-        
-        -- Check if user cancelled prompt
-        if newSpeed == nil then
-            gg.toast("⏸️ Script paused! Tap GG icon to continue! 🌟", true)
-            while not gg.isVisible() do
-                gg.sleep(100)
-            end
-            gg.setVisible(false)
-            -- Resume at this prompt
-        else
-            newSpeed = tonumber(newSpeed[1])
-            local isValid = false
-            for _, v in ipairs(newSpeedOptions) do
-                if newSpeed == v then
-                    isValid = true
-                    break
-                end
-            end
-            if isValid then
-                return newSpeed
-            else
-                gg.alert('❗ Invalid new speed! Please enter one of: ' .. table.concat(newSpeedOptions, ', ') .. ' 🚫')
-                -- Resume at this prompt
-            end
-        end
-    end
-end
-
--- Function to get final speed with pause and resume
-function getFinalSpeed()
-    while true do
-        local finalSpeed = gg.prompt(
-            {'⚡ Enter the final speed you want'},
-            {[1] = '1'},
-            {[1] = 'number'}
-        )
-        
-        -- Check if user cancelled prompt
-        if finalSpeed == nil then
-            gg.toast("⏸️ Script paused! Tap GG icon to continue! 🌟", true)
-            while not gg.isVisible() do
-                gg.sleep(100)
-            end
-            gg.setVisible(false)
-            -- Resume at this prompt
-        else
-            return tonumber(finalSpeed[1])
-        end
-    end
-end
-
--- Revert speedhack function
-function revertSpeedhack()
-    gg.setVisible(false)
-    local frozenItems = gg.getListItems()
-    local speedItems = {}
-    
-    -- Filter items named "Speed"
-    for _, item in ipairs(frozenItems) do
-        if item.name == "Speed" then
-            table.insert(speedItems, item)
-        end
-    end
-    
-    if #speedItems > 0 then
-        if newSpeedGlobal == nil then
-            gg.alert('❗ No new speed recorded! 🚫')
-            gg.toast('❗ No new speed recorded! 🚫')
-            input()
+    if initChoice == 2 then
+        -- Reset speed hack
+        if #speed_backup == 0 or #speed_edits == 0 or original_value == nil then
+            gg.toast("⚠️ Not enough data to reset speed hack!")
             return
         end
-        -- Revert to new speed and unfreeze
-        for _, item in ipairs(speedItems) do
-            item.value = newSpeedGlobal
-            item.freeze = false
+        gg.setValues(speed_backup)
+        gg.removeListItems(speed_edits)
+        speed_edits = {}
+        speed_backup = {}
+        speed_addresses = {}
+        status_speed = false
+        original_value = nil
+        gg.clearResults()
+        gg.toast("✅ Speed hack reverted!")
+        return
+    end
+
+    -- Activate speed hack
+    if not status_speed then
+        -- If not previously searched
+        if #speed_addresses == 0 then
+            gg.clearResults()
+            gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
+            gg.searchNumber("8295", gg.TYPE_DWORD)
+            local paneyoi = gg.getResults(50000)
+
+            if #paneyoi == 0 then
+                gg.clearResults()
+                gg.toast("❌ Error: No results found!")
+                return
+            end
+
+            for i = 1, #paneyoi do
+                paneyoi[i].address = paneyoi[i].address + 0x60
+            end
+
+            gg.loadResults(paneyoi)
+            gg.refineNumber("5", gg.TYPE_DWORD)
+            local fix = gg.getResults(10000)
+
+            if #fix == 0 then
+                gg.clearResults()
+                gg.toast("❌ Error: No data found!")
+                return
+            end
+
+            for i = 1, #fix do
+                fix[i].address = fix[i].address + 0x18
+            end
+
+            gg.loadResults(fix)
+
+            -- List of values to check sequentially with corresponding revert values
+            local values_to_check = {
+                { search = "1065353216", revert = 1.0 },
+                { search = "1073741824", revert = 2.0 },
+                { search = "1077936128", revert = 3.0 },
+                { search = "1082130432", revert = 4.0 },
+                { search = "1092616192", revert = 10.0 }
+            }
+
+            local found = {}
+            -- Try each value one by one until valid results are found
+            for _, entry in ipairs(values_to_check) do
+                gg.clearResults()
+                gg.loadResults(fix)
+                gg.refineNumber(entry.search, gg.TYPE_DWORD)
+                found = gg.getResults(100)
+
+                if #found > 0 then
+                    -- Check offset -8 for value 0 (validation)
+                    local valid = {}
+                    for i, v in ipairs(found) do
+                        local check = {
+                            { address = v.address - 0x8, flags = gg.TYPE_DWORD }
+                        }
+                        local checkValues = gg.getValues(check)
+                        if checkValues[1].value == 0 then
+                            table.insert(valid, {
+                                address = v.address,
+                                flags = gg.TYPE_FLOAT
+                            })
+                        end
+                    end
+
+                    if #valid > 0 then
+                        speed_addresses = valid
+                        original_value = entry.revert -- Store the revert value
+                        break -- Exit loop if valid results are found
+                    end
+                end
+            end
+
+            if #speed_addresses == 0 then
+                gg.clearResults()
+                gg.toast("❌ Error: No time data found!")
+                return
+            end
         end
-        gg.setValues(speedItems)
-        gg.removeListItems(speedItems)
-        gg.alert('✅ Speed reverted to ' .. newSpeedGlobal .. ' and unfrozen! 🔄')
-        gg.toast('✅ Speed reverted to ' .. newSpeedGlobal .. ' and unfrozen! 🔄')
+
+        -- Speed selection menu
+        local speedOptions = {
+            "⚡ Speed x2",
+            "⚡ Speed x4",
+            "⚡ Speed x5",
+            "⚡ Speed x6",
+            "⚡ Speed x10",
+            "⚡ Speed x15",
+            "⚡ Speed x20",
+            "⚡ Speed x25",
+            "⬅️ Back to menu"
+        }
+        
+        local speedChoice = gg.choice(speedOptions, nil, "✨Choose Speed:")
+        
+        if speedChoice == nil or speedChoice == 9 then
+            return -- Back to main menu
+        end
+
+        -- Set speed value based on choice
+        local selected = 1
+        if speedChoice == 1 then
+            selected = 2
+        elseif speedChoice == 2 then
+            selected = 4
+        elseif speedChoice == 3 then
+            selected = 5
+        elseif speedChoice == 4 then
+            selected = 6
+        elseif speedChoice == 5 then
+            selected = 10
+        elseif speedChoice == 6 then
+            selected = 15
+        elseif speedChoice == 7 then
+            selected = 20
+        elseif speedChoice == 8 then
+            selected = 25
+        end
+
+        -- Set new values and freeze
+        local edits = {}
+        local backup = {}
+        for i, v in ipairs(speed_addresses) do
+            table.insert(edits, {
+                address = v.address,
+                name = "Speed Hack",
+                flags = gg.TYPE_FLOAT,
+                value = selected,
+                freeze = true
+            })
+            table.insert(backup, {
+                address = v.address,
+                flags = gg.TYPE_FLOAT,
+                value = original_value, -- Revert to the mapped value
+                freeze = false
+            })
+        end
+
+        gg.setValues(edits)
+        gg.addListItems(edits)
+
+        -- Save to global variables
+        speed_edits = edits
+        speed_backup = backup
+        status_speed = true
+        gg.clearResults()
+        gg.toast("🚀 Speed hack activated! Speed Sucessfully Changed to: x" .. selected)
     else
-        gg.alert('❗ No speed value found! 🚫')
-        gg.toast('❗ No speed value found! 🚫')
+        -- If speed hack is already on, allow changing speed
+        local speedOptions = {
+            "⚡ Speed x2",
+            "⚡ Speed x4",
+            "⚡ Speed x5",
+            "⚡ Speed x6",
+            "⚡ Speed x10",
+            "⚡ Speed x15",
+            "⚡ Speed x20",
+            "⚡ Speed x25",
+            "⬅️ Back to menu"
+        }
+        
+        local speedChoice = gg.choice(speedOptions, nil, "✨ Change Speed:")
+        
+        if speedChoice == nil or speedChoice == 9 then
+            return -- Back to main menu
+        end
+
+        local selected = 1
+        if speedChoice == 1 then
+            selected = 2
+        elseif speedChoice == 2 then
+            selected = 4
+        elseif speedChoice == 3 then
+            selected = 5
+        elseif speedChoice == 4 then
+            selected = 6
+        elseif speedChoice == 5 then
+            selected = 10
+        elseif speedChoice == 6 then
+            selected = 15
+        elseif speedChoice == 7 then
+            selected = 20
+        elseif speedChoice == 8 then
+            selected = 25
+        end
+
+        local edits = {}
+        for i, v in ipairs(speed_addresses) do
+            table.insert(edits, {
+                address = v.address,
+                name = "Speed Hack",
+                flags = gg.TYPE_FLOAT,
+                value = selected,
+                freeze = true
+            })
+        end
+
+        gg.setValues(edits)
+        gg.addListItems(edits)
+        speed_edits = edits
+        gg.clearResults()
+        gg.toast("⚡ Speed hack updated! Speed Successfully Changed to: x" .. selected)
     end
-    input()
 end
-
--- Return function to exit script
-function returnFunc()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/DC.lua').content
-    if not L then gg.alert('SERVER: Allow Internet Connection...') else
-        pcall(load(L)) end
-end
-
--- No selection function
-function NoSelect()
-    gg.sleep(100)
-    select = gg.alert('💫 Script Made By Comet 💫💗', 'OK')
-    gg.toast("⏸️ Script paused! Tap GG icon to continue! 🌟", true)
-    while not gg.isVisible() do
-        gg.sleep(100)
-    end
-    gg.setVisible(false)
-    input() -- Resume at input function
-end
-
--- Global variables to store speeds
-originalSpeed = nil
-newSpeedGlobal = nil
 
 -- Main loop
-gg.setVisible(true)
 while true do
-    if gg.isVisible() then
+    if gg.isVisible(true) then
         gg.setVisible(false)
-        input()
+        ch1()
     end
-    gg.sleep(100)
 end
