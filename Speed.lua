@@ -1,3 +1,4 @@
+gg.setVisible(false)
 gg.setVisible(true)
 -- Global variables
 local speed_addresses = {}
