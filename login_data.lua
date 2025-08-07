@@ -60,5 +60,10 @@ return function()
       expiry = "11082025",
       version = "3D"
     },
+
+    ["3744757245633986464"] = { -- Khoa
+      expiry = "31082025",
+      version = "v1"
+    },
   }
 end
