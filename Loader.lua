@@ -186,6 +186,8 @@ while true do
     scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/blah_blah.lua"
   elseif entry.version == "v3" then
     scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/blah_blah.lua"
+  elseif entry.version == "3D" then
+    scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/Trial3Days/Loader.lua"
   else
     gg.alert("💥 Invalid version specified")
     goto continue
