@@ -55,5 +55,10 @@ return function()
       expiry = "21082025",
       version = "v1"
     },
+
+    Trial3D = { -- 3 Days Trial
+      expiry = "11082025",
+      version = "3D"
+    },
   }
 end
