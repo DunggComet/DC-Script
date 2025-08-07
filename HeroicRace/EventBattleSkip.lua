@@ -10,8 +10,8 @@ if data ~= nil then
   data = data()
 end
   input = gg.prompt({
-    '🏃‍5min to 0s Speed',
-    '🏃‍15min to 0s Speed',
+    '🏃‍5min to 0s Speed ( Buggy )',
+    '🏃‍15min to 0s Speed ( Buggy )',
     '🏃‍30min to 0s Speed',
     '🏃‍1h to 0s Speed',
     '🏃‍1h 20min to 0s Speed',
