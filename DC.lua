@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.8.txt"
-local oldPath = "/storage/emulated/0/Download/1.6.txt"
+local path = "/storage/emulated/0/Download/1.9.txt"
+local oldPath = "/storage/emulated/0/Download/1.8.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.8) is available! Please install it now!\n✨ What's New:\n-New Feature: Speedhack Feature!\nAdded option in Arena Feature!\nNote: Please install Dragon City to version 25.9.0 before using!", "Update")
+    gg.alert("🚀 A new update (Version 1.9) is available! Please install it now!\n✨ What's New:\n-New Category: 🏁 Event Race \n-New Feature: Speedup Hatching & Breeding Terra\n+ Moved Accelerated Event Battles to Event Race\nNote: Please install Dragon City to version 25.10.1 before using!", "Update")
 
     gg.toast("Installing update...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ else
 
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Version 1.8")
+        newFile:write("Version 1.9")
         newFile:close()
         gg.alert("Update installed successfully!")
     else
@@ -40,7 +40,7 @@ function Main()
         '🐲 Force Recall Dragon',
         '🔑 Dragon Rescue Feature',
         '➡️ Test & Train Dragon/Skill Feature',
-        '🏁 Accelerated Event Battles',
+        '🏁 Event Race',
         '🏔️ Move Habitat',
         '⚡ Speedhack Feature',
         '💬 Join Our Discord Community'
@@ -100,8 +100,7 @@ function DragonCityHack6()
 end
 
 function DragonCityHack7()
-    gg.alert("⚠️Change your speed to x2 first!⚠️\nOtherwise your game will get reload when use Accelerated Event Battles!")
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/EventBattleSkip.lua').content
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/HeroicRace/HeroicChoose.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
