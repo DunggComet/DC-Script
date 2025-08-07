@@ -11,6 +11,7 @@ function Main()
 end
 
 function Skip()
+    gg.alert('⚠️ Change your game speed to x2 first before using!', 'Okay!')
     L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/HeroicRace/EventBattleSkip.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
