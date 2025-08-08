@@ -46,8 +46,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[2] then
@@ -72,8 +70,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[3] then
@@ -98,8 +94,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[4] then
@@ -124,8 +118,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[5] then
@@ -150,8 +142,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[6] then
@@ -176,8 +166,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[7] then
@@ -202,8 +190,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[8] then
@@ -228,8 +214,6 @@ end
       gg.editAll('0', gg.TYPE_DWORD)
       gg.setVisible(false)
       gg.clearResults()
-      gg.toast("Waiting for 20 seconds...")
-      gg.sleep(20000)
       gg.setVisible(true)
     end
     if input[9] then
