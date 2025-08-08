@@ -88,11 +88,16 @@ function ch1()
 
             -- List of values to check sequentially with corresponding revert values
             local values_to_check = {
-                { search = "1065353216", revert = 1.0 },
-                { search = "1073741824", revert = 2.0 },
-                { search = "1077936128", revert = 3.0 },
-                { search = "1082130432", revert = 4.0 },
-                { search = "1092616192", revert = 10.0 }
+                { search = "1065353216", revert = 1.0 }, -- x1
+                { search = "1073741824", revert = 1.0 }, -- x2
+                { search = "1077936128", revert = 1.0 }, -- x3
+                { search = "1082130432", revert = 1.0 }, -- x4
+                { search = "1084227584", revert = 1.0 }, -- x5
+                { search = "1086324736", revert = 1.0 }, -- x6
+                { search = "1092616192", revert = 1.0 }, -- x10
+                { search = "1097859072", revert = 1.0 }, -- x15
+                { search = "1101004800", revert = 1.0 }, -- x20
+                { search = "1103626240", revert = 1.0 } -- x25
             }
 
             local found = {}
@@ -179,7 +184,7 @@ function ch1()
         for i, v in ipairs(speed_addresses) do
             table.insert(edits, {
                 address = v.address,
-                name = "Speed Hack",
+                name = "Speedhack",
                 flags = gg.TYPE_FLOAT,
                 value = selected,
                 freeze = true
