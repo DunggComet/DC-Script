@@ -60,5 +60,10 @@ return function()
       expiry = "31082025",
       version = "v1"
     },
+
+    ["3747320979228905205"] = { -- YESS
+      expiry = "23082025",
+      version = "v1"
+    },
   }
 end
