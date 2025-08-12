@@ -37,8 +37,8 @@ return function()
     },
     
     ["3351274690595497851"] = { -- Khánh
-      expiry = "11082025",
-      version = "v1"
+      expiry = "13082025",
+      version = "Khanh"
     },
 
     ["3428492164128316221"] = { -- Marcos
