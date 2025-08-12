@@ -36,7 +36,7 @@ function Main()
     menu = gg.choice({
         '🗡️ Mod Quest ( Cày Rank Rồng )',
         '➡️ Test & Train Skill Rồng',
-        '⚡ Speedhack",
+        '⚡ Speedhack',
         '💬 Tham Gia Server Discord'
     }, nil, '✨Dragon City Script\n💫Script Tạo Bởi Comet 💗')
     if menu == 1 then Questv1() end
@@ -65,7 +65,7 @@ function Discord()
 end
 
 function Speedhack()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/SpeedHack.lua').content
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/Speedhack.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
