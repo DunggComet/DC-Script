@@ -59,7 +59,7 @@ function Main()
 end
 
 function DragonCityHack1()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/ArenaChoose.lua').content
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Arena.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
