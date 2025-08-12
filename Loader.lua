@@ -412,6 +412,8 @@ end
     scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/blah_blah.lua"
   elseif entry.version == "3D" then
     scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/Trial3Days/Loader.lua"
+  elseif entry.version == "Khanh" then
+    scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/Loader.lua"
   else
     gg.alert(t.invalid_version)
     goto continue
