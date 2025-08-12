@@ -98,6 +98,7 @@ function ch1()
                 { search = "1097859072", revert = 1.0 }, -- x15
                 { search = "1101004800", revert = 1.0 }, -- x20
                 { search = "1103626240", revert = 1.0 }, -- x25
+                { search = "1106247680", revert = 1.0 }, -- x30
                 { search = "1109393408", revert = 1.0 }, -- x40
                 { search = "1112014848", revert = 1.0 } -- x50
             }
@@ -151,6 +152,7 @@ function ch1()
             "⚡ Speed x15",
             "⚡ Speed x20",
             "⚡ Speed x25",
+            "⚡ Speed x30",
             "⚡ Speed x40",
             "⚡ Speed x50",
             "⬅️ Quay Lại"
@@ -158,7 +160,7 @@ function ch1()
         
         local speedChoice = gg.choice(speedOptions, nil, "✨Choose Speed:")
         
-        if speedChoice == nil or speedChoice == 9 then
+        if speedChoice == nil or speedChoice == 12 then
             return -- Back to main menu
         end
 
@@ -181,8 +183,10 @@ function ch1()
         elseif speedChoice == 8 then
             selected = 25
         elseif speedChoice == 9 then
-            selected = 40
+            selected = 30
         elseif speedChoice == 10 then
+            selected = 40
+        elseif speedChoice == 11 then
             selected = 50
         end
 
@@ -213,7 +217,7 @@ function ch1()
         speed_backup = backup
         status_speed = true
         gg.clearResults()
-        gg.toast("🚀 Speed hack activated! Speed Sucessfully Changed to: x" .. selected)
+        gg.toast("🚀 Thành công chuyển đổi thành Speed thành: x" .. selected)
     else
         -- If speed hack is already on, allow changing speed
         local speedOptions = {
@@ -225,6 +229,7 @@ function ch1()
             "⚡ Speed x15",
             "⚡ Speed x20",
             "⚡ Speed x25",
+            "⚡ Speed x30",
             "⚡ Speed x40",
             "⚡ Speed x50",
             "⬅️ Quay Lại"
@@ -232,7 +237,7 @@ function ch1()
         
         local speedChoice = gg.choice(speedOptions, nil, "✨ Change Speed:")
         
-        if speedChoice == nil or speedChoice == 9 then
+        if speedChoice == nil or speedChoice == 12 then
             return -- Back to main menu
         end
 
@@ -254,8 +259,10 @@ function ch1()
         elseif speedChoice == 8 then
             selected = 25
         elseif speedChoice == 9 then
-            selected = 40
+            selected = 30
         elseif speedChoice == 10 then
+            selected = 40
+        elseif speedChoice == 11 then
             selected = 50
         end
 
