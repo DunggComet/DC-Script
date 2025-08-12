@@ -1,24 +1,21 @@
-```lua
--- Ẩn giao diện GameGuardian ban đầu
 gg.setVisible(false)
 gg.setVisible(true)
---------------------------------------------------
--- Các biến toàn cục
+-- Global variables
 local speed_addresses = {}
 local speed_edits = {}
 local speed_backup = {}
 local status_speed = false
 local original_value = nil
 
--- Hàm hack tốc độ
+-- Speed hack function
 function ch1()
     local initOptions = {
         "🚀 Kích hoạt Speedhack",
-        "🔄 Khôi phục Speedhack",
-        "↩️ Quay lại"
+        "🔄 Revert Speedhack",
+        "⬅️ Thoát Speedhack"
     }
     
-    local initChoice = gg.choice(initOptions, nil, "⏩ Trạng thái Speedhack: " .. (status_speed and "Đã kích hoạt 🟢" or "Chưa kích hoạt 🔴"))
+    local initChoice = gg.choice(initOptions, nil, "⏩ Speedhack: " .. (status_speed and "Đang Bật 🟢" or "Đang Tắt 🔴"))
 
     if initChoice == nil then
         gg.sleep(100)
@@ -29,7 +26,7 @@ function ch1()
     if initChoice == 3 then
         L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/Loader.lua').content
         if not L then 
-            gg.alert('🌐 Máy chủ: Vui lòng bật kết nối internet...')
+            gg.alert('🌐 Server: Please enable internet connection...')
         else
             pcall(load(L))
         end
@@ -37,9 +34,9 @@ function ch1()
     end
 
     if initChoice == 2 then
-        -- Khôi phục hack tốc độ
+        -- Reset speed hack
         if #speed_backup == 0 or #speed_edits == 0 or original_value == nil then
-            gg.toast("⚠️ Không đủ dữ liệu để khôi phục hack tốc độ!")
+            gg.toast("⚠️ Không đủ data để reset speedhack!")
             return
         end
         gg.setValues(speed_backup)
@@ -50,13 +47,13 @@ function ch1()
         status_speed = false
         original_value = nil
         gg.clearResults()
-        gg.toast("✅ Đã khôi phục hack tốc độ!")
+        gg.toast("✅ Đã revert speed")
         return
     end
 
-    -- Kích hoạt hack tốc độ
+    -- Activate speed hack
     if not status_speed then
-        -- Nếu chưa tìm kiếm trước đó
+        -- If not previously searched
         if #speed_addresses == 0 then
             gg.clearResults()
             gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
@@ -65,7 +62,7 @@ function ch1()
 
             if #paneyoi == 0 then
                 gg.clearResults()
-                gg.toast("⚠️ Lỗi: Không tìm thấy kết quả!")
+                gg.toast("❌ Error: No results found!")
                 return
             end
 
@@ -79,7 +76,7 @@ function ch1()
 
             if #fix == 0 then
                 gg.clearResults()
-                gg.toast("⚠️ Lỗi: Không tìm thấy dữ liệu!")
+                gg.toast("❌ Error: No data found!")
                 return
             end
 
@@ -89,7 +86,7 @@ function ch1()
 
             gg.loadResults(fix)
 
-            -- Danh sách các giá trị để kiểm tra tuần tự với các giá trị khôi phục tương ứng
+            -- List of values to check sequentially with corresponding revert values
             local values_to_check = {
                 { search = "1065353216", revert = 1.0 }, -- x1
                 { search = "1073741824", revert = 1.0 }, -- x2
@@ -100,11 +97,14 @@ function ch1()
                 { search = "1092616192", revert = 1.0 }, -- x10
                 { search = "1097859072", revert = 1.0 }, -- x15
                 { search = "1101004800", revert = 1.0 }, -- x20
-                { search = "1103626240", revert = 1.0 } -- x25
+                { search = "1103626240", revert = 1.0 }, -- x25
+                { search = "1106247680", revert = 1.0 }, -- x30
+                { search = "1109393408", revert = 1.0 }, -- x40
+                { search = "1112014848", revert = 1.0 } -- x50
             }
 
             local found = {}
-            -- Thử từng giá trị một cho đến khi tìm thấy kết quả hợp lệ
+            -- Try each value one by one until valid results are found
             for _, entry in ipairs(values_to_check) do
                 gg.clearResults()
                 gg.loadResults(fix)
@@ -112,7 +112,7 @@ function ch1()
                 found = gg.getResults(100)
 
                 if #found > 0 then
-                    -- Kiểm tra offset -8 có giá trị 0 (xác thực)
+                    -- Check offset -8 for value 0 (validation)
                     local valid = {}
                     for i, v in ipairs(found) do
                         local check = {
@@ -129,39 +129,42 @@ function ch1()
 
                     if #valid > 0 then
                         speed_addresses = valid
-                        original_value = entry.revert -- Lưu giá trị khôi phục
-                        break -- Thoát vòng lặp nếu tìm thấy kết quả hợp lệ
+                        original_value = entry.revert -- Store the revert value
+                        break -- Exit loop if valid results are found
                     end
                 end
             end
 
             if #speed_addresses == 0 then
                 gg.clearResults()
-                gg.toast("⚠️ Lỗi: Không tìm thấy dữ liệu thời gian!")
+                gg.toast("❌ Error: No time data found!")
                 return
             end
         end
 
-        -- Menu chọn tốc độ
+        -- Speed selection menu
         local speedOptions = {
-            "⚡ Tốc độ x2",
-            "⚡ Tốc độ x4",
-            "⚡ Tốc độ x5",
-            "⚡ Tốc độ x6",
-            "⚡ Tốc độ x10",
-            "⚡ Tốc độ x15",
-            "⚡ Tốc độ x20",
-            "⚡ Tốc độ x25",
-            "↩️ Quay lại menu"
+            "⚡ Speed x2",
+            "⚡ Speed x4",
+            "⚡ Speed x5",
+            "⚡ Speed x6",
+            "⚡ Speed x10",
+            "⚡ Speed x15",
+            "⚡ Speed x20",
+            "⚡ Speed x25",
+            "⚡ Speed x30",
+            "⚡ Speed x40",
+            "⚡ Speed x50",
+            "⬅️ Quay Lại"
         }
         
-        local speedChoice = gg.choice(speedOptions, nil, "✨ Chọn Tốc Độ:")
+        local speedChoice = gg.choice(speedOptions, nil, "✨Choose Speed:")
         
         if speedChoice == nil or speedChoice == 9 then
-            return -- Quay lại menu chính
+            return -- Back to main menu
         end
 
-        -- Đặt giá trị tốc độ dựa trên lựa chọn
+        -- Set speed value based on choice
         local selected = 1
         if speedChoice == 1 then
             selected = 2
@@ -179,15 +182,21 @@ function ch1()
             selected = 20
         elseif speedChoice == 8 then
             selected = 25
+        elseif speedChoice == 9 then
+            selected = 30
+        elseif speedChoice == 10 then
+            selected = 40
+        elseif speedChoice == 11 then
+            selected = 50
         end
 
-        -- Đặt giá trị mới và đóng băng
+        -- Set new values and freeze
         local edits = {}
         local backup = {}
         for i, v in ipairs(speed_addresses) do
             table.insert(edits, {
                 address = v.address,
-                name = "Hack Tốc Độ",
+                name = "Speedhack",
                 flags = gg.TYPE_FLOAT,
                 value = selected,
                 freeze = true
@@ -195,7 +204,7 @@ function ch1()
             table.insert(backup, {
                 address = v.address,
                 flags = gg.TYPE_FLOAT,
-                value = original_value, -- Khôi phục về giá trị đã ánh xạ
+                value = original_value, -- Revert to the mapped value
                 freeze = false
             })
         end
@@ -203,30 +212,33 @@ function ch1()
         gg.setValues(edits)
         gg.addListItems(edits)
 
-        -- Lưu vào biến toàn cục
+        -- Save to global variables
         speed_edits = edits
         speed_backup = backup
         status_speed = true
         gg.clearResults()
-        gg.toast("🎉 Hack tốc độ đã kích hoạt! Tốc độ đã thay đổi thành công thành: x" .. selected)
+        gg.toast("🚀 Speed hack activated! Speed Sucessfully Changed to: x" .. selected)
     else
-        -- Nếu hack tốc độ đã bật, cho phép thay đổi tốc độ
+        -- If speed hack is already on, allow changing speed
         local speedOptions = {
-            "⚡ Tốc độ x2",
-            "⚡ Tốc độ x4",
-            "⚡ Tốc độ x5",
-            "⚡ Tốc độ x6",
-            "⚡ Tốc độ x10",
-            "⚡ Tốc độ x15",
-            "⚡ Tốc độ x20",
-            "⚡ Tốc độ x25",
-            "↩️ Quay lại menu"
+            "⚡ Speed x2",
+            "⚡ Speed x4",
+            "⚡ Speed x5",
+            "⚡ Speed x6",
+            "⚡ Speed x10",
+            "⚡ Speed x15",
+            "⚡ Speed x20",
+            "⚡ Speed x25",
+            "⚡ Speed x30",
+            "⚡ Speed x40",
+            "⚡ Speed x50",
+            "⬅️ Quay Lại"
         }
         
-        local speedChoice = gg.choice(speedOptions, nil, "✨ Thay Đổi Tốc Độ:")
+        local speedChoice = gg.choice(speedOptions, nil, "✨ Change Speed:")
         
         if speedChoice == nil or speedChoice == 9 then
-            return -- Quay lại menu chính
+            return -- Back to main menu
         end
 
         local selected = 1
@@ -246,13 +258,19 @@ function ch1()
             selected = 20
         elseif speedChoice == 8 then
             selected = 25
+        elseif speedChoice == 9 then
+            selected = 30
+        elseif speedChoice == 10 then
+            selected = 40
+        elseif speedChoice == 11 then
+            selected = 50
         end
 
         local edits = {}
         for i, v in ipairs(speed_addresses) do
             table.insert(edits, {
                 address = v.address,
-                name = "Hack Tốc Độ",
+                name = "Speed Hack",
                 flags = gg.TYPE_FLOAT,
                 value = selected,
                 freeze = true
@@ -263,15 +281,14 @@ function ch1()
         gg.addListItems(edits)
         speed_edits = edits
         gg.clearResults()
-        gg.toast("⚡ Speed đã cập nhật! Tốc độ đã thay đổi thành công thành: x" .. selected)
+        gg.toast("⚡ Thành công chuyển đổi thành Speed thành: x" .. selected)
     end
 end
 
--- Vòng lặp chính
+-- Main loop
 while true do
     if gg.isVisible(true) then
         gg.setVisible(false)
         ch1()
     end
 end
-```
