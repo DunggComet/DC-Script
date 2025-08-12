@@ -37,7 +37,7 @@ return function()
     },
     
     ["3351274690595497851"] = { -- Khánh
-      expiry = "13082025",
+      expiry = "13092025",
       version = "Khanh"
     },
 
