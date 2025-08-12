@@ -1,12 +1,11 @@
-```lua
 -- TestSkillMod.lua
--- Tệp này chỉ chứa các tính năng Test/Skill Mod và các phụ thuộc tối thiểu.
+-- This file contains only the Test/Skill Mod features and its minimal dependencies.
 gg.setVisible(false)
 --------------------------------------------------
--- Các Hàm Hỗ Trợ Chung & Quản Lý Dữ Liệu Rồng
+-- Shared Helper Functions & Dragon Data Management
 --------------------------------------------------
 local function waitForResume()
-  gg.toast("Tạm dừng kịch bản. Nhấn biểu tượng GG để tiếp tục", true)
+  gg.toast("Kịch bản bị tạm dừng. Nhấn vào biểu tượng GG để tiếp tục", true)
   while not gg.isVisible() do
     gg.sleep(100)
   end
@@ -16,13 +15,13 @@ end
 local function safePromptSearch(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   while not input do
-    gg.toast("Tạm dừng kịch bản. Nhấn biểu tượng GG để tiếp tục.", true)
+    gg.toast("Kịch bản bị tạm dừng. Nhấn vào biểu tượng GG để tiếp tục.", true)
     waitForResume()
-    -- Đợi cho đến khi GG không còn hiển thị trước khi yêu cầu lại.
+    -- Wait until GG is not visible anymore before re-prompting.
     while gg.isVisible() do
       gg.sleep(100)
     end
-    gg.sleep(1000)  -- Độ trễ bổ sung có thể giúp đặt lại trạng thái yêu cầu.
+    gg.sleep(1000)  -- Extra delay may help to reset the prompt state.
     input = gg.prompt(prompts, defaults, types)
   end
   return input
@@ -41,7 +40,7 @@ end
 local function safePromptLoop(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   while input == nil do
-    gg.toast("Tạm dừng kịch bản. Nhấn biểu tượng GG để tiếp tục", true)
+    gg.toast("Kịch bản bị tạm dừng. Nhấn vào biểu tượng GG để tiếp tục", true)
     waitForResume()
     input = gg.prompt(prompts, defaults, types)
   end
@@ -70,7 +69,7 @@ end
 local globalDragonData = fetchDragonData()
 
 local function getDragonNameFromCode(code)
-  if not globalDragonData then return "Rồng Không Xác Định" end
+  if not globalDragonData then return "Rồng Không Xác Đankar" end
   for _, dragon in ipairs(globalDragonData) do
     if dragon.code == tostring(code) then
       return dragon.name
@@ -106,7 +105,7 @@ local function searchDragonCode()
   repeat
     choice = gg.choice(matches, nil, "Chọn Rồng")
     if choice == nil then
-      gg.toast("Tạm dừng lựa chọn. Nhấn biểu tượng GG để tiếp tục.", true)
+      gg.toast("Lựa chọn bị tạm dừng. Nhấn vào biểu tượng GG để tiếp tục.", true)
       waitForResume()
     end
   until choice ~= nil
@@ -139,7 +138,7 @@ local function searchDragonCodeLoop()
   repeat
     choice = gg.choice(matches, nil, "Chọn Rồng")
     if choice == nil then
-      gg.toast("Tạm dừng lựa chọn. Nhấn biểu tượng GG để tiếp tục.", true)
+      gg.toast("Lựa chọn bị tạm dừng. Nhấn vào biểu tượng GG để tiếp tục.", true)
       waitForResume()
     end
   until choice ~= nil
@@ -148,7 +147,7 @@ local function searchDragonCodeLoop()
 end
 
 --------------------------------------------------
--- Các Hàm và Biến của Test/Skill Mod
+-- Test/Skill Mod Functions & Variables
 --------------------------------------------------
 local copiedAllValues = {}  
 local copiedValues = {}
@@ -156,7 +155,7 @@ local validResultsTest = {}
 local originalCodeTest = nil
 local changedCodeTest  = nil
 local baseAddress = nil
--- Bảng sao lưu để lưu trữ các giá trị gốc trước khi dán.
+-- Backup table to store original values before pasting.
 local backupPastedValuesTest = {}
 
 local function processMemorySearchTest(selectedCode)
@@ -224,9 +223,9 @@ local function copyOffsetTest()
       'Từ kỹ năng/tấn công thứ 1 (Trung tâm huấn luyện)', 'Từ kỹ năng/tấn công thứ 2 (Trung tâm huấn luyện)',
       'Từ kỹ năng/tấn công thứ 3 (Trung tâm huấn luyện)', 'Từ kỹ năng/tấn công thứ 4 (Trung tâm huấn luyện)',
       'Quay lại'
-    }, nil, "Sao chép 1 Kỹ năng/Tấn công từ TẤT CẢ Kết quả")
+    }, nil, "Sao chép 1 Kỹ năng/Tấn công nguồn từ TẤT CẢ Kết quả")
     if srcChoice == nil then
-      gg.toast("Tạm dừng. Nhấn biểu tượng GG để tiếp tục.", true)
+      gg.toast("Tạm dừng. Nhấn vào biểu tượng GG để tiếp tục.", true)
       waitForResume()
     end
   until srcChoice ~= nil
@@ -275,6 +274,37 @@ local function pasteOffsetTest()
   end
 end
 
+local function pasteSingleOffsetTest()
+  if not next(copiedValues) then
+    gg.alert("❗ Không có giá trị đã sao chép! Hãy sao chép trước.")
+    return
+  end
+  local choice = nil
+  repeat
+    choice = gg.choice({
+      'Đến kỹ năng/tấn công thứ 1 (Cơ bản)', 'Đến kỹ năng/tấn công thứ 2 (Cơ bản)', 
+      'Đến kỹ năng/tấn công thứ 3 (Cơ bản)', 'Đến kỹ năng/tấn công thứ 4 (Cơ bản)',
+      'Đến kỹ năng/tấn công thứ 1 (Trung tâm huấn luyện)', 'Đến kỹ năng/tấn công thứ 2 (Trung tâm huấn luyện)',
+      'Đến kỹ năng/tấn công thứ 3 (Trung tâm huấn luyện)', 'Đến kỹ năng/tấn công thứ 4 (Trung tâm huấn luyện)',
+      'Quay lại'
+    }, nil, "Chọn Điểm Mục tiêu Trong Trung tâm Huấn luyện cho TẤT CẢ Kết quả")
+    if choice == nil then
+      gg.toast("Tạm dừng. Nhấn vào biểu tượng GG để tiếp tục.", true)
+      waitForResume()
+    end
+  until choice ~= nil
+  if choice > 8 then return end
+  local targetOffset = ({0x20, 0x24, 0x28, 0x2C, 0x30, 0x34, 0x38, 0x3C})[choice]
+  for _, result in ipairs(validResultsTest) do
+    local addr = result.address + targetOffset
+    if backupPastedValuesTest[addr] == nil then
+      local origVal = gg.getValues({{address = addr, flags = gg.TYPE_DWORD}})[1].value
+      backupPastedValuesTest[addr] = origVal
+    end
+    gg.setValues({{address = addr, flags = gg.TYPE_DWORD, value = copiedValues[result.address]}})
+  end
+end
+
 local function pasteAllOffsetTest()
   if not copiedAllValues or next(copiedAllValues) == nil then
     gg.alert("❗ Không có giá trị sao chép hàng loạt để dán!")
@@ -301,7 +331,7 @@ end
 
 local function revertPastedValuesTest()
    if not next(backupPastedValuesTest) then
-      gg.alert("Không có giá trị đã dán để khôi phục!")
+      gg.alert("Không có giá trị đã dán để hoàn tác!")
       return
    end
    local revertItems = {}
@@ -309,22 +339,23 @@ local function revertPastedValuesTest()
        table.insert(revertItems, {address = addr, flags = gg.TYPE_DWORD, value = origVal})
    end
    gg.setValues(revertItems)
-   backupPastedValuesTest = {}  -- Xóa sao lưu sau khi khôi phục
-   gg.toast("Đã khôi phục các giá trị đã dán")
+   backupPastedValuesTest = {}  -- Clear backup after revert
+   gg.toast("Đã hoàn tác giá trị đã dán")
 end
 
 local function testSkillMenu()
   while true do
     local menuItems = {
-      "🔄 Thay Đổi Mã Rồng",
-      "📋 Sao Chép Một Kỹ Năng/Tấn Công",
-      "📚 Sao Chép Tất Cả Kỹ Năng/Tấn Công",
-      "🎨 Áp Dụng Cho Tất Cả Tấn Công (Mod: Một Thành Bốn)",
-      "🌐 Áp Dụng Cho Tất Cả Tấn Công (Mod: Bốn Thành Bốn)",
-      "🔄 Khôi Phục Giá Trị Đã Dán",
-      "🔍 Tìm Kiếm Mới",
-      "⏮ Khôi Phục Rồng Gốc",
-      "⏭ Khôi Phục Rồng Đã Sửa Đổi",
+      "🔄 Thay đổi Mã Rồng",
+      "📋 Sao chép một kỹ năng/tấn công",
+      "📚 Sao chép tất cả kỹ năng/tấn công",
+      "🎨 Áp dụng cho Tất cả tấn công (Mod: Một bởi Bốn)",
+      "🌐 Áp dụng cho Tất cả tấn công (Mod: Bốn bởi Bốn)",
+      "🎯 Áp dụng cho Tấn công Đơn (Huấn luyện)",
+      "🔄 Hoàn tác Giá trị Đã Dán",   -- New option for reverting pasted changes
+      "🔍 Tìm kiếm Mới",
+      "⏮ Khôi phục Rồng Gốc",
+      "⏭ Khôi phục Rồng Đã Sửa",
       "👋 Thoát Test Skill"
     }
     local choice = safeChoiceSearch(menuItems, nil,
@@ -351,11 +382,13 @@ local function testSkillMenu()
     elseif choice == 5 then
       pasteAllOffsetTest()
     elseif choice == 6 then
-      revertPastedValuesTest()
+      pasteSingleOffsetTest()
     elseif choice == 7 then
-      gg.clearResults()
-      return true  -- Tìm kiếm mới: quay lại để chạy lại tìm kiếm test skill
+      revertPastedValuesTest()
     elseif choice == 8 then
+      gg.clearResults()
+      return true  -- New search: return to re-run test skill search
+    elseif choice == 9 then
       for _, v in ipairs(validResultsTest) do
         v.value = tonumber(originalCodeTest)
         v.name = originalCodeTest.." - "..getDragonNameFromCode(originalCodeTest)
@@ -363,7 +396,7 @@ local function testSkillMenu()
       gg.setValues(validResultsTest)
       gg.addListItems(validResultsTest)
       gg.toast("Đã khôi phục về rồng gốc")
-    elseif choice == 9 then
+    elseif choice == 10 then
       if changedCodeTest then
         for _, v in ipairs(validResultsTest) do
           v.value = tonumber(changedCodeTest)
@@ -371,13 +404,13 @@ local function testSkillMenu()
         end
         gg.setValues(validResultsTest)
         gg.addListItems(validResultsTest)
-        gg.toast("Đã khôi phục về rồng đã sửa đổi")
+        gg.toast("Đã khôi phục về rồng đã sửa")
       else
-        gg.alert("Không có mã đã thay đổi để khôi phục!")
+        gg.alert("Không có mã đã thay đổi để hoàn tác!")
       end
-    elseif choice == 10 then
+    elseif choice == 11 then
       gg.clearResults()
-      gg.toast("Quay lại menu chính...")
+      gg.toast("Quay lại Menu Chính...")
       return false
     end
   end
@@ -392,13 +425,14 @@ local function pickTestSkillResult()
   local chosenIndex = nil
   repeat
     chosenIndex = gg.choice(choices, nil, "Chọn một mục rồng (chỉ giữ lại một mục).")
+
     if chosenIndex == nil then
-      gg.toast("Tạm dừng lựa chọn. Nhấn biểu tượng GG để tiếp tục.", true)
-      waitForResume()
+      gg.toast("Lựa chọn bị tạm dừng. Nhấn vào biểu tượng GG để tiếp tục.", true)
+      waitForResume()  -- Waits until the GG icon is tapped.
     end
   until chosenIndex ~= nil
 
-  -- Khôi phục giá trị cho tất cả các mục, bao gồm cả mục đã chọn.
+  -- Revert values for all items, including the selected one.
   for i, v in ipairs(validResultsTest) do
     gg.setValues({{address = v.address, flags = gg.TYPE_DWORD, value = tonumber(originalCodeTest)}})
     v.value = tonumber(originalCodeTest)
@@ -406,7 +440,7 @@ local function pickTestSkillResult()
 
   local chosenItem = validResultsTest[chosenIndex]
   validResultsTest = { chosenItem }
-  -- chỉ giữ các mục có giá trị là 1011 hoặc 0; xóa tất cả các mục khác
+  -- keep only items whose value is 1011 or 0; remove all others
   do
     local allItems = gg.getListItems()
     local toRemove = {}
@@ -421,11 +455,11 @@ local function pickTestSkillResult()
   end
 
   gg.addListItems(validResultsTest)
-  gg.toast("Đã chọn và khôi phục: " .. chosenItem.name)
+  gg.toast("Đã chọn và hoàn tác: " .. chosenItem.name)
   return chosenItem
 end
 
--- Hàm testSkill đã sửa đổi tích hợp pickTestSkillResult.
+-- Modified testSkill function integrating pickTestSkillResult.
 local function testSkill()
   if not globalDragonData then
     globalDragonData = fetchDragonData()
@@ -440,7 +474,7 @@ local function testSkill()
     if not originalCodeTest then break end
     if processMemorySearchTest(originalCodeTest) then
       local chosen = pickTestSkillResult()
-      if not chosen then break end  -- Nếu không chọn, thoát về menu chính.
+      if not chosen then break end  -- If no selection, exit to main menu.
       local needRestart = testSkillMenu()
       if not needRestart then break end
     else
@@ -464,7 +498,6 @@ local function testSkill()
   gg.sleep(1500)
 end
 --------------------------------------------------
--- Chạy Test Skill Mod
+-- Run the Test Skill Mod
 --------------------------------------------------
 testSkill()
-```
