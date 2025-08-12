@@ -34,15 +34,17 @@ gg.setVisible(false)
 local MD5 = gg.makeRequest('').content
 function Main()
     menu = gg.choice({
-        '🗡️ Mod Quest ( Cày Rank Rồng )',
+        '🗡️ Mod Quest v1 ( Cày Rank Rồng )',
+        '🗡️ Mod Quest v2 ( Cày Rank Rồng )',
         '➡️ Test & Train Skill Rồng',
         '⚡ Speedhack',
         '💬 Tham Gia Server Discord'
     }, nil, '✨Dragon City Script\n💫Script Tạo Bởi Comet 💗')
     if menu == 1 then Questv1() end
-    if menu == 2 then TrainSkill() end
-    if menu == 3 then Speedhack() end
-    if menu == 4 then Discord() end
+    if menu == 2 then Questv2()
+    if menu == 3 then TrainSkill() end
+    if menu == 4 then Speedhack() end
+    if menu == 5 then Discord() end
     if menu == nil then NoSelect() end
 end
 
@@ -66,6 +68,12 @@ end
 
 function Speedhack()
     L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/Speedhack.lua').content
+    if not L then gg.alert('SERVER: Allow Internet Connection...') else
+        pcall(load(L)) end
+end
+
+function Questv2()
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/Questv2.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
