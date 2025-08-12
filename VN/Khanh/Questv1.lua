@@ -1,19 +1,19 @@
 --------------------------------------------------
--- Các Hàm Chung và Quản Lý Dữ Liệu Rồng 🐉
+-- Shared Functions and Dragon Data Management 🐉
 --------------------------------------------------
 local function waitForResume()
-  gg.toast("⏸️ Tạm dừng kịch bản. Nhấn vào biểu tượng GG để tiếp tục!", true)
+  gg.toast("⏸️ Script paused. Tap GG icon to continue!", true)
   while not gg.isVisible() do
     gg.sleep(100)
   end
   gg.setVisible(false)
 end
 
--- Đối với các bước tìm kiếm: nếu hủy, quay lại menu chính.
+-- For search steps: if cancelled, return to main menu.
 local function safePromptSearch(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   if input == nil then
-    gg.toast("↩️ Quay lại menu chính...", true)
+    gg.toast("↩️ Returning to main menu...", true)
     waitForResume()
     return nil
   end
@@ -23,18 +23,18 @@ end
 local function safeChoiceSearch(items, default, title)
   local choice = gg.choice(items, default, title)
   if choice == nil then
-    gg.toast("↩️ Quay lại menu chính...", true)
+    gg.toast("↩️ Returning to main menu...", true)
     waitForResume()
     return nil
   end
   return choice
 end
 
--- Đối với các bước nhập số: lặp lại cho đến khi có đầu vào hợp lệ.
+-- For numeric input steps: loop until valid input is provided.
 local function safePromptLoop(prompts, defaults, types)
   local input = gg.prompt(prompts, defaults, types)
   while input == nil do
-    gg.toast("⏸️ Tạm dừng kịch bản. Nhấn vào biểu tượng GG để tiếp tục!", true)
+    gg.toast("⏸️ Script paused. Tap GG icon to continue!", true)
     waitForResume()
     input = gg.prompt(prompts, defaults, types)
   end
@@ -44,7 +44,7 @@ end
 local function fetchDragonData()
   local response = gg.makeRequest("https://dunggcomet.github.io/DC-Script/Website/Dragon")
   if not response or not response.content then
-    gg.alert("⚠️ Không thể tải dữ liệu rồng từ máy chủ!")
+    gg.alert("⚠️ Failed to load dragon data from server!")
     return nil
   end
   local data = {}
@@ -63,13 +63,13 @@ end
 local globalDragonData = fetchDragonData()
 
 local function getDragonNameFromCode(code)
-  if not globalDragonData then return "Rồng Không Xác Định" end
+  if not globalDragonData then return "Undefined Dragon" end
   for _, dragon in ipairs(globalDragonData) do
     if dragon.code == tostring(code) then
       return dragon.name
     end
   end
-  return "Rồng Không Xác Định"
+  return "Undefined Dragon"
 end
 
 local function searchDragonCode()
@@ -93,15 +93,15 @@ local function searchDragonCode()
   end
   
   if #matches == 0 then
-    gg.alert("⚠️ Không tìm thấy rồng nào cho: " .. searchTerm)
+    gg.alert("⚠️ No dragons found for: " .. searchTerm)
     return nil
   end
   
   local choice = nil
   repeat
-    choice = gg.choice(matches, nil, "Chọn Rồng Của Bạn:")
+    choice = gg.choice(matches, nil, "Chọn rồng của bạn:")
     if choice == nil then
-      gg.toast("⏸️ Tạm dừng lựa chọn. Nhấn vào biểu tượng GG để tiếp tục!", true)
+      gg.toast("⏸️ Quá trình lựa chọn đã tạm dừng. Nhấn vào biểu tượng GG để tiếp tục!", true)
       waitForResume()
     end
   until choice ~= nil
@@ -115,7 +115,7 @@ local function searchDragonCodeLoop()
     if not globalDragonData then return nil end
   end
 
-  local input = safePromptLoop({"🔍 Nhập tên rồng thứ nhất:"}, {""}, {"text"})
+  local input = safePromptLoop({"🔍 Nhập tên rồng đầu tiên:"}, {""}, {"text"})
   local searchTerm = input[1]:lower()
   local matches, codes = {}, {}
   for _, dragon in ipairs(globalDragonData) do
@@ -126,15 +126,15 @@ local function searchDragonCodeLoop()
   end
 
   if #matches == 0 then
-    gg.alert("⚠️ Không tìm thấy rồng nào cho: " .. searchTerm)
+    gg.alert("⚠️ Không tìm thấy rồng cho: " .. searchTerm)
     return nil
   end
 
   local choice = nil
   repeat
-    choice = gg.choice(matches, nil, "Chọn Rồng Thứ Nhất:")
+    choice = gg.choice(matches, nil, "Select 1st Dragon:")
     if choice == nil then
-      gg.toast("⏸️ Tạm dừng lựa chọn. Nhấn vào biểu tượng GG để tiếp tục!", true)
+      gg.toast("⏸️ Quá trình lựa chọn đã tạm dừng. Nhấn vào biểu tượng GG để tiếp tục!", true)
       waitForResume()
     end
   until choice ~= nil
@@ -148,7 +148,7 @@ local function searchDragonCodeLooop()
     if not globalDragonData then return nil end
   end
 
-  local input = safePromptLoop({"🔍 Nhập tên rồng thứ hai:"}, {""}, {"text"})
+  local input = safePromptLoop({"🔍 Nhập tên rồng thứ 2:"}, {""}, {"text"})
   local searchTerm = input[1]:lower()
 
   local matches, codes = {}, {}
@@ -160,15 +160,15 @@ local function searchDragonCodeLooop()
   end
 
   if #matches == 0 then
-    gg.alert("⚠️ Không tìm thấy rồng nào cho: " .. searchTerm)
+    gg.alert("⚠️ Không tìm thấy rồng cho: " .. searchTerm)
     return nil
   end
 
   local choice
   repeat
-    choice = gg.choice(matches, nil, "Chọn Rồng Thứ Hai:")
+    choice = gg.choice(matches, nil, "Select 2nd Dragon:")
     if choice == nil then
-      gg.toast("⏸️ Tạm dừng lựa chọn. Nhấn vào biểu tượng GG để tiếp tục!", true)
+      gg.toast("⏸️ Quá trình lựa chọn đã tạm dừng. Nhấn vào biểu tượng GG để tiếp tục!", true)
       waitForResume()
     end
   until choice ~= nil
@@ -182,7 +182,7 @@ local function searchDragonCodeLoooop()
     if not globalDragonData then return nil end
   end
 
-  local input = safePromptLoop({"🔍 Nhập tên rồng thứ ba:"}, {""}, {"text"})
+  local input = safePromptLoop({"🔍 Nhập tên rồng thứ 3:"}, {""}, {"text"})
   local searchTerm = input[1]:lower()
 
   local matches, codes = {}, {}
@@ -194,15 +194,15 @@ local function searchDragonCodeLoooop()
   end
 
   if #matches == 0 then
-    gg.alert("⚠️ Không tìm thấy rồng nào cho: " .. searchTerm)
+    gg.alert("⚠️ Không tìm thấy rồng cho: " .. searchTerm)
     return nil
   end
 
   local choice
   repeat
-    choice = gg.choice(matches, nil, "Chọn Rồng Thứ Ba:")
+    choice = gg.choice(matches, nil, "Chọn Rồng thứ 3:")
     if choice == nil then
-      gg.toast("⏸️ Tạm dừng lựa chọn. Nhấn vào biểu tượng GG để tiếp tục!", true)
+      gg.toast("⏸️ Selection paused. Tap GG icon to continue!", true)
       waitForResume()
     end
   until choice ~= nil
@@ -231,15 +231,15 @@ local function searchDragonCodeLooooop()
   end
   
   if #matches == 0 then
-    gg.alert("⚠️ Không tìm thấy rồng nào cho: " .. searchTerm)
+    gg.alert("⚠️ Không tìm thấy rồng cho: " .. searchTerm)
     return nil
   end
   
   local choice = nil
   repeat
-    choice = gg.choice(matches, nil, "Chọn Rồng Cuối Cùng:")
+    choice = gg.choice(matches, nil, "Select Final Dragon:")
     if choice == nil then
-      gg.toast("⏸️ Tạm dừng lựa chọn. Nhấn vào biểu tượng GG để tiếp tục!", true)
+      gg.toast("⏸️ Quá trình lựa chọn đã tạm dừng. Nhấn vào biểu tượng GG để tiếp tục!", true)
       waitForResume()
     end
   until choice ~= nil
@@ -248,11 +248,11 @@ local function searchDragonCodeLooooop()
 end
 
 local backupRankUpValues = {}       -- { [address] = {value = originalValue, flags = TYPE} }
-local rankUpBaseAddresses = {}      -- danh sách các địa chỉ cơ bản được sửa đổi bởi doRankUp
+local rankUpBaseAddresses = {}      -- list of base addresses modified by doRankUp
 
 local function revertAllRankUp()
   if next(backupRankUpValues) == nil then
-    gg.alert("ℹ️ Không có sửa đổi trước đó để khôi phục.")
+    gg.alert("ℹ️ Không có sửa đổi trước đó để hoàn nguyên.")
     return
   end
 
@@ -274,18 +274,18 @@ end
 
 local function featureChangeFinalDragon()
   if #rankUpBaseAddresses == 0 then
-    gg.alert("⚠️ Mod Nhiệm Vụ (RankUp) chưa được thực thi. Hãy chạy nó trước!")
+    gg.alert("⚠️ Mod Quest (RankUp) chưa được thực hiện. Hãy chạy nó trước!")
     return
   end
 
   local newCodeStr = searchDragonCode()
   if not newCodeStr then
-    gg.alert("⚠️ Không có rồng nào được chọn. Thao tác bị hủy.")
+    gg.alert("⚠️ Không có con rồng nào được chọn. Đã bị hủy.")
     return
   end
   local newCode = tonumber(newCodeStr)
   if not newCode then
-    gg.alert("⚠️ Mã rồng ­rồng không hợp lệ được chọn.")
+    gg.alert("⚠️ Mã rồng được chọn không hợp lệ.")
     return
   end
 
@@ -311,9 +311,9 @@ local function featureChangeFinalDragon()
   if #toSave > 0 then
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     gg.addListItems(toSave)
-    gg.toast(string.format("✅ Đã cập nhật %d mã rồng thành công!", savedCount), true)
+    gg.toast(string.format("✅ Đã cập nhật thành công %d mã rồng!", savedCount), true)
   else
-    gg.alert("⚠️ Không thể cập nhật mã rồng.")
+    gg.alert("⚠️ Không cập nhật được mã rồng.")
   end
 end
 
@@ -329,16 +329,16 @@ local function doRankUp()
   local bonusCode = searchDragonCodeLoooop()
   if not bonusCode then return end
 
-  local IDRong  = safePromptLoop({'🔎 Cấp độ rồng thứ nhất', '🌟 Hạng rồng thứ nhất'}, {nil, nil}, {'number', 'number'})
-  local IDRong2 = safePromptLoop({'🔎 Cấp độ rồng thứ hai', '🌟 Hạng rồng thứ hai'}, {nil, nil}, {'number', 'number'})
-  local IDRong3 = safePromptLoop({'🔎 Cấp độ rồng thứ ba', '🌟 Hạng rồng thứ ba'}, {nil, nil}, {'number', 'number'})
+  local IDRong  = safePromptLoop({'🔎 1st Dragon Level', '🌟 1st Dragon Grade'}, {nil, nil}, {'number', 'number'})
+  local IDRong2 = safePromptLoop({'🔎 2nd Dragon Level', '🌟 2nd Dragon Grade'}, {nil, nil}, {'number', 'number'})
+  local IDRong3 = safePromptLoop({'🔎 3rd Dragon Level', '🌟 3rd Dragon Grade'}, {nil, nil}, {'number', 'number'})
 
   local finalDragonCode = nil
   while finalDragonCode == nil do
-    gg.toast("🐲 Chọn rồng cuối cùng để tiếp tục.", true)
+    gg.toast("🐲 Select final dragon to proceed.", true)
     finalDragonCode = searchDragonCodeLooooop()
     if not finalDragonCode then
-      gg.toast("⏸️ Tạm dừng kịch bản. Nhấn vào biểu tượng GG để tiếp tục!", true)
+      gg.toast("⏸️ Tập lệnh đã tạm dừng. Nhấn vào biểu tượng GG để tiếp tục!", true)
       gg.setVisible(true)
       while not gg.isVisible() do
         gg.sleep(100)
@@ -348,29 +348,29 @@ local function doRankUp()
   end
   finalDragonCode = tonumber(finalDragonCode)
   if not finalDragonCode then
-    gg.alert("⚠️ Mã rồng cuối cùng không hợp lệ được chọn.")
+    gg.alert("⚠️ Mã rồng cuối cùng được chọn không hợp lệ..")
     return
   end
 
-  ---- Giai đoạn 1: Tìm kiếm & Thu thập sửa đổi ----
+  ---- Phase 1: Search & Collect Modifications ----
   gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
   gg.searchNumber(
     selectedCode .. ";" ..
     IDRong[1]  .. ";" ..
     IDRong[2]  .. ";" ..
-    extraCode .. ";" ..
+	extraCode .. ";" ..
     IDRong2[1] .. ";" ..
     IDRong2[2] .. ";" ..
-    bonusCode .. ";" ..
-    IDRong3[1] .. ";" ..
-    IDRong3[2] .. "::221",
+	bonusCode .. ";" ..
+	IDRong3[1] .. ";" ..
+	IDRong3[2] .. "::221",
     gg.TYPE_DWORD
   )
   gg.refineNumber(
     selectedCode .. ";" ..
     IDRong[1]  .. ";" ..
     IDRong[2]  .. ";" ..
-    extraCode .. ";" ..
+	extraCode .. ";" ..
     IDRong2[1] .. ";" ..
     IDRong2[2] .. "::110",
     gg.TYPE_DWORD
@@ -385,7 +385,7 @@ local function doRankUp()
 
   local gat = gg.getResults(1000)
   if not gat or #gat == 0 then
-    gg.alert("⚠️ Không tìm thấy mục nào phù hợp cho Mod Nhiệm Vụ.")
+    gg.alert("⚠️ Không tìm thấy mục nào phù hợp với Quest Mod.")
     return
   end
 
@@ -408,7 +408,7 @@ local function doRankUp()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     local off2_tbl = gg.getValues({{address = baseAddr + 0x8, flags = gg.TYPE_DWORD}})
 
-    if not off1_tbl or not off1_tbl[1] or not off2_tbl or not off2_four[1] then
+    if not off1_tbl or not off1_tbl[1] or not off2_tbl or not off2_tbl[1] then
       goto skip_entry
     end
 
@@ -467,11 +467,11 @@ local function doRankUp()
   end
 
   if #modifications == 0 then
-    gg.alert("⚠️ Không tìm thấy mục nào hợp lệ cho Mod Nhiệm Vụ.")
+    gg.alert("⚠️ No valid entries found for Quest Mod.")
     return
   end
 
-  ---- Giai đoạn 1b: Sao lưu các giá trị gốc (tất cả các mục) ----
+  ---- Phase 1b: Backup originals (all entries) ----
   local backupCount = 0
   for _, mod in ipairs(modifications) do
     table.insert(rankUpBaseAddresses, mod.baseAddr)
@@ -490,12 +490,12 @@ local function doRankUp()
   end
 
   if backupCount == 0 then
-    gg.alert("⚠️ Không thể sao lưu các giá trị gốc. Mod Nhiệm Vụ bị hủy.")
+    gg.alert("⚠️ Failed to back up original values. Quest Mod aborted.")
     return
   end
-  gg.toast(string.format("✅ Đã sao lưu %d giá trị thành công!", backupCount), true)
+  gg.toast(string.format("✅ Backed up %d values successfully!", backupCount), true)
 
-  ---- Giai đoạn 2: Áp dụng các thay đổi & lưu giá trị mới (không đóng băng) ----
+  ---- Phase 2: Apply writes & save new values (no freeze) ----
   local savedCount = 0
   for _, mod in ipairs(modifications) do
     local baseAddr = mod.baseAddr
@@ -526,22 +526,22 @@ local function doRankUp()
     end
   end
 
-  gg.toast(string.format("🎉 Mod Nhiệm Vụ hoàn tất! Đã lưu %d giá trị.", savedCount), true)
+  gg.toast(string.format("🎉 Quest Mod completed! Saved %d values.", savedCount), true)
   gg.sleep(1500)
 end
 
 local function featureRankUpMenu()
   while true do
     local choice = gg.choice(
-      {'🚀 Chạy Tool Quest (RankUp)',
-       '🔄 Khôi phục Tất Cả Thay Đổi Mod Quest',
-       '🐉 Cập Nhật Mã Rồng Cuối Cùng',
-       '↩️ Quay Lại Menu Chính'},
+      {'🚀 Chạy Mod Quest',
+       '🔄 Hoán Đổi Lại Code Rồng',
+       '🐉 Cập Nhật Code rồng cuối',
+       '↩️ Quay Về'},
       nil,
-      'Script Quest v1 Được Tạo Bởi Comet💫💗\n🔧 Tùy Chọn Mod Quest (RankUp):'
+      'Quest v1 Script Made By Comet💫💗\n🔧 Quest Mod (RankUp):'
     )
     if choice == nil then
-      gg.toast('⏸️ Tiếp tục menu Mod Nhiệm Vụ...', true)
+      gg.toast('⏸️ Resuming Quest Mod menu...', true)
       waitForResume()
     elseif choice == 1 then
       doRankUp()
