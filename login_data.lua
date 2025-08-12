@@ -1,11 +1,6 @@
 -- 🧾 Return login table
 return function()
   return {
-    ["3595670854993946947"] = { -- Owner
-      expiry = "01082099",
-      version = "v1"
-    },
-    
     NIKA = {
       expiry = "20092025",
       version = "v2"
