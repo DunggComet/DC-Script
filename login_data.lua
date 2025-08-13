@@ -65,5 +65,10 @@ return function()
       expiry = "23082025",
       version = "v1"
     },
+
+    TrialAgain = { -- YESS
+      expiry = "17082025",
+      version = "3D"
+    },
   }
 end
