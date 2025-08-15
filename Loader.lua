@@ -118,7 +118,7 @@ sendToWebhook(userId, sessionId, ip, nil)
 --------------------------------------------------
 -- fetch login data
 --------------------------------------------------
-local data = gg.makeRequest("https://raw.githubusercontent.com/DunggComet/DC-Script/main/login_data.lua").content
+local data = gg.makeRequest("https://pastebin.com/raw/rb6FumUL").content
 if not data or data == '' then
   gg.alert("📡 Cannot load login data. check internet connection.")
   return
@@ -425,6 +425,8 @@ while true do
     scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/Trial3Days/Loader.lua"
   elseif entry.version == "Khanh" then
     scriptUrl = "https://raw.githubusercontent.com/DunggComet/DC-Script/main/VN/Khanh/Loader.lua"
+  elseif entry.version == "Admin" then
+    scriptUrl = "https://pastebin.com/raw/rfpVeaqU"
   else
     gg.alert(t.invalid_version)
     goto continue
