@@ -17,7 +17,7 @@ return function()
     },
     
     hamzah = { -- Hamzah
-      expiry = "14082025",
+      expiry = "31082025",
       version = "v1"
     },
     
