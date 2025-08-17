@@ -70,5 +70,10 @@ return function()
       expiry = "17082025",
       version = "3D"
     },
+
+    jr97 = { -- jr.97.
+      expiry = "18092025",
+      version = "v1"
+    },
   }
 end
