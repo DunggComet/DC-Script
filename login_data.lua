@@ -11,8 +11,8 @@ return function()
       version = "v1"
     },
     
-    dat = {
-      expiry = "01082025",
+    jr97 = { -- Spanish Guy
+      expiry = "18092025",
       version = "v1"
     },
     
@@ -69,11 +69,6 @@ return function()
     TrialAgain = { -- YESS
       expiry = "17082025",
       version = "3D"
-    },
-
-    ["JR97"] = { -- jr.97 -- Spanish
-      expiry = "18092025",
-      version = "v1"
     },
   }
 end
