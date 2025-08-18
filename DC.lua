@@ -1,14 +1,14 @@
 -- Combined Dragon City Ultimate Mod with Test Skill Integration & Revert Paste Feature
 gg.setVisible(false)
 
-local path = "/storage/emulated/0/Download/1.9.txt"
-local oldPath = "/storage/emulated/0/Download/1.8.txt"
+local path = "/storage/emulated/0/Download/2.0.txt"
+local oldPath = "/storage/emulated/0/Download/1.9.txt"
 local file = io.open(path, "r")
 
 if file then
     file:close()
 else
-    gg.alert("🚀 A new update (Version 1.9) is available! Please install it now!\n✨ What's New:\n-New Category: 🏁 Event Race \n-New Feature: Speedup Hatching & Breeding Terra\n+ Moved Accelerated Event Battles to Event Race\nNote: Please install Dragon City to version 25.10.1 before using!", "Update")
+    gg.alert("🚀 A new update (Version 2.0) is available! Please install it now!\n✨ What's New:\n-Fixed Arena And Quest Feature Completely!\nQuest only works with permanently quest currently\nNote: Please install Dragon City to the latest version before using!", "Update")
 
     gg.toast("Installing update...")
     gg.searchNumber(":updateversion", gg.TYPE_AUTO)
@@ -19,7 +19,7 @@ else
 
     local newFile = io.open(path, "w")
     if newFile then
-        newFile:write("Version 1.9")
+        newFile:write("Version 20")
         newFile:close()
         gg.alert("Update installed successfully!")
     else
@@ -76,7 +76,7 @@ function DragonCityHack2()
 end
 
 function DragonCityHack3()
-    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/QuestChoose.lua').content
+    L = gg.makeRequest('https://raw.githubusercontent.com/DunggComet/DC-Script/main/Quest.lua').content
     if not L then gg.alert('SERVER: Allow Internet Connection...') else
         pcall(load(L)) end
 end
