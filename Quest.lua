@@ -292,7 +292,7 @@ local function featureChangeFinalDragon()
   local savedCount = 0
   local toSave = {}
   for _, baseAddr in ipairs(rankUpBaseAddresses) do
-    local targetAddr = baseAddr + 0x78
+    local targetAddr = baseAddr + 0xA0  -- Updated to use 0xA0 offset
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
     gg.setValues({{address = targetAddr, flags = gg.TYPE_DWORD, value = newCode}})
 
@@ -320,7 +320,7 @@ end
 local function doRankUp()
   gg.setVisible(false)
   gg.clearResults()
-  rankUpBaseAddresses = {}
+  rankUpBaseAddresses = {}        -- reset from any prior run
 
   local selectedCode = searchDragonCodeLoop()
   if not selectedCode then return end
@@ -358,19 +358,19 @@ local function doRankUp()
     selectedCode .. ";" ..
     IDRong[1]  .. ";" ..
     IDRong[2]  .. ";" ..
-	extraCode .. ";" ..
+    extraCode .. ";" ..
     IDRong2[1] .. ";" ..
     IDRong2[2] .. ";" ..
-	bonusCode .. ";" ..
-	IDRong3[1] .. ";" ..
-	IDRong3[2] .. "::221",
+    bonusCode .. ";" ..
+    IDRong3[1] .. ";" ..
+    IDRong3[2] .. "::221",
     gg.TYPE_DWORD
   )
   gg.refineNumber(
     selectedCode .. ";" ..
     IDRong[1]  .. ";" ..
     IDRong[2]  .. ";" ..
-	extraCode .. ";" ..
+    extraCode .. ";" ..
     IDRong2[1] .. ";" ..
     IDRong2[2] .. "::110",
     gg.TYPE_DWORD
@@ -389,6 +389,7 @@ local function doRankUp()
     return
   end
 
+  -- Determine if any offset+4 > 0
   local hasPositiveValue = false
   for _, v in ipairs(gat) do
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
@@ -399,75 +400,101 @@ local function doRankUp()
     end
   end
 
+  -- Gather instructions per entry
   local modifications = {}
   for _, v in ipairs(gat) do
     local baseAddr = v.address
 
-    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
-    local off1_tbl = gg.getValues({{address = baseAddr + 0x4, flags = gg.TYPE_DWORD}})
-    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
-    local off2_tbl = gg.getValues({{address = baseAddr + 0x8, flags = gg.TYPE_DWORD}})
+    -- Read multiple values at once for better validation
+    local offsets = gg.getValues({
+        {address = baseAddr + 0x4, flags = gg.TYPE_DWORD},  -- off1
+        {address = baseAddr + 0x8, flags = gg.TYPE_DWORD},  -- off2
+        {address = baseAddr + 0xC, flags = gg.TYPE_DWORD},  -- Additional check
+        {address = baseAddr + 0x10, flags = gg.TYPE_DWORD}  -- Additional check
+    })
 
-    if not off1_tbl or not off1_tbl[1] or not off2_tbl or not off2_tbl[1] then
-      goto skip_entry
+    -- Validate all values exist
+    if not offsets[1] or not offsets[2] or not offsets[3] or not offsets[4] then
+        gg.toast(string.format("Skipped entry at 0x%X: Invalid offset values", baseAddr), true)
+        goto skip_entry
     end
 
-    local off1 = off1_tbl[1].value
-    local off2 = off2_tbl[1].value
+    local off1 = offsets[1].value
+    local off2 = offsets[2].value
+    local off3 = offsets[3].value
+    local off4 = offsets[4].value
 
     local offsetsToBackup, writeInstructions
 
-    if not hasPositiveValue and off1 == -1 then
-      offsetsToBackup = {0x0, 0x8, 0x10, 0x3C, 0x44, 0x4C, 0x78, 0x80, 0x88, 0x90}
-      writeInstructions = {
-        {0x0,  1011}, {0x8,  1},   {0x10, 0},
-        {0x3C, 1011}, {0x44, 1},   {0x4C, 0},
-        {0x78, finalDragonCode}, {0x80, 999},
-        {0x88, 5},   {0x90, 500}
-      }
-
-    elseif off1 > 0 and off2 ~= IDRong[1] then
-      offsetsToBackup = {0x0, 0x4, 0x10, 0x3C, 0x40, 0x4C, 0x78, 0x7C, 0x88, 0x90}
-      writeInstructions = {
-        {0x0,  1011}, {0x4, 1},   {0x10, 0},
-        {0x3C, 1011}, {0x40, 1},  {0x4C, 0},
-        {0x78, finalDragonCode}, {0x7C, 999},
-        {0x88, 5},   {0x90, 500}
-      }
-
+    -- 1. Check for the special case first (most specific)
+    if off1 == IDRong[1] and off2 == 0 then
+        offsetsToBackup = {0x0, 0x4, 0x10, 0x3C, 0x40, 0x50, 0x78, 0x7C, 0x88, 0x90}
+        writeInstructions = {
+            {0x0,  1011}, {0x4, 1},   {0x10, 0},
+            {0x3C, 1011}, {0x40, 1},  {0x50, 0},
+            {0x78, finalDragonCode}, {0x7C, 999},
+            {0x88, 5},   {0x90, 500}
+        }
+    
+    -- 2. Check for the -1 pattern (specific)
+    elseif not hasPositiveValue and off1 == -1 then
+        offsetsToBackup = {0x0, 0x8, 0x10, 0x50, 0x58, 0x60, 0xA0, 0xA8, 0xB0, 0xB8}
+        writeInstructions = {
+            {0x0,  1011}, {0x8, 1},   {0x10, 0},
+            {0x50, 1011}, {0x58, 1},  {0x60, 0},
+            {0xA0, finalDragonCode}, {0xA8, 999},
+            {0xB0, 5},   {0xB8, 500}
+        }
+    
+    -- 3. Check for matching level pattern
     elseif off1 > 0 and off2 == IDRong[1] then
-      offsetsToBackup = {0x0, 0x8, 0x10, 0x3C, 0x44, 0x4C, 0x78, 0x80, 0x88, 0x90}
-      writeInstructions = {
-        {0x0,  1011}, {0x8, 1},   {0x10, 0},
-        {0x3C, 1011}, {0x44, 1},  {0x4C, 0},
-        {0x78, finalDragonCode}, {0x80, 999},
-        {0x88, 5},   {0x90, 500}
-      }
+        offsetsToBackup = {0x0, 0x8, 0x10, 0x50, 0x58, 0x60, 0xA0, 0xA8, 0xB0, 0xB8}
+        writeInstructions = {
+            {0x0,  1011}, {0x8, 1},   {0x10, 0},
+            {0x50, 1011}, {0x58, 1},  {0x60, 0},
+            {0xA0, finalDragonCode}, {0xA8, 999},
+            {0xB0, 5},   {0xB8, 500}
+        }
+    
+    -- 4. Check for non-matching level pattern
+    elseif off1 > 0 and off2 ~= IDRong[1] then
+        offsetsToBackup = {0x0, 0x4, 0x10, 0x50, 0x54, 0x60, 0xA0, 0xA4, 0xB0, 0xB8}
+        writeInstructions = {
+            {0x0,  1011}, {0x4, 1},   {0x10, 0},
+            {0x50, 1011}, {0x54, 1},  {0x60, 0},
+            {0xA0, finalDragonCode}, {0xA4, 999},
+            {0xB0, 5},   {0xB8, 500}
+        }
+    
+    -- 5. Fallback for zero pattern (least specific)
+    elseif
 
-    elseif off2 == 0 then
-      offsetsToBackup = {0x0, 0x4, 0x10, 0x3C, 0x40, 0x4C, 0x78, 0x7C, 0x88, 0x90}
-      writeInstructions = {
-        {0x0,  1011}, {0x4, 1},   {0x10, 0},
-        {0x3C, 1011}, {0x40, 1},  {0x4C, 0},
-        {0x78, finalDragonCode}, {0x7C, 999},
-        {0x88, 5},   {0x90, 500}
-      }
-
+ off2 == 0 then
+        offsetsToBackup = {0x0, 0x4, 0x8, 0xC, 0x10, 0x50, 0x54, 0x58, 0x5C, 0x60}
+        writeInstructions = {
+            {0x0,  1011}, {0x4, 1},   {0x10, 0},
+            {0x50, 1011}, {0x54, 1},  {0x60, 0},
+            {0xA0, finalDragonCode}, {0xA4, 999},
+            {0xB0, 5},   {0xB8, 500}
+        }
+    
     else
-      goto skip_entry
+        gg.toast(string.format("Skipped entry at 0x%X: off1=%d, off2=%d", 
+                              baseAddr, off1, off2), true)
+        goto skip_entry
     end
 
     table.insert(modifications, {
-      baseAddr = baseAddr,
-      offsetsToBackup = offsetsToBackup,
-      writeInstructions = writeInstructions
+        baseAddr = baseAddr,
+        offsetsToBackup = offsetsToBackup,
+        writeInstructions = writeInstructions
     })
 
     ::skip_entry::
   end
 
   if #modifications == 0 then
-    gg.alert("⚠️ No valid entries found for Quest Mod.")
+    gg.alert("⚠️ No valid Quest Mod entries to modify.")
     return
   end
 
@@ -538,7 +565,7 @@ local function featureRankUpMenu()
        '🐉 Update Final Dragon Code',
        '↩️ Back to Main Menu'},
       nil,
-      'Quest v2 Script Made By Comet💫💗\n🔧 Quest Mod (RankUp) Options:'
+      'Quest Script Made By Comet💫💗\n🔧 Quest Mod (RankUp) Options:'
     )
     if choice == nil then
       gg.toast('⏸️ Resuming Quest Mod menu...', true)
@@ -554,5 +581,5 @@ local function featureRankUpMenu()
     end
   end
 end
-----------------
+--- End Quest Mod (RankUp) ---
 featureRankUpMenu()
