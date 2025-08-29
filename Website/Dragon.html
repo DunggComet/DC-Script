@@ -3,11 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Page Title -->
-  <title>Dragon List</title>
-  
-  <!-- 🔹 Website Icon (favicon) -->
+  <title>Dragon City Library - Dragon City Tools</title>
   <link rel="icon" type="image/png" href="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png">
   <style>
     body {
@@ -18,6 +14,7 @@
       margin: 0;
     }
 
+    /* 🔹 Black Search Bar */
     #search {
       width: 60%;
       padding: 12px;
@@ -27,6 +24,8 @@
       border: none;
       outline: none;
       text-align: center;
+      background: #000;
+      color: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
 
@@ -48,8 +47,23 @@
       background: #2a2a2a;
       transform: scale(1.02);
     }
+    .dragon-item:active {
+      transform: scale(0.95);
+    }
 
-    /* Title with logo */
+    /* 🔹 Search animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOutSide {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(-40px); }
+    }
+    .showDragon { animation: fadeInUp 0.4s ease forwards; }
+    .hideDragon { animation: fadeOutSide 0.4s ease forwards; }
+
+    /* 🔹 Title */
     .title {
       display: flex;
       justify-content: center;
@@ -63,7 +77,7 @@
       border-radius: 8px;
     }
 
-    /* Modal Styles */
+    /* 🔹 Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -71,6 +85,12 @@
       left: 0; top: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.85);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .modal.show {
+      display: block;
+      opacity: 1;
     }
     .modal-content {
       position: relative;
@@ -82,6 +102,11 @@
       border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.6);
       text-align: center;
+      transform: scale(0.85);
+      transition: transform 0.3s ease;
+    }
+    .modal.show .modal-content {
+      transform: scale(1);
     }
     .close-btn {
       position: absolute;
@@ -95,7 +120,7 @@
       color: #ff5555;
     }
 
-    /* Horizontal scroll with rounded UI */
+    /* 🔹 Horizontal scroll for dragon images */
     #dragonImages {
       display: flex;
       overflow-x: auto;
@@ -103,13 +128,12 @@
       padding: 20px 10px;
       scroll-behavior: smooth;
     }
-
     #dragonImages img {
-      height: 220px;        /* circle size */
+      height: 220px;
       width: 220px;
-      border-radius: 20%;   /* keeps it round */
-      object-fit: cover;  /* ✅ show the full image */
-      background: #2a2a2a;  /* circle background behind transparent areas */
+      border-radius: 20%;
+      object-fit: cover;
+      background: #2a2a2a;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       transition: transform 0.3s, box-shadow 0.3s;
       flex-shrink: 0;
@@ -119,7 +143,7 @@
       box-shadow: 0 6px 14px rgba(0,0,0,0.7);
     }
 
-    /* Scrollbar styling */
+    /* 🔹 Scrollbar */
     #dragonImages::-webkit-scrollbar {
       height: 10px;
     }
@@ -135,14 +159,17 @@
 </head>
 <body>
   <div class="title">
-    <!-- 🔹 Change this logo link to whatever image you want -->
     <img src="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png" alt="Logo">
-    <h2>Dragon List</h2>
+    </h2>Dragon Library - Dragon City Tools</h2>
   </div>
 
   <input type="text" id="search" placeholder="Enter Dragon Name..." onkeyup="filterDragons()">
+
   <div class="dragon-list" id="dragonContainer">
       <div class='dragon-item'>9900 - Autumn Dragon</div>
+      <div class='dragon-item'>3405 - High Flight Armored Dragon</div>
+      <div class='dragon-item'>3404 - Shimmer Armored Dragon</div>
+      <div class='dragon-item'>3403 - Cryo Armored Dragon</div>
       <div class='dragon-item'>3402 - High Civil Armored Dragon</div>
       <div class='dragon-item'>3401 - Scaly Armored Dragon</div>
       <div class='dragon-item'>3400 - Tidal Armored Dragon</div>
@@ -2285,7 +2312,8 @@
       <div class='dragon-item'>1003 - Gummy Dragon</div>
       <div class='dragon-item'>1002 - Mercury Dragon</div>
       <div class='dragon-item'>1001 - Firebird Dragon</div>
-      <div class='dragon-item'>1000 - Nature Dragon</div>  </div>
+      <div class='dragon-item'>1000 - Nature Dragon</div>  
+</div>
 
   <!-- Modal -->
   <div id="dragonModal" class="modal">
@@ -2295,57 +2323,56 @@
     </div>
   </div>
 
+  <!-- Background Music -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="http://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/sounds/music/107_audio_nw_maintheme.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    // Generate name variants (normal, drop first word, last word)
     function generateNameVariants(name) {
       let base = name.toLowerCase().replace(/[^a-z0-9]/g, "");
       let variants = [base];
-
       const words = name.toLowerCase().split(/\s+/);
       if (words.length > 1) {
-        variants.push(words.slice(1).join("").replace(/[^a-z0-9]/g, "")); // drop first word
-        variants.push(words[words.length - 1].replace(/[^a-z0-9]/g, "")); // last word only
+        variants.push(words.slice(1).join("").replace(/[^a-z0-9]/g, ""));
+        variants.push(words[words.length - 1].replace(/[^a-z0-9]/g, ""));
       }
-
       return [...new Set(variants)];
     }
 
     function showDragonImages(code, name) {
       const baseUrl = "https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/";
-      const versions = [0, 1, 2, 3]; // egg, baby, young, adult
-      const skins = ["", "_skin1", "_skin2", "_skin3"]; // normal + alt skins
-
+      const versions = [0, 1, 2, 3];
+      const skins = ["", "_skin1", "_skin2", "_skin3"];
       const container = document.getElementById("dragonImages");
       container.innerHTML = "";
 
-      // 🔹 Exception for Autumn Dragon
-      if (code === "9900") {
-        code = "2684";
-      }
-
+      if (code === "9900") code = "2684"; // Autumn fix
       const variants = generateNameVariants(name);
 
       versions.forEach(v => {
         skins.forEach(skin => {
-          if (skin !== "" && v !== 3) return; // skins only at adult
-
+          if (skin !== "" && v !== 3) return;
           variants.forEach(variant => {
             const img = document.createElement("img");
             img.src = `${baseUrl}ui_${code}_dragon_${variant}${skin}_${v}@2x.png`;
-            img.onerror = () => { img.remove(); }; // auto-remove missing images
+            img.onerror = () => { img.remove(); };
             container.appendChild(img);
           });
         });
       });
 
-      document.getElementById("dragonModal").style.display = "block";
+      const modal = document.getElementById("dragonModal");
+      modal.style.display = "block";
+      setTimeout(() => modal.classList.add("show"), 10);
     }
 
     function closeModal() {
-      document.getElementById("dragonModal").style.display = "none";
+      const modal = document.getElementById("dragonModal");
+      modal.classList.remove("show");
+      setTimeout(() => { modal.style.display = "none"; }, 400);
     }
 
-    // Make all dragon items clickable
     document.querySelectorAll(".dragon-item").forEach(item => {
       item.addEventListener("click", () => {
         const text = item.textContent.trim();
@@ -2358,13 +2385,25 @@
       });
     });
 
-    // Simple search filter
     function filterDragons() {
       const input = document.getElementById("search").value.toLowerCase();
       document.querySelectorAll(".dragon-item").forEach(item => {
-        item.style.display = item.textContent.toLowerCase().includes(input) ? "block" : "none";
+        if (input === "" || item.textContent.toLowerCase().includes(input)) {
+          item.style.display = "block";
+          item.classList.remove("hideDragon");
+          item.classList.add("showDragon");
+        } else {
+          item.classList.remove("showDragon");
+          item.classList.add("hideDragon");
+          setTimeout(() => { item.style.display = "none"; }, 400);
+        }
       });
     }
+
+    document.addEventListener("click", () => {
+      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.play().catch(() => {});
+    }, { once: true });
   </script>
 </body>
 </html>
