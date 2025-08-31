@@ -1,192 +1,221 @@
 <!DOCTYPE html>
+<!-- saved from url=(0053)https://dunggcomet.github.io/DC-Script/Website/Dragon -->
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Page Title -->
-  <title>Dragon City Library - Dragon City Tools</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page Title -->
+    <title>Dragon City Library - Dragon City Tools</title>
+    <!-- 🔹 Favicon -->
+    <link rel="icon" type="image/png" href="./Dragon City Library - Dragon City Tools_files/ui_3400_dragon_tidalarmored_1@2x.png">
+    <!-- 🔹 SEO Description -->
+    <meta name="description" content="Dragon Library allows you to Browse All Dragon&#39;s Skins and Images Safely, No Advertisements and No Interruption!">
+    <!-- 🔹 Open Graph (Discord, Facebook, etc.) -->
+    <meta property="og:title" content="Dragon City Library - Dragon City Tools">
+    <meta property="og:description" content="Dragon Library allows you to Browse All Dragon&#39;s Skins and Images Safely, No Advertisements and No Interruption!">
+    <meta property="og:image" content="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png">
+    <meta property="og:url" content="https://cometsky12.github.io/DragonList/DragonList">
+    <meta property="og:type" content="website">
+    <!-- 🔹 Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dragon City Library - Dragon City Tools">
+    <meta name="twitter:description" content="Dragon Library allows you to Browse All Dragon&#39;s Skins and Images Safely, No Advertisements and No Interruption!">
+    <meta name="twitter:image" content="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #0d0d0d;
+        color: #f0f0f0;
+        margin: 0;
+      }
 
-  <!-- 🔹 Favicon -->
-  <link rel="icon" type="image/png" href="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png">
+      /* 🔹 Black Search Bar */
+      #search {
+        width: 60%;
+        padding: 12px;
+        margin: 20px auto;
+        font-size: 16px;
+        border-radius: 25px;
+        border: none;
+        outline: none;
+        text-align: center;
+        background: #000;
+        color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
 
-  <!-- 🔹 SEO Description -->
-  <meta name="description" content="Dragon Library allows you to Browse All Dragon's Skins and Images Safely, No Advertisements and No Interruption!">
+      .dragon-list {
+        max-width: 420px;
+        margin: 0 auto;
+        text-align: left;
+      }
 
-  <!-- 🔹 Open Graph (Discord, Facebook, etc.) -->
-  <meta property="og:title" content="Dragon City Library - Dragon City Tools">
-  <meta property="og:description" content="Dragon Library allows you to Browse All Dragon's Skins and Images Safely, No Advertisements and No Interruption!">
-  <meta property="og:image" content="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png">
-  <meta property="og:url" content="https://cometsky12.github.io/DragonList/DragonList">
-  <meta property="og:type" content="website">
+      .dragon-item {
+        padding: 12px 15px;
+        margin: 6px 0;
+        border-radius: 12px;
+        background: #1c1c1c;
+        cursor: pointer;
+        transition: 0.3s;
+      }
 
-  <!-- 🔹 Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dragon City Library - Dragon City Tools">
-  <meta name="twitter:description" content="Dragon Library allows you to Browse All Dragon's Skins and Images Safely, No Advertisements and No Interruption!">
-  <meta name="twitter:image" content="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png">
+      .dragon-item:hover {
+        background: #2a2a2a;
+        transform: scale(1.02);
+      }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #0d0d0d;
-      color: #f0f0f0;
-      margin: 0;
-    }
+      .dragon-item:active {
+        transform: scale(0.95);
+      }
 
-    /* 🔹 Black Search Bar */
-    #search {
-      width: 60%;
-      padding: 12px;
-      margin: 20px auto;
-      font-size: 16px;
-      border-radius: 25px;
-      border: none;
-      outline: none;
-      text-align: center;
-      background: #000;
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
+      /* 🔹 Search animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
 
-    .dragon-list {
-      max-width: 420px;
-      margin: 0 auto;
-      text-align: left;
-    }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    .dragon-item {
-      padding: 12px 15px;
-      margin: 6px 0;
-      border-radius: 12px;
-      background: #1c1c1c;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .dragon-item:hover {
-      background: #2a2a2a;
-      transform: scale(1.02);
-    }
-    .dragon-item:active {
-      transform: scale(0.95);
-    }
+      @keyframes fadeOutSide {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
 
-    /* 🔹 Search animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeOutSide {
-      from { opacity: 1; transform: translateX(0); }
-      to { opacity: 0; transform: translateX(-40px); }
-    }
-    .showDragon { animation: fadeInUp 0.4s ease forwards; }
-    .hideDragon { animation: fadeOutSide 0.4s ease forwards; }
+        to {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+      }
 
-    /* 🔹 Title */
-    .title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .title img {
-      height: 40px;
-      width: 40px;
-      border-radius: 8px;
-    }
+      .showDragon {
+        animation: fadeInUp 0.4s ease forwards;
+      }
 
-    /* 🔹 Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .modal.show {
-      display: block;
-      opacity: 1;
-    }
-    .modal-content {
-      position: relative;
-      margin: 5% auto;
-      padding: 20px;
-      background: #1b1b1b;
-      width: 90%;
-      max-width: 950px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-      text-align: center;
-      transform: scale(0.85);
-      transition: transform 0.3s ease;
-    }
-    .modal.show .modal-content {
-      transform: scale(1);
-    }
-    .close-btn {
-      position: absolute;
-      top: 12px; right: 20px;
-      font-size: 30px;
-      cursor: pointer;
-      color: #fff;
-      transition: 0.3s;
-    }
-    .close-btn:hover {
-      color: #ff5555;
-    }
+      .hideDragon {
+        animation: fadeOutSide 0.4s ease forwards;
+      }
 
-    /* 🔹 Horizontal scroll for dragon images */
-    #dragonImages {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding: 20px 10px;
-      scroll-behavior: smooth;
-    }
-    #dragonImages img {
-      height: 220px;
-      width: 220px;
-      border-radius: 20%;
-      object-fit: cover;
-      background: #2a2a2a;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      transition: transform 0.3s, box-shadow 0.3s;
-      flex-shrink: 0;
-    }
-    #dragonImages img:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.7);
-    }
+      /* 🔹 Title */
+      .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
 
-    /* 🔹 Scrollbar */
-    #dragonImages::-webkit-scrollbar {
-      height: 10px;
-    }
-    #dragonImages::-webkit-scrollbar-thumb {
-      background: #444;
-      border-radius: 10px;
-    }
-    #dragonImages::-webkit-scrollbar-track {
-      background: #222;
-      border-radius: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="title">
-    <img src="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/ui_3400_dragon_tidalarmored_1@2x.png" alt="Logo">
-    <h2>Dragon Library - Dragon City Tools</h2>
-  </div>
+      .title img {
+        height: 40px;
+        width: 40px;
+        border-radius: 8px;
+      }
 
-  <input type="text" id="search" placeholder="Enter Dragon Name..." onkeyup="filterDragons()">
+      /* 🔹 Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
 
-  <div class="dragon-list" id="dragonContainer">
+      .modal.show {
+        display: block;
+        opacity: 1;
+      }
+
+      .modal-content {
+        position: relative;
+        margin: 5% auto;
+        padding: 20px;
+        background: #1b1b1b;
+        width: 90%;
+        max-width: 950px;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        transform: scale(0.85);
+        transition: transform 0.3s ease;
+      }
+
+      .modal.show .modal-content {
+        transform: scale(1);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 20px;
+        font-size: 30px;
+        cursor: pointer;
+        color: #fff;
+        transition: 0.3s;
+      }
+
+      .close-btn:hover {
+        color: #ff5555;
+      }
+
+      /* 🔹 Horizontal scroll for dragon images */
+      #dragonImages {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 20px 10px;
+        scroll-behavior: smooth;
+      }
+
+      #dragonImages img {
+        height: 220px;
+        width: 220px;
+        border-radius: 20%;
+        object-fit: cover;
+        background: #2a2a2a;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s, box-shadow 0.3s;
+        flex-shrink: 0;
+      }
+
+      #dragonImages img:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7);
+      }
+
+      /* 🔹 Scrollbar */
+      #dragonImages::-webkit-scrollbar {
+        height: 10px;
+      }
+
+      #dragonImages::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 10px;
+      }
+
+      #dragonImages::-webkit-scrollbar-track {
+        background: #222;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">
+      <img src="./Dragon City Library - Dragon City Tools_files/ui_3400_dragon_tidalarmored_1@2x.png" alt="Logo">
+      <h2>Dragon Library - Dragon City Tools</h2>
+    </div>
+    <input type="text" id="search" placeholder="Enter Dragon Name..." onkeyup="filterDragons()">
+    <div class="dragon-list" id="dragonContainer">
       <div class='dragon-item'>9900 - Autumn Dragon</div>
       <div class='dragon-item'>3405 - High Flight Armored Dragon</div>
       <div class='dragon-item'>3404 - Shimmer Armored Dragon</div>
@@ -196,7 +225,7 @@
       <div class='dragon-item'>3400 - Tidal Armored Dragon</div>
       <div class='dragon-item'>3399 - Coldhearted Silencer Dragon</div>
       <div class='dragon-item'>3398 - Tangled Trickster Dragon</div>
-      <div class='dragon-item'>3395 - Spellcaster Dragon</div>  
+      <div class='dragon-item'>3395 - Spellcaster Dragon</div>
       <div class='dragon-item'>3394 - High Chancellor Dragon</div>
       <div class='dragon-item'>3393 - Referee Dragon</div>
       <div class='dragon-item'>3392 - Aerial Ace Dragon</div>
@@ -2339,98 +2368,98 @@
       <div class='dragon-item'>1003 - Gummy Dragon</div>
       <div class='dragon-item'>1002 - Mercury Dragon</div>
       <div class='dragon-item'>1001 - Firebird Dragon</div>
-      <div class='dragon-item'>1000 - Nature Dragon</div>  
-</div>
-
-  <!-- Modal -->
-  <div id="dragonModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <div id="dragonImages"></div>
+      <div class='dragon-item'>1000 - Nature Dragon</div>
     </div>
-  </div>
-
-  <!-- Background Music -->
-  <audio id="bgMusic" loop autoplay>
-    <source src="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/sounds/music/107_audio_nw_maintheme.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    function generateNameVariants(name) {
-      let base = name.toLowerCase().replace(/[^a-z0-9]/g, "");
-      let variants = [base];
-      const words = name.toLowerCase().split(/\s+/);
-      if (words.length > 1) {
-        variants.push(words.slice(1).join("").replace(/[^a-z0-9]/g, ""));
-        variants.push(words[words.length - 1].replace(/[^a-z0-9]/g, ""));
+    <!-- Modal -->
+    <div id="dragonModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <div id="dragonImages"></div>
+      </div>
+    </div>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop="" autoplay="">
+      <source src="https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/sounds/music/107_audio_nw_maintheme.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+      function generateNameVariants(name) {
+        let base = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+        let variants = [base];
+        const words = name.toLowerCase().split(/\s+/);
+        if (words.length > 1) {
+          variants.push(words.slice(1).join("").replace(/[^a-z0-9]/g, ""));
+          variants.push(words[words.length - 1].replace(/[^a-z0-9]/g, ""));
+        }
+        return [...new Set(variants)];
       }
-      return [...new Set(variants)];
-    }
 
-    function showDragonImages(code, name) {
-      const baseUrl = "https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/";
-      const versions = [0, 1, 2, 3];
-      const skins = ["", "_skin1", "_skin2", "_skin3"];
-      const container = document.getElementById("dragonImages");
-      container.innerHTML = "";
-
-      if (code === "9900") code = "2684"; // Autumn fix
-      const variants = generateNameVariants(name);
-
-      versions.forEach(v => {
-        skins.forEach(skin => {
-          if (skin !== "" && v !== 3) return;
-          variants.forEach(variant => {
-            const img = document.createElement("img");
-            img.src = `${baseUrl}ui_${code}_dragon_${variant}${skin}_${v}@2x.png`;
-            img.onerror = () => { img.remove(); };
-            container.appendChild(img);
+      function showDragonImages(code, name) {
+        const baseUrl = "https://dci-static-s1.socialpointgames.com/static/dragoncity/mobile/ui/dragons/";
+        const versions = [0, 1, 2, 3];
+        const skins = ["", "_skin1", "_skin2", "_skin3"];
+        const container = document.getElementById("dragonImages");
+        container.innerHTML = "";
+        if (code === "9900") code = "2684"; // Autumn fix
+        const variants = generateNameVariants(name);
+        versions.forEach(v => {
+          skins.forEach(skin => {
+            if (skin !== "" && v !== 3) return;
+            variants.forEach(variant => {
+              const img = document.createElement("img");
+              img.src = `${baseUrl}ui_${code}_dragon_${variant}${skin}_${v}@2x.png`;
+              img.onerror = () => {
+                img.remove();
+              };
+              container.appendChild(img);
+            });
           });
+        });
+        const modal = document.getElementById("dragonModal");
+        modal.style.display = "block";
+        setTimeout(() => modal.classList.add("show"), 10);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("dragonModal");
+        modal.classList.remove("show");
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 400);
+      }
+      document.querySelectorAll(".dragon-item").forEach(item => {
+        item.addEventListener("click", () => {
+          const text = item.textContent.trim();
+          const match = text.match(/^(\d+)\s*-\s*(.+?)(?:\s*Dragon)?$/i);
+          if (match) {
+            const code = match[1];
+            const name = match[2];
+            showDragonImages(code, name);
+          }
         });
       });
 
-      const modal = document.getElementById("dragonModal");
-      modal.style.display = "block";
-      setTimeout(() => modal.classList.add("show"), 10);
-    }
-
-    function closeModal() {
-      const modal = document.getElementById("dragonModal");
-      modal.classList.remove("show");
-      setTimeout(() => { modal.style.display = "none"; }, 400);
-    }
-
-    document.querySelectorAll(".dragon-item").forEach(item => {
-      item.addEventListener("click", () => {
-        const text = item.textContent.trim();
-        const match = text.match(/^(\d+)\s*-\s*(.+?)\s*Dragon$/i);
-        if (match) {
-          const code = match[1];
-          const name = match[2];
-          showDragonImages(code, name);
-        }
+      function filterDragons() {
+        const input = document.getElementById("search").value.toLowerCase();
+        document.querySelectorAll(".dragon-item").forEach(item => {
+          if (input === "" || item.textContent.toLowerCase().includes(input)) {
+            item.style.display = "block";
+            item.classList.remove("hideDragon");
+            item.classList.add("showDragon");
+          } else {
+            item.classList.remove("showDragon");
+            item.classList.add("hideDragon");
+            setTimeout(() => {
+              item.style.display = "none";
+            }, 400);
+          }
+        });
+      }
+      document.addEventListener("click", () => {
+        const bgMusic = document.getElementById("bgMusic");
+        bgMusic.play().catch(() => {});
+      }, {
+        once: true
       });
-    });
-
-    function filterDragons() {
-      const input = document.getElementById("search").value.toLowerCase();
-      document.querySelectorAll(".dragon-item").forEach(item => {
-        if (input === "" || item.textContent.toLowerCase().includes(input)) {
-          item.style.display = "block";
-          item.classList.remove("hideDragon");
-          item.classList.add("showDragon");
-        } else {
-          item.classList.remove("showDragon");
-          item.classList.add("hideDragon");
-          setTimeout(() => { item.style.display = "none"; }, 400);
-        }
-      });
-    }
-
-    document.addEventListener("click", () => {
-      const bgMusic = document.getElementById("bgMusic");
-      bgMusic.play().catch(() => {});
-    }, { once: true });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
